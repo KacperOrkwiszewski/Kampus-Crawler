@@ -1,4 +1,5 @@
 import pygame
+import pytmx
 
 #must initialyse pygame in order for program to work
 pygame.init()
@@ -29,6 +30,32 @@ def player():
     #draw player sprite
     screen.blit(playerImg,(playerX - PLAYER_SIZE_X/2, playerY - PLAYER_SIZE_Y/2))
 
+
+#map
+#load map from tmx file (made and editable in Tiled)
+tmx_data = pytmx.load_pygame("tiled/mapa.tmx")
+
+#drawing map using pytmx library ---not my code
+SCALE = 5  # przykładowo: 2x większe kafelki
+MAP_OFFSET_X = -1000
+MAP_OFFSET_Y = -1000
+
+def draw_map():
+    for layer in tmx_data.visible_layers:
+        if isinstance(layer, pytmx.TiledTileLayer):
+            for x, y, gid in layer:
+                tile = tmx_data.get_tile_image_by_gid(gid)
+                if tile:
+                    # Skaluj kafelek
+                    scaled_tile = pygame.transform.scale(tile, (
+                        tmx_data.tilewidth * SCALE,
+                        tmx_data.tileheight * SCALE
+                    ))
+                    screen.blit(scaled_tile, (
+                        x * tmx_data.tilewidth * SCALE + MAP_OFFSET_X,
+                        y * tmx_data.tileheight * SCALE + MAP_OFFSET_Y
+                    ))
+
 #game loop
 running = True
 while running:
@@ -53,6 +80,8 @@ while running:
 
     #change screen color (RGB format) // to see changes use update method
     screen.fill((200,0,24))
+    #draw map
+    draw_map()
     #move player
     playerY += playerY_change
     playerX += playerX_change
