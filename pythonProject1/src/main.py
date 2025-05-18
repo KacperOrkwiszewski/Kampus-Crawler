@@ -1,9 +1,13 @@
 import pygame
+import pytmx
+from constants import Constants
+from map.game_map import GameMap
 
 #must initialyse pygame in order for program to work
 pygame.init()
 
-screen = pygame.display.set_mode((800, 800))
+screen = pygame.display.set_mode((Constants.WINDOW_HEIGHT, Constants.WINDOW_WIDTH))
+map = GameMap("map_data/simple_map.tmx")
 
 #title and icon
 pygame.display.set_caption("Kampus Crawler")
@@ -51,11 +55,12 @@ while running:
             playerX_change = 0
             playerY_change = 0
 
-    #change screen color (RGB format) // to see changes use update method
-    screen.fill((200,0,24))
     #move player
     playerY += playerY_change
     playerX += playerX_change
     #player draw function needs to be called after screen fill function as to not get obstructed
+    screen.fill((0, 0, 0))
+    map.draw(screen)
     player()
+    pygame.display.flip()
     pygame.display.update()
