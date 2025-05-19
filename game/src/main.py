@@ -20,8 +20,11 @@ pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 player = Player('idle.gif')
 
 # Movement related variables
-playerX_change = 0
-playerY_change = 0
+playerUP_change = 0
+playerDOWN_change = 0
+playerLEFT_change = 0
+playerRIGHT_change = 0
+
 
 # Game loop
 running = True
@@ -34,18 +37,28 @@ while running:
       #keyboard events
       if event.type == pygame.KEYDOWN:
           if event.key == pygame.K_DOWN:
-              playerY_change = player.movement_speed
+              playerDOWN_change = player.movement_speed
           if event.key == pygame.K_UP:
-              playerY_change = -player.movement_speed
+              playerUP_change = player.movement_speed
           if event.key == pygame.K_LEFT:
-              playerX_change = -player.movement_speed
+              playerLEFT_change = player.movement_speed
           if event.key == pygame.K_RIGHT:
-              playerX_change = player.movement_speed
+              playerRIGHT_change = player.movement_speed
 
       #stop moving if key is no longer pressed
       if event.type == pygame.KEYUP:
-          playerX_change = 0
-          playerY_change = 0
+          if event.key == pygame.K_DOWN:
+              playerDOWN_change = 0
+          if event.key == pygame.K_UP:
+              playerUP_change = 0
+          if event.key == pygame.K_LEFT:
+              playerLEFT_change = 0
+          if event.key == pygame.K_RIGHT:
+              playerRIGHT_change = 0
+
+    playerX_change = playerRIGHT_change-playerLEFT_change
+    playerY_change = playerDOWN_change-playerUP_change
+
 
     #move player
     player.update_position(playerX_change, playerY_change)
