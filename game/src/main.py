@@ -1,6 +1,6 @@
 import pygame
 from constants import Constants
-from map.game_map import GameMap
+from game.src.map.game_map import GameMap
 from player.player import Player
 
 # Initialize pygame in order for program to work
@@ -56,16 +56,16 @@ while running:
           if event.key == pygame.K_RIGHT:
               playerRIGHT_change = 0
 
-    playerX_change = playerRIGHT_change-playerLEFT_change
-    playerY_change = playerDOWN_change-playerUP_change
+    playerX_change = -playerRIGHT_change+playerLEFT_change
+    playerY_change = -playerDOWN_change+playerUP_change
 
 
     #move player
     player.update_position(playerX_change, playerY_change)
 
     screen.fill((0, 0, 0))
-    map.draw(screen)
-    player.draw(screen) #player draw function needs to be called after screen fill and map drawing function as to not get obstructed
+    map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
+    player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT) #player draw function needs to be called after screen fill and map drawing function as to not get obstructed
 
     pygame.display.flip()
     pygame.display.update()
