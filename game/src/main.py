@@ -56,8 +56,8 @@ while running:
           if event.key == pygame.K_RIGHT:
               playerRIGHT_change = 0
 
-    playerX_change = playerRIGHT_change-playerLEFT_change
-    playerY_change = playerDOWN_change-playerUP_change
+    playerX_change = -playerRIGHT_change+playerLEFT_change
+    playerY_change = -playerDOWN_change+playerUP_change
 
 
     #move player
