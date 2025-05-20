@@ -2,10 +2,10 @@ from .player_image_info import PlayerImageInfo
 
 class Player:
   def __init__(self, filename):
-    self.player_img_info = PlayerImageInfo(filename)
     self.pos_x = 400
     self.pos_y = 400
     self.movement_speed = 2
+    self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
     self.current_animation = filename
 
   def draw(self, screen, screen_x, screen_y, dt):
@@ -25,5 +25,5 @@ class Player:
         return
     # Otherwise, update the current animation and reload frames
     self.current_animation = filename
-    self.player_img_info = PlayerImageInfo(filename)
+    self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
 

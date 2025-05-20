@@ -2,11 +2,15 @@ from PIL import Image
 import pygame
 
 class PlayerImageInfo:
-    def __init__(self, gif_path):
+    def __init__(self, gif_path, movement_speed):
         # Load all frames from the GIF file
         self.frames = self.load_gif_frames(gif_path)
         self.frame_index = 0  # Index of the current frame
-        self.animation_speed = 0.25  # Lower value means faster animation
+        # Lower value means faster animation
+        self.animation_speed = 0.2 / movement_speed  # Animation speed depends on movement speed
+        # Slower animation for idle.gif
+        if gif_path == 'idle.gif':
+            self.animation_speed = 0.75
         self.time_since_last_frame = 0.0  # Time since last frame update
 
         # Set final scaled width and height (from the first frame)
