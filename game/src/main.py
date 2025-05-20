@@ -3,6 +3,8 @@ from constants import Constants
 from game.src.map.game_map import GameMap
 from player.player import Player
 
+clock = pygame.time.Clock()
+
 # Initialize pygame in order for program to work
 pygame.init()
 
@@ -29,6 +31,9 @@ playerRIGHT_change = 0
 # Game loop
 running = True
 while running:
+
+    dt = clock.tick(60) / 1000  # dt in seconds
+
     for event in pygame.event.get():
       #event handler (the top right X button is pressed)
       if event.type == pygame.QUIT:
@@ -56,6 +61,7 @@ while running:
           if event.key == pygame.K_RIGHT:
               playerRIGHT_change = 0
 
+
     playerX_change = -playerRIGHT_change+playerLEFT_change
     playerY_change = -playerDOWN_change+playerUP_change
 
@@ -63,9 +69,21 @@ while running:
     #move player
     player.update_position(playerX_change, playerY_change)
 
+    # Change animation according to movement
+    if playerX_change < 0:
+        player.set_animation('right.gif')
+    elif playerX_change > 0:
+        player.set_animation('left.gif')
+    elif playerY_change < 0:
+        player.set_animation('down.gif')
+    elif playerY_change > 0:
+        player.set_animation('up.gif')
+    elif (playerX_change == 0 and playerY_change == 0):
+        player.set_animation('idle.gif')
+
     screen.fill((0, 0, 0))
     map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
-    player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT) #player draw function needs to be called after screen fill and map drawing function as to not get obstructed
+    player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
 
     pygame.display.flip()
     pygame.display.update()
