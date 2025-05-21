@@ -19,7 +19,7 @@ pygame.display.set_caption("Kampus Crawler")
 pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 
 # Initialize player
-player = Player('idle.gif')
+player = Player('idle_down.gif')
 
 # Movement related variables
 playerUP_change = 0
@@ -54,12 +54,16 @@ while running:
       if event.type == pygame.KEYUP:
           if event.key == pygame.K_DOWN:
               playerDOWN_change = 0
+              player.last_direction = 'down'
           if event.key == pygame.K_UP:
               playerUP_change = 0
+              player.last_direction = 'up'
           if event.key == pygame.K_LEFT:
               playerLEFT_change = 0
+              player.last_direction = 'left'
           if event.key == pygame.K_RIGHT:
               playerRIGHT_change = 0
+              player.last_direction = 'right'
 
 
     playerX_change = -playerRIGHT_change+playerLEFT_change
@@ -79,7 +83,16 @@ while running:
     elif playerY_change > 0:
         player.set_animation('up.gif')
     elif (playerX_change == 0 and playerY_change == 0):
-        player.set_animation('idle.gif')
+        match player.last_direction:
+            case 'down':
+                player.set_animation('idle_down.gif')
+            case 'up':
+                player.set_animation('idle_up.gif')
+            case 'left':
+                player.set_animation('idle_left.gif')
+            case 'right':
+                player.set_animation('idle_right.gif')
+
 
     screen.fill((0, 0, 0))
     map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)

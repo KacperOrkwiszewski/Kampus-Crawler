@@ -7,6 +7,7 @@ class Player:
     self.movement_speed = 2
     self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
     self.current_animation = filename
+    self.last_direction = 'down'
 
   def draw(self, screen, screen_x, screen_y, dt):
     # Get the current animation frame based on elapsed time (dt)
