@@ -11,7 +11,7 @@ pygame.display.set_caption("Kampus Crawler")
 pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 
 map = GameMap("map_data/simple_map.tmx")
-player = Player('idle_down.gif', pygame.Vector2(80, 80))
+player = Player('idle_down.gif', pygame.Vector2(120, 120))
 
 pressed_keys = set()
 key_order = []

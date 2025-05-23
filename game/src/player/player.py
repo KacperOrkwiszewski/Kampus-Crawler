@@ -5,7 +5,7 @@ class Player:
     def __init__(self, filename, start_pos):
         self.pos = start_pos  # start at the middle of a tile
         self.target_pos = start_pos
-        self.movement_speed = 100
+        self.movement_speed = 120
         self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
         self.current_animation = filename
         self.last_direction = 'down'
