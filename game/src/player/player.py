@@ -3,9 +3,8 @@ import pygame
 
 class Player:
     def __init__(self, filename):
-        self.tile_size = 16
-        self.pos_x = self.tile_size * 5  # start na środku kafelka
-        self.pos_y = self.tile_size * 5
+        self.pos_x = 16 * 5  # start na środku kafelka
+        self.pos_y = 16 * 5
         self.movement_speed = 100  # piksele na sekundę
         self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
         self.current_animation = filename
@@ -37,23 +36,40 @@ class Player:
         self.current_animation = filename
         self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
 
+    def set_direction_animation(self):
+        match self.last_direction:
+            case "up":
+                self.set_animation("up.gif")
+            case "down":
+                self.set_animation("down.gif")
+            case "left":
+                self.set_animation("left.gif")
+            case "right":
+                self.set_animation("right.gif")
+
+    def set_idle_animation(self):
+        match self.last_direction:
+            case "up":
+                self.set_animation("idle_up.gif")
+            case "down":
+                self.set_animation("idle_down.gif")
+            case "left":
+                self.set_animation("idle_left.gif")
+            case "right":
+                self.set_animation("idle_right.gif")
+
     def move_to_offset(self, dx, dy):
         if not self.is_moving:
-            new_x = round((self.pos_x + dx * self.tile_size) / self.tile_size) * self.tile_size
-            new_y = round((self.pos_y + dy * self.tile_size) / self.tile_size) * self.tile_size
-            self.target_pos = pygame.Vector2(new_x, new_y)
-            self.is_moving = True
+            tile_size = 16
+            current_tile_x = int(self.pos_x // tile_size)
+            current_tile_y = int(self.pos_y // tile_size)
 
-            # animacje kierunkowe
-            if dx == -1:
-                self.set_animation("right.gif")
-                self.last_direction = "right"
-            elif dx == 1:
-                self.set_animation("left.gif")
-                self.last_direction = "left"
-            elif dy == -1:
-                self.set_animation("down.gif")
-                self.last_direction = "down"
-            elif dy == 1:
-                self.set_animation("up.gif")
-                self.last_direction = "up"
+            new_tile_x = current_tile_x + dx
+            new_tile_y = current_tile_y + dy
+
+            self.target_pos = pygame.Vector2(
+                new_tile_x * tile_size + tile_size // 2,
+                new_tile_y * tile_size + tile_size // 2
+            )
+            self.set_direction_animation()
+            self.is_moving = True
