@@ -13,7 +13,6 @@ pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 map = GameMap("map_data/simple_map.tmx")
 player = Player('idle_down.gif')
 
-# NEW: Śledzenie klawiszy
 pressed_keys = set()
 key_order = []
 

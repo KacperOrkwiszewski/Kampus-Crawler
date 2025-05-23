@@ -5,7 +5,7 @@ class Player:
     def __init__(self, filename):
         self.pos_x = 16 * 5  # start na środku kafelka
         self.pos_y = 16 * 5
-        self.movement_speed = 100  # piksele na sekundę
+        self.movement_speed = 2  # piksele na sekundę
         self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
         self.current_animation = filename
         self.last_direction = 'down'
@@ -60,7 +60,7 @@ class Player:
 
     def move_to_offset(self, dx, dy):
         if not self.is_moving:
-            tile_size = 16
+            tile_size = 16 * 5
             current_tile_x = int(self.pos_x // tile_size)
             current_tile_y = int(self.pos_y // tile_size)
 
