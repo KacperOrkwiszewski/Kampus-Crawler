@@ -11,29 +11,26 @@ pygame.display.set_caption("Kampus Crawler")
 pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 
 map = GameMap("map_data/simple_map.tmx")
-player = Player('idle_down.gif')
+player = Player('idle_down.gif', pygame.Vector2(80, 80))
 
 pressed_keys = set()
 key_order = []
 
-# Mapa klawiszy -> wektor
+# Keys -> vector map
 DIRECTION_KEYS = {
-    pygame.K_UP: (0, 1, "up"),
-    pygame.K_DOWN: (0, -1, "down"),
-    pygame.K_LEFT: (1, 0, "left"),
-    pygame.K_RIGHT: (-1, 0, "right")
+    pygame.K_UP: (pygame.Vector2(0, 1), "up"),
+    pygame.K_DOWN: (pygame.Vector2(0, -1), "down"),
+    pygame.K_LEFT: (pygame.Vector2(1, 0), "left"),
+    pygame.K_RIGHT: (pygame.Vector2(-1, 0), "right")
 }
 
-def get_current_direction():
-    # Priorytet: ostatnio naciśnięty
+def get_current_direction_by_key():
     for key in reversed(key_order):
         if key in pressed_keys:
             return DIRECTION_KEYS[key]
     return None
 
 def are_opposite_keys():
-    vert = any(k in pressed_keys for k in [pygame.K_UP, pygame.K_DOWN])
-    hori = any(k in pressed_keys for k in [pygame.K_LEFT, pygame.K_RIGHT])
     return (
         (pygame.K_UP in pressed_keys and pygame.K_DOWN in pressed_keys) or
         (pygame.K_LEFT in pressed_keys and pygame.K_RIGHT in pressed_keys)
@@ -43,7 +40,6 @@ running = True
 while running:
     dt = clock.tick(60) / 1000
 
-    # --- EVENTS ---
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -54,14 +50,14 @@ while running:
                     key_order.append(event.key)
                 pressed_keys.add(event.key)
 
-                dx, dy, direction = DIRECTION_KEYS[event.key]
+                vec, direction = DIRECTION_KEYS[event.key]
 
                 if not player.is_moving:
                     if player.last_direction == direction:
-                        player.move_to_offset(dx, dy)
+                      player.move_to_offset(vec.x, vec.y, Constants.TILE_HEIGHT * Constants.MAP_SCALE, Constants.TILE_WIDTH * Constants.MAP_SCALE)
                     else:
                         player.last_direction = direction
-                        player.set_direction_animation()
+                        player.set_animation(f"{direction}.gif")
 
         if event.type == pygame.KEYUP:
             if event.key in pressed_keys:
@@ -69,24 +65,21 @@ while running:
             if event.key in key_order:
                 key_order.remove(event.key)
 
-    # --- AUTO MOVEMENT ---
     if not player.is_moving and pressed_keys:
-        if are_opposite_keys():
-            pass  # Don't move
-        else:
-            current = get_current_direction()
+        if not are_opposite_keys():
+            current = get_current_direction_by_key()
             if current:
-                dx, dy, direction = current
+                vec, direction = current
                 player.last_direction = direction
-                player.move_to_offset(dx, dy)
+                player.move_to_offset(vec.x, vec.y, Constants.TILE_HEIGHT * Constants.MAP_SCALE, Constants.TILE_WIDTH * Constants.MAP_SCALE)
 
-    # --- UPDATE & RENDER ---
     player.update_position(dt)
 
     if not player.is_moving:
-        player.set_idle_animation()
+        player.set_animation(f"idle_{player.last_direction}.gif")
 
-    map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
+    map.draw(screen, Constants.MAP_SCALE, player.pos.x, player.pos.y)
     player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
 
     pygame.display.flip()
+    pygame.display.update()
