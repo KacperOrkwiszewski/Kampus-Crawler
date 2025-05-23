@@ -7,7 +7,7 @@ class PlayerImageInfo:
         self.frames = self.load_gif_frames(gif_path)
         self.frame_index = 0  # Index of the current frame
         # Lower value means faster animation
-        self.animation_speed = 0.2 / movement_speed  # Animation speed depends on movement speed
+        self.animation_speed = 0.2 / (movement_speed * 0.02)  # Animation speed depends on movement speed
         # Slower animation for idle.gif
         if gif_path.startswith('idle'):
             self.animation_speed = 0.5
@@ -22,8 +22,8 @@ class PlayerImageInfo:
         pil_image = Image.open(gif_path)
         frames = []
 
-        scale_x = 80  # Target width
-        scale_y = 80  # Target height
+        scale_x = 60  # Target width
+        scale_y = 60  # Target height
 
         try:
             while True:
