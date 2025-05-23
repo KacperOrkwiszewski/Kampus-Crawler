@@ -22,8 +22,8 @@ class PlayerImageInfo:
         pil_image = Image.open(gif_path)
         frames = []
 
-        scale_x = 80  # Target width
-        scale_y = 80  # Target height
+        scale_x = 60  # Target width
+        scale_y = 60  # Target height
 
         try:
             while True:
