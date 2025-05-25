@@ -1,6 +1,6 @@
 import pytmx
 import pygame
-from constants import Constants
+from src.constants import Constants
 
 class GameMap:
 

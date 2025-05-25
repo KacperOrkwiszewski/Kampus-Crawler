@@ -1,7 +1,7 @@
 import pygame
-from constants import Constants
-from game.src.map.game_map import GameMap
-from player.player import Player
+from src.constants import Constants
+from src.map.game_map import GameMap
+from src.player.player import Player
 
 clock = pygame.time.Clock()
 
