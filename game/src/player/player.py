@@ -9,16 +9,20 @@ class Player:
     self.current_animation = filename
     self.last_direction = 'down'
 
-  def draw(self, screen, screen_x, screen_y, dt):
+  def draw(self, screen, screen_x, screen_y, dt, offset_x=0, offset_y=0):
     # Get the current animation frame based on elapsed time (dt)
     frame = self.player_img_info.get_current_frame(dt)
     # Draw the current frame centered on the screen
-    screen.blit(frame, (screen_y / 2 - self.player_img_info.scale_size_y / 2,
-                        screen_x / 2 - self.player_img_info.scale_size_x / 2))
+    screen.blit(frame, (screen_y / 2 - self.player_img_info.scale_size_y / 2 - offset_x,
+                        screen_x / 2 - self.player_img_info.scale_size_x / 2 - offset_y))
 
   def update_position(self, x, y):
     self.pos_x += x
     self.pos_y += y
+
+  def update_map_offset(self, map_offset_x, map_offset_y):
+    self.map_offset_x = map_offset_x
+    self.map_offset_y = map_offset_y
 
   def set_animation(self, filename):
     # If the requested animation is already active, do nothing

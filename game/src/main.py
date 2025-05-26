@@ -107,7 +107,7 @@ while running:
     with Client.other_players_lock:
         for position in Client.other_players:
             other_player = Player('idle_down.gif')
-            other_player.draw(screen, Client.other_players[position]['x'], Client.other_players[position]['y'], dt)
+            other_player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, Client.other_players[position]['x'] - player.pos_x, Client.other_players[position]['y']- player.pos_y)
 
     pygame.display.flip()
     pygame.display.update()
