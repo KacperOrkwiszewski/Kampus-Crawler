@@ -1,4 +1,6 @@
 import pygame
+import threading
+from src.client.client import network_thread, other_players, other_players_lock
 from src.constants import Constants
 from src.map.game_map import GameMap
 from src.player.player import Player
@@ -21,12 +23,16 @@ pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 # Initialize player
 player = Player('idle_down.gif')
 
+# Start the network thread to handle player networking
+threading.Thread(target=network_thread, args=(player,), daemon=True).start()
+
 # Movement related variables
 playerUP_change = 0
 playerDOWN_change = 0
 playerLEFT_change = 0
 playerRIGHT_change = 0
 
+print("git")
 
 # Game loop
 running = True
@@ -96,7 +102,13 @@ while running:
 
     screen.fill((0, 0, 0))
     map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
-    player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
+    #player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
+    # Draw other players
+    with other_players_lock:
+        for position in other_players:
+            print(f"Drawing other player at {position.x}, {position.y}")
+            other_player = Player('idle_down.gif')
+            other_player.draw(screen, position.x, position.y, dt)
 
     pygame.display.flip()
     pygame.display.update()
