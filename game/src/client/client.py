@@ -24,6 +24,7 @@ def network_thread(player):
                         if line.strip():
                             with other_players_lock:
                                 other_players = json.loads(line)
+                                #print("Received data:", other_players)
             except socket.timeout:
                 pass
         except Exception as e:

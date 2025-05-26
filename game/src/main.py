@@ -1,6 +1,6 @@
 import pygame
 import threading
-from src.client.client import network_thread, other_players, other_players_lock
+import src.client.client as Client
 from src.constants import Constants
 from src.map.game_map import GameMap
 from src.player.player import Player
@@ -24,7 +24,7 @@ pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 player = Player('idle_down.gif')
 
 # Start the network thread to handle player networking
-threading.Thread(target=network_thread, args=(player,), daemon=True).start()
+threading.Thread(target=Client.network_thread, args=(player,), daemon=True).start()
 
 # Movement related variables
 playerUP_change = 0
@@ -104,11 +104,10 @@ while running:
     map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
     #player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
     # Draw other players
-    with other_players_lock:
-        for position in other_players:
-            print(f"Drawing other player at {position.x}, {position.y}")
+    with Client.other_players_lock:
+        for position in Client.other_players:
             other_player = Player('idle_down.gif')
-            other_player.draw(screen, position.x, position.y, dt)
+            other_player.draw(screen, Client.other_players[position]['x'], Client.other_players[position]['y'], dt)
 
     pygame.display.flip()
     pygame.display.update()
