@@ -57,7 +57,6 @@ while running:
                       player.move_to_offset(vec.x, vec.y, Constants.TILE_HEIGHT * Constants.MAP_SCALE, Constants.TILE_WIDTH * Constants.MAP_SCALE)
                     else:
                         player.last_direction = direction
-                        player.set_animation(f"{direction}.gif")
 
         if event.type == pygame.KEYUP:
             if event.key in pressed_keys:
@@ -75,7 +74,7 @@ while running:
 
     player.update_position(dt)
 
-    if not player.is_moving:
+    if not player.is_moving and not pressed_keys:
         player.set_animation(f"idle_{player.last_direction}.gif")
 
     map.draw(screen, Constants.MAP_SCALE, player.pos.x, player.pos.y)
