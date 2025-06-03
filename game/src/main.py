@@ -21,14 +21,6 @@ pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 # Initialize player
 player = Player('idle_down.gif')
 
-# Movement related variables
-playerUP_change = 0
-playerDOWN_change = 0
-playerLEFT_change = 0
-playerRIGHT_change = 0
-ignore_horizontal_movement = False
-ignore_vertical_movement = False
-
 # Game loop
 running = True
 while running:
@@ -42,73 +34,30 @@ while running:
 
       #keyboard events
       if event.type == pygame.KEYDOWN:
-          if event.key == pygame.K_DOWN:
-              playerDOWN_change = player.movement_speed
-              ignore_horizontal_movement = True
-              ignore_vertical_movement = False
-          if event.key == pygame.K_UP:
-              playerUP_change = player.movement_speed
-              ignore_horizontal_movement = True
-              ignore_vertical_movement = False
-          if event.key == pygame.K_LEFT:
-              playerLEFT_change = player.movement_speed
-              ignore_vertical_movement = True
-              ignore_horizontal_movement = False
-          if event.key == pygame.K_RIGHT:
-              playerRIGHT_change = player.movement_speed
-              ignore_vertical_movement = True
-              ignore_horizontal_movement = False
+        player.movement.handle_down(event.key)
 
-      #stop moving if key is no longer pressed
       if event.type == pygame.KEYUP:
-          if event.key == pygame.K_DOWN:
-              playerDOWN_change = 0
-              ignore_vertical_movement = False
-              player.last_direction = 'down'
-          if event.key == pygame.K_UP:
-              playerUP_change = 0
-              player.last_direction = 'up'
-              ignore_vertical_movement = False
-          if event.key == pygame.K_LEFT:
-              playerLEFT_change = 0
-              player.last_direction = 'left'
-              ignore_horizontal_movement = False
-          if event.key == pygame.K_RIGHT:
-              playerRIGHT_change = 0
-              player.last_direction = 'right'
-              ignore_horizontal_movement = False
+        player.movement.handle_up(event.key)
 
-    if ignore_horizontal_movement:
-        playerX_change = 0
-    else:
-        playerX_change = -playerRIGHT_change + playerLEFT_change
-
-    if ignore_vertical_movement:
-        playerY_change = 0
-    else:
-        playerY_change = -playerDOWN_change+playerUP_change
-
+    x_change, y_change = player.movement.calculate_final_change()
 
     #move player
-    player.update_position(playerX_change, playerY_change)
-
-    if playerX_change == 0 and playerY_change == 0:
-        player.is_moving = False
-    else:
-        player.is_moving = True
-
-    player.align_to_tiles()
+    player.update_position(x_change, y_change)
+    # check if player is currently moving
+    player.movement.is_moving = not (x_change == 0 and y_change == 0)
+    # try to align the player to the middle of a tile
+    player.movement.align_to_tiles(Constants.TILE_HEIGHT, Constants.MAP_SCALE)
 
     # Change animation according to movement
-    if playerX_change < 0:
+    if x_change < 0:
         player.set_animation('right.gif')
-    elif playerX_change > 0:
+    elif x_change > 0:
         player.set_animation('left.gif')
-    elif playerY_change < 0:
+    elif y_change < 0:
         player.set_animation('down.gif')
-    elif playerY_change > 0:
+    elif y_change > 0:
         player.set_animation('up.gif')
-    elif (playerX_change == 0 and playerY_change == 0):
+    elif (x_change == 0 and y_change == 0):
         player.set_animation(f'idle_{player.last_direction}.gif')
 
 

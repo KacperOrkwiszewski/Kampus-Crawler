@@ -1,15 +1,16 @@
 from .player_image_info import PlayerImageInfo
-#from ..constants import Constants
+from .movement_manager import MovementManager
 
 class Player:
   def __init__(self, filename):
-    self.pos_x = 400
-    self.pos_y = 400
+    self.pos_x = 40
+    self.pos_y = 40
     self.movement_speed = 2
     self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
     self.current_animation = filename
     self.last_direction = 'down'
     self.is_moving = False
+    self.movement = MovementManager(self)
 
   def draw(self, screen, screen_x, screen_y, dt):
     # Get the current animation frame based on elapsed time (dt)
@@ -29,25 +30,3 @@ class Player:
     # Otherwise, update the current animation and reload frames
     self.current_animation = filename
     self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
-
-  def align_to_tiles(self):
-    if not self.is_moving:
-        finalx = self.pos_x
-        finaly = self.pos_y
-
-        #finalx -= self.pos_x % (Constants.TILE_WIDTH * Constants.MAP_SCALE) - (Constants.TILE_WIDTH / 2 * Constants.MAP_SCALE)
-        #finaly -= self.pos_y % (Constants.TILE_WIDTH * Constants.MAP_SCALE) - (Constants.TILE_WIDTH / 2 * Constants.MAP_SCALE)
-
-        finalx -= self.pos_x % (16 * 5) - 40
-        finaly -= self.pos_y % (16 * 5) - 40
-
-        if self.pos_x != finalx:
-          if finalx < self.pos_x:
-            self.update_position(-self.movement_speed, 0)
-          else:
-            self.update_position(self.movement_speed, 0)
-        if self.pos_y != finaly:
-          if finaly < self.pos_y:
-           self.update_position(0, -self.movement_speed)
-          else:
-            self.update_position(0, self.movement_speed)
