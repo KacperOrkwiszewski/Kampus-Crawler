@@ -1,51 +1,53 @@
 from .player_image_info import PlayerImageInfo
-import pygame
+#from ..constants import Constants
 
 class Player:
-    def __init__(self, filename, start_pos):
-        self.pos = start_pos  # start at the middle of a tile
-        self.target_pos = start_pos
-        self.movement_speed = 120
-        self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
-        self.current_animation = filename
-        self.last_direction = 'down'
-        self.is_moving = False
+  def __init__(self, filename):
+    self.pos_x = 400
+    self.pos_y = 400
+    self.movement_speed = 2
+    self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
+    self.current_animation = filename
+    self.last_direction = 'down'
+    self.is_moving = False
 
-    def draw(self, screen, screen_x, screen_y, dt):
-        frame = self.player_img_info.get_current_frame(dt)
-        draw_x = screen_y / 2 - self.player_img_info.scale_size_y / 2
-        draw_y = screen_x / 2 - self.player_img_info.scale_size_x / 2
-        screen.blit(frame, (draw_x, draw_y))
+  def draw(self, screen, screen_x, screen_y, dt):
+    # Get the current animation frame based on elapsed time (dt)
+    frame = self.player_img_info.get_current_frame(dt)
+    # Draw the current frame centered on the screen
+    screen.blit(frame, (screen_y / 2 - self.player_img_info.scale_size_y / 2,
+                        screen_x / 2 - self.player_img_info.scale_size_x / 2))
 
-    def update_position(self, dt):
-        if self.is_moving:
-            direction = self.target_pos - self.pos
-            distance = self.movement_speed * dt
-            if direction.length() <= distance:
-                self.pos_x, self.pos.y = self.target_pos.x, self.target_pos.y
-                self.is_moving = False
-            else:
-                direction = direction.normalize() * distance
-                self.pos.x += direction.x
-                self.pos.y += direction.y
+  def update_position(self, x, y):
+    self.pos_x += x
+    self.pos_y += y
 
-    def set_animation(self, filename):
-        if self.current_animation == filename:
-            return
-        self.current_animation = filename
-        self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
+  def set_animation(self, filename):
+    # If the requested animation is already active, do nothing
+    if self.current_animation == filename:
+        return
+    # Otherwise, update the current animation and reload frames
+    self.current_animation = filename
+    self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
 
-    def move_to_offset(self, dx, dy, tile_size_x, tile_size_y):
-        if not self.is_moving:
-            current_tile_x = int(self.pos.x // tile_size_x)
-            current_tile_y = int(self.pos.y // tile_size_y)
+  def align_to_tiles(self):
+    if not self.is_moving:
+        finalx = self.pos_x
+        finaly = self.pos_y
 
-            new_tile_x = current_tile_x + dx
-            new_tile_y = current_tile_y + dy
+        #finalx -= self.pos_x % (Constants.TILE_WIDTH * Constants.MAP_SCALE) - (Constants.TILE_WIDTH / 2 * Constants.MAP_SCALE)
+        #finaly -= self.pos_y % (Constants.TILE_WIDTH * Constants.MAP_SCALE) - (Constants.TILE_WIDTH / 2 * Constants.MAP_SCALE)
 
-            self.target_pos = pygame.Vector2(
-                new_tile_x * tile_size_x + tile_size_x // 2,
-                new_tile_y * tile_size_y + tile_size_y // 2
-            )
-            self.set_animation(f"{self.last_direction}.gif")
-            self.is_moving = True
+        finalx -= self.pos_x % (16 * 5) - 40
+        finaly -= self.pos_y % (16 * 5) - 40
+
+        if self.pos_x != finalx:
+          if finalx < self.pos_x:
+            self.update_position(-self.movement_speed, 0)
+          else:
+            self.update_position(self.movement_speed, 0)
+        if self.pos_y != finaly:
+          if finaly < self.pos_y:
+           self.update_position(0, -self.movement_speed)
+          else:
+            self.update_position(0, self.movement_speed)
