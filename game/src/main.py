@@ -41,12 +41,12 @@ while running:
 
     x_change, y_change = player.movement.calculate_final_change()
 
-    #move player
-    player.update_position(x_change, y_change)
     # check if player is currently moving
     player.movement.is_moving = not (x_change == 0 and y_change == 0)
     # try to align the player to the middle of a tile
+    player.update_position(x_change, y_change)
     player.movement.align_to_tiles(Constants.TILE_HEIGHT, Constants.MAP_SCALE)
+
 
     # Change animation according to movement
     if x_change < 0:
