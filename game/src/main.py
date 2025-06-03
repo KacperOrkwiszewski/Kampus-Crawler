@@ -57,8 +57,6 @@ while running:
         player.set_animation('down.gif')
     elif y_change > 0:
         player.set_animation('up.gif')
-    elif (x_change == 0 and y_change == 0):
-        player.set_animation(f'idle_{player.last_direction}.gif')
 
 
     screen.fill((0, 0, 0))

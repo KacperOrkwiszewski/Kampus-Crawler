@@ -71,8 +71,27 @@ class MovementManager:
     finalx -= self.player.pos_x % (tile_size * map_scale) - (tile_size / 2 * map_scale)
     finaly -= self.player.pos_y % (tile_size * map_scale) - (tile_size / 2 * map_scale)
 
-    # update position if player didn't reach the middle
+    # go to the middle of the tile and set appropriate animations
     if self.player.pos_x != finalx:
-      self.player.update_position(-self.player.movement_speed if finalx < self.player.pos_x else self.player.movement_speed, 0)
-    if self.player.pos_y != finaly:
-      self.player.update_position(0, -self.player.movement_speed if finaly < self.player.pos_y else self.player.movement_speed)
+      if finalx < self.player.pos_x:
+          self.player.set_animation("right.gif")
+          self.player.last_direction = "right"
+          self.player.update_position(-self.player.movement_speed, 0)
+      else:
+          self.player.set_animation("left.gif")
+          self.player.last_direction = "left"
+          self.player.update_position(self.player.movement_speed, 0)
+
+    elif self.player.pos_y != finaly:
+      if finaly < self.player.pos_y:
+          self.player.set_animation("down.gif")
+          self.player.last_direction = "down"
+          self.player.update_position(0, -self.player.movement_speed)
+      else:
+          self.player.set_animation("up.gif")
+          self.player.last_direction = "up"
+          self.player.update_position(0, self.player.movement_speed)
+
+    # if the player reached the middle, set animation to idle of last direction
+    if self.player.pos_x == finalx and self.player.pos_y == finaly:
+      self.player.set_animation(f"idle_{self.player.last_direction}.gif")
