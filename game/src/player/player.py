@@ -1,13 +1,16 @@
 from .player_image_info import PlayerImageInfo
+from .movement_manager import MovementManager
 
 class Player:
   def __init__(self, filename):
-    self.pos_x = 400
-    self.pos_y = 400
+    self.pos_x = 40
+    self.pos_y = 40
     self.movement_speed = 2
     self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
     self.current_animation = filename
     self.last_direction = 'down'
+    self.is_moving = False
+    self.movement = MovementManager(self)
 
   def draw(self, screen, screen_x, screen_y, dt):
     # Get the current animation frame based on elapsed time (dt)
@@ -27,4 +30,3 @@ class Player:
     # Otherwise, update the current animation and reload frames
     self.current_animation = filename
     self.player_img_info = PlayerImageInfo(filename, self.movement_speed)
-

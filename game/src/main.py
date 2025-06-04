@@ -1,6 +1,6 @@
 import pygame
 from constants import Constants
-from game.src.map.game_map import GameMap
+from map.game_map import GameMap
 from player.player import Player
 
 clock = pygame.time.Clock()
@@ -21,13 +21,6 @@ pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 # Initialize player
 player = Player('idle_down.gif')
 
-# Movement related variables
-playerUP_change = 0
-playerDOWN_change = 0
-playerLEFT_change = 0
-playerRIGHT_change = 0
-
-
 # Game loop
 running = True
 while running:
@@ -41,57 +34,29 @@ while running:
 
       #keyboard events
       if event.type == pygame.KEYDOWN:
-          if event.key == pygame.K_DOWN:
-              playerDOWN_change = player.movement_speed
-          if event.key == pygame.K_UP:
-              playerUP_change = player.movement_speed
-          if event.key == pygame.K_LEFT:
-              playerLEFT_change = player.movement_speed
-          if event.key == pygame.K_RIGHT:
-              playerRIGHT_change = player.movement_speed
+        player.movement.handle_down(event.key)
 
-      #stop moving if key is no longer pressed
       if event.type == pygame.KEYUP:
-          if event.key == pygame.K_DOWN:
-              playerDOWN_change = 0
-              player.last_direction = 'down'
-          if event.key == pygame.K_UP:
-              playerUP_change = 0
-              player.last_direction = 'up'
-          if event.key == pygame.K_LEFT:
-              playerLEFT_change = 0
-              player.last_direction = 'left'
-          if event.key == pygame.K_RIGHT:
-              playerRIGHT_change = 0
-              player.last_direction = 'right'
+        player.movement.handle_up(event.key)
 
+    x_change, y_change = player.movement.calculate_final_change()
 
-    playerX_change = -playerRIGHT_change+playerLEFT_change
-    playerY_change = -playerDOWN_change+playerUP_change
+    # check if player is currently moving
+    player.movement.is_moving = not (x_change == 0 and y_change == 0)
+    # try to align the player to the middle of a tile
+    player.update_position(x_change, y_change)
+    player.movement.align_to_tiles(Constants.TILE_HEIGHT, Constants.MAP_SCALE)
 
-
-    #move player
-    player.update_position(playerX_change, playerY_change)
 
     # Change animation according to movement
-    if playerX_change < 0:
+    if x_change < 0:
         player.set_animation('right.gif')
-    elif playerX_change > 0:
+    elif x_change > 0:
         player.set_animation('left.gif')
-    elif playerY_change < 0:
+    elif y_change < 0:
         player.set_animation('down.gif')
-    elif playerY_change > 0:
+    elif y_change > 0:
         player.set_animation('up.gif')
-    elif (playerX_change == 0 and playerY_change == 0):
-        match player.last_direction:
-            case 'down':
-                player.set_animation('idle_down.gif')
-            case 'up':
-                player.set_animation('idle_up.gif')
-            case 'left':
-                player.set_animation('idle_left.gif')
-            case 'right':
-                player.set_animation('idle_right.gif')
 
 
     screen.fill((0, 0, 0))
