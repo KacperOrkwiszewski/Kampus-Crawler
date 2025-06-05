@@ -49,14 +49,15 @@ while running:
 
 
     # Change animation according to movement
-    if x_change < 0:
-        player.set_animation('right.gif')
-    elif x_change > 0:
-        player.set_animation('left.gif')
-    elif y_change < 0:
-        player.set_animation('down.gif')
-    elif y_change > 0:
-        player.set_animation('up.gif')
+    if player.during_diagonal_alignment == False:
+        if x_change < 0:
+            player.set_animation('right.gif')
+        elif x_change > 0:
+            player.set_animation('left.gif')
+        elif y_change < 0:
+            player.set_animation('down.gif')
+        elif y_change > 0:
+            player.set_animation('up.gif')
 
 
     screen.fill((0, 0, 0))

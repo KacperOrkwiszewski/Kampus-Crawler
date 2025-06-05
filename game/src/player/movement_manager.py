@@ -76,17 +76,25 @@ class MovementManager:
 
       axis = self.get_movement_axis()
 
+      self.player.during_diagonal_alignment = False
       # Align to horizontal when moving vertically
       if axis == "vertical":
-          diff_x = center_x - self.player.pos_x
-          if diff_x != 0: # if the difference is 0
-            self.player.update_position(ms if diff_x > 0 else -ms, 0)
+        diff_x = center_x - self.player.pos_x
+        if diff_x != 0:  # if the difference is 0
+          self.player.during_diagonal_alignment = True
+          # (self.playerDOWN_change - self.playerUP_change) counteracts vertical change so the player never moves diagonally
+          self.player.update_position(ms if diff_x > 0 else -ms, (self.playerDOWN_change - self.playerUP_change))
+          self.player.set_animation("left.gif") if diff_x > 0 else self.player.set_animation("right.gif")
 
       # Align to vertical when moving horizontally
       elif axis == "horizontal":
-          diff_y = center_y - self.player.pos_y
-          if diff_y != 0: # if the difference is 0
-            self.player.update_position(0, ms if diff_y > 0 else -ms)
+        diff_y = center_y - self.player.pos_y
+        if diff_y != 0:  # if the difference is 0
+          self.player.during_diagonal_alignment = True
+          # (-self.playerLEFT_change +self.playerRIGHT_change) counteracts vertical change so the player never moves diagonally
+          self.player.update_position((-self.playerLEFT_change + self.playerRIGHT_change),
+                                      ms if diff_y > 0 else -ms)
+          self.player.set_animation("up.gif") if diff_y > 0 else self.player.set_animation("down.gif")
     else:
       # go to the middle of the tile and set appropriate animations
       if self.player.pos_x != center_x:
@@ -111,4 +119,5 @@ class MovementManager:
 
       # if the player reached the middle, set animation to idle of last direction
       if self.player.pos_x == center_x and self.player.pos_y == center_y:
+        self.player.during_diagonal_alignment = False
         self.player.set_animation(f"idle_{self.player.last_direction}.gif")

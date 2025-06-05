@@ -11,6 +11,7 @@ class Player:
     self.last_direction = 'down'
     self.is_moving = False
     self.movement = MovementManager(self)
+    self.during_diagonal_alignment = False
 
   def draw(self, screen, screen_x, screen_y, dt):
     # Get the current animation frame based on elapsed time (dt)
