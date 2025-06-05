@@ -2,6 +2,7 @@ from .player_image_info import PlayerImageInfo
 
 class Player:
   def __init__(self, filename):
+    self.id = None
     self.pos_x = 400
     self.pos_y = 400
     self.movement_speed = 2
