@@ -3,6 +3,7 @@ from constants import Constants
 from map.game_map import GameMap
 from player.player import Player
 from game.src.menu.main_menu import MainMenu
+from game.src.menu.pause_menu import PauseMenu
 
 clock = pygame.time.Clock()
 
@@ -28,6 +29,9 @@ if choice == "play":
 
     # Game loop
     running = True
+    paused = False
+    pause_menu = PauseMenu(screen)
+
     while running:
 
         dt = clock.tick(60) / 1000  # dt in seconds
@@ -39,10 +43,30 @@ if choice == "play":
 
           #keyboard events
           if event.type == pygame.KEYDOWN:
-            player.movement.handle_down(event.key)
+              if event.key == pygame.K_ESCAPE:
+                  paused = not paused
+
+              if not paused:
+                  player.movement.handle_down(event.key)
 
           if event.type == pygame.KEYUP:
-            player.movement.handle_up(event.key)
+              if not paused:
+                  player.movement.handle_up(event.key)
+
+              if paused:
+                  result = pause_menu.run()
+                  if result == "resume":
+                      paused = False
+                  elif result == "options":
+                      pass  # temporary solution
+                  elif result == "main menu":
+                      choice = MainMenu(screen).run()
+                      if choice == "play":
+                          player = Player('idle_down.gif')
+                          paused = False
+                      else:
+                          running = False
+                  continue
 
         x_change, y_change = player.movement.calculate_final_change()
 

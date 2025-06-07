@@ -55,7 +55,7 @@ class MainMenu:
 
             # drawing MAIN MENU text
             title_text = self.title_font.render("MAIN MENU", True, (182, 143, 64))  # "#b68f40"
-            title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 60))  # przesunięcie do góry
+            title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 60))
 
             start_y = 180
 
