@@ -4,6 +4,8 @@ from map.game_map import GameMap
 from player.player import Player
 from game.src.menu.main_menu import MainMenu
 from game.src.menu.pause_menu import PauseMenu
+from intro.intro_screen import IntroScreen
+
 
 clock = pygame.time.Clock()
 
@@ -12,6 +14,9 @@ pygame.init()
 
 # Initialize the screen
 screen = pygame.display.set_mode((Constants.WINDOW_HEIGHT, Constants.WINDOW_WIDTH))
+
+# Play intro
+IntroScreen.play(screen)
 
 # Load the map
 map = GameMap("map_data/simple_map.tmx")
