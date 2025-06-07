@@ -2,6 +2,7 @@ import pygame
 from constants import Constants
 from map.game_map import GameMap
 from player.player import Player
+from game.src.menu.main_menu import MainMenu
 
 clock = pygame.time.Clock()
 
@@ -18,51 +19,59 @@ map = GameMap("map_data/simple_map.tmx")
 pygame.display.set_caption("Kampus Crawler")
 pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 
+choice = MainMenu(screen).run()
+
 # Initialize player
 player = Player('idle_down.gif')
 
-# Game loop
-running = True
-while running:
+if choice == "play":
 
-    dt = clock.tick(60) / 1000  # dt in seconds
+    # Game loop
+    running = True
+    while running:
 
-    for event in pygame.event.get():
-      #event handler (the top right X button is pressed)
-      if event.type == pygame.QUIT:
-          running = False
+        dt = clock.tick(60) / 1000  # dt in seconds
 
-      #keyboard events
-      if event.type == pygame.KEYDOWN:
-        player.movement.handle_down(event.key)
+        for event in pygame.event.get():
+          #event handler (the top right X button is pressed)
+          if event.type == pygame.QUIT:
+              running = False
 
-      if event.type == pygame.KEYUP:
-        player.movement.handle_up(event.key)
+          #keyboard events
+          if event.type == pygame.KEYDOWN:
+            player.movement.handle_down(event.key)
 
-    x_change, y_change = player.movement.calculate_final_change()
+          if event.type == pygame.KEYUP:
+            player.movement.handle_up(event.key)
 
-    # check if player is currently moving
-    player.movement.is_moving = not (x_change == 0 and y_change == 0)
-    # try to align the player to the middle of a tile
-    player.update_position(x_change, y_change)
-    player.movement.align_to_tiles(Constants.TILE_HEIGHT, Constants.MAP_SCALE)
+        x_change, y_change = player.movement.calculate_final_change()
 
-
-    # Change animation according to movement
-    if player.during_diagonal_alignment == False:
-        if x_change < 0:
-            player.set_animation('right.gif')
-        elif x_change > 0:
-            player.set_animation('left.gif')
-        elif y_change < 0:
-            player.set_animation('down.gif')
-        elif y_change > 0:
-            player.set_animation('up.gif')
+        # check if player is currently moving
+        player.movement.is_moving = not (x_change == 0 and y_change == 0)
+        # try to align the player to the middle of a tile
+        player.update_position(x_change, y_change)
+        player.movement.align_to_tiles(Constants.TILE_HEIGHT, Constants.MAP_SCALE)
 
 
-    screen.fill((0, 0, 0))
-    map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
-    player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
+        # Change animation according to movement
+        if player.during_diagonal_alignment == False:
+            if x_change < 0:
+                player.set_animation('right.gif')
+            elif x_change > 0:
+                player.set_animation('left.gif')
+            elif y_change < 0:
+                player.set_animation('down.gif')
+            elif y_change > 0:
+                player.set_animation('up.gif')
 
-    pygame.display.flip()
-    pygame.display.update()
+
+        screen.fill((0, 0, 0))
+        map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
+        player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
+
+        pygame.display.flip()
+        pygame.display.update()
+elif choice == "options":
+    pygame.quit()  # temporary solution
+elif choice == "quit":
+    pygame.quit()
