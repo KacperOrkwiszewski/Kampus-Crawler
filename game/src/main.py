@@ -102,7 +102,18 @@ if choice == "play":
 
         screen.fill((0, 0, 0))
         map.draw(screen, Constants.MAP_SCALE, player.data.pos_x, player.data.pos_y)
-        player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
+        # Dispaly other players
+        with Client.lock:
+            for player_id, other_player_data in Client.all_players.items():
+                if player_id != player.data.id:
+                    offset_x = (other_player_data.pos_x - player.data.pos_x) 
+                    offset_y = (other_player_data.pos_y - player.data.pos_y)
+                    temp_player = Player(other_player_data.state)
+                    temp_player.data = other_player_data
+                    temp_player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, -offset_x, -offset_y)
+
+        # Dispaly main player on top
+        #player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
 
         pygame.display.flip()
         pygame.display.update()
