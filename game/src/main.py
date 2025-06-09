@@ -1,11 +1,12 @@
 import pygame
 import threading
-import src.client.client as Client
+import client.client as Client
 from constants import Constants
 from map.game_map import GameMap
 from player.player import Player
-from game.src.menu.main_menu import MainMenu
-from game.src.menu.pause_menu import PauseMenu
+from player.player_state import PlayerState
+from menu.main_menu import MainMenu
+from menu.pause_menu import PauseMenu
 from intro.intro_screen import IntroScreen
 
 
@@ -30,10 +31,13 @@ pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 choice = MainMenu(screen).run()
 
 # Initialize player
-player = Player('idle_down.gif')
+player = Player(PlayerState.IDLE_DOWN)
 
 if choice == "play":
 
+    #client
+    client_thread = threading.Thread(target=Client.network_thread, args=(player,), daemon=True)
+    client_thread.start()
     # Game loop
     running = True
     paused = False
@@ -69,7 +73,7 @@ if choice == "play":
                   elif result == "main menu":
                       choice = MainMenu(screen).run()
                       if choice == "play":
-                          player = Player('idle_down.gif')
+                          player = Player(PlayerState.IDLE_DOWN)
                           paused = False
                       else:
                           running = False
@@ -85,19 +89,19 @@ if choice == "play":
 
 
         # Change animation according to movement
-        if player.during_diagonal_alignment == False:
+        if player.data.during_diagonal_alignment == False:
             if x_change < 0:
-                player.set_animation('right.gif')
+                player.set_animation(PlayerState.MOVE_RIGHT)
             elif x_change > 0:
-                player.set_animation('left.gif')
+                player.set_animation(PlayerState.MOVE_LEFT)
             elif y_change < 0:
-                player.set_animation('down.gif')
+                player.set_animation(PlayerState.MOVE_DOWN)
             elif y_change > 0:
-                player.set_animation('up.gif')
+                player.set_animation(PlayerState.MOVE_UP)
 
 
         screen.fill((0, 0, 0))
-        map.draw(screen, Constants.MAP_SCALE, player.pos_x, player.pos_y)
+        map.draw(screen, Constants.MAP_SCALE, player.data.pos_x, player.data.pos_y)
         player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
 
         pygame.display.flip()

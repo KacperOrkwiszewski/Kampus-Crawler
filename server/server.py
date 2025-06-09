@@ -1,6 +1,11 @@
 import socket
 import threading
 import pickle
+import sys
+import os
+
+# Dodaj ścieżkę do modułów gry
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'game', 'src')))
 
 numberOfClients = 0
 clients = {}

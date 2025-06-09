@@ -14,13 +14,7 @@ def network_thread(player):
     while True:
         try:
             # Wysyłamy tylko pozycję i kierunek gracza
-            player_data = {
-                'x': player.pos_x,
-                'y': player.pos_y,
-                'direction': player.last_direction,
-                'current_animation': player.current_animation
-            }
-            send_pickle(s, player_data)
+            send_pickle(s, player.data)
             
             try:
                 currentPlayerNumber = recv_pickle(s)
