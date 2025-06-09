@@ -105,16 +105,14 @@ if choice == "play":
         # Dispaly other players
         with Client.lock:
             for player_id, other_player_data in Client.all_players.items():
-                if player_id != player.data.id:
-                    print(f"Drawing player {player_id} at ({other_player_data.pos_x}, {other_player_data.pos_y})")
-                    offset_x = (other_player_data.pos_x - player.data.pos_x) 
-                    offset_y = (other_player_data.pos_y - player.data.pos_y)
-                    temp_player = Player(other_player_data.state)
-                    temp_player.data = other_player_data
-                    temp_player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y)
-
-        # Dispaly main player on top
-        #player.draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt)
+                if player_id not in Client.player_objects: # create new player if doesn t exist
+                    Client.player_objects[player_id] = Player(other_player_data.state)
+                if Client.player_objects[player_id].data.state != other_player_data.state:
+                    Client.player_objects[player_id].set_animation(other_player_data.state)
+                Client.player_objects[player_id].data = other_player_data
+                offset_x = (other_player_data.pos_x - player.data.pos_x)
+                offset_y = (other_player_data.pos_y - player.data.pos_y)
+                Client.player_objects[player_id].draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y)
 
         pygame.display.flip()
         pygame.display.update()

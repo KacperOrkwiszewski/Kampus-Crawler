@@ -4,6 +4,7 @@ import threading
 
 currentPlayerNumber = 0
 all_players = {}
+player_objects = {}
 lock = threading.Lock()
 
 def network_thread(player):
