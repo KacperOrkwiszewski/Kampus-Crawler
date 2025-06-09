@@ -13,8 +13,8 @@ class Player:
     # Get the current animation frame based on elapsed time (dt)
     frame = self.player_img_info.get_current_frame(dt)
     # Draw the current frame centered on the screen
-    screen.blit(frame, (screen_y / 2 - self.player_img_info.scale_size_y / 2 - offset_x,
-                        screen_x / 2 - self.player_img_info.scale_size_x / 2 - offset_y))
+    screen.blit(frame, ((screen_y / 2) - (self.player_img_info.scale_size_y / 2) - offset_x,
+                        (screen_x / 2) - (self.player_img_info.scale_size_x / 2) - offset_y))
 
   def update_position(self, x, y):
     self.data.pos_x += x
