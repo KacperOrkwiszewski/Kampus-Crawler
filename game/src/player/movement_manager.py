@@ -1,4 +1,5 @@
 import pygame
+from .player_state import PlayerState
 
 class MovementManager:
   def __init__(self, player):
@@ -15,35 +16,35 @@ class MovementManager:
     if key == pygame.K_DOWN:
       self.playerDOWN_change = 0
       self.ignore_vertical_movement = False
-      self.player.last_direction = 'down'
+      self.player.data.last_direction = 'down'
     if key == pygame.K_UP:
       self.playerUP_change = 0
-      self.player.last_direction = 'up'
+      self.player.data.last_direction = 'up'
       self.ignore_vertical_movement = False
     if key == pygame.K_LEFT:
       self.playerLEFT_change = 0
-      self.player.last_direction = 'left'
+      self.player.data.last_direction = 'left'
       self.ignore_horizontal_movement = False
     if key == pygame.K_RIGHT:
       self.playerRIGHT_change = 0
-      self.player.last_direction = 'right'
+      self.player.data.last_direction = 'right'
       self.ignore_horizontal_movement = False
 
   def handle_down(self, key):
     if key == pygame.K_DOWN:
-      self.playerDOWN_change = self.player.movement_speed
+      self.playerDOWN_change = self.player.data.movement_speed
       self.ignore_horizontal_movement = True
       self.ignore_vertical_movement = False
     if key == pygame.K_UP:
-      self.playerUP_change = self.player.movement_speed
+      self.playerUP_change = self.player.data.movement_speed
       self.ignore_horizontal_movement = True
       self.ignore_vertical_movement = False
     if key == pygame.K_LEFT:
-      self.playerLEFT_change = self.player.movement_speed
+      self.playerLEFT_change = self.player.data.movement_speed
       self.ignore_vertical_movement = True
       self.ignore_horizontal_movement = False
     if key == pygame.K_RIGHT:
-      self.playerRIGHT_change = self.player.movement_speed
+      self.playerRIGHT_change = self.player.data.movement_speed
       self.ignore_vertical_movement = True
       self.ignore_horizontal_movement = False
 
@@ -68,56 +69,63 @@ class MovementManager:
 
   def align_to_tiles(self, tile_size, map_scale):
 
-    center_x = self.player.pos_x - (self.player.pos_x % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
-    center_y = self.player.pos_y - (self.player.pos_y % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
-    ms = self.player.movement_speed
+    center_x = self.player.data.pos_x - (self.player.data.pos_x % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
+    center_y = self.player.data.pos_y - (self.player.data.pos_y % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
+    ms = self.player.data.movement_speed
 
     if self.is_moving:
 
       axis = self.get_movement_axis()
 
-      self.player.during_diagonal_alignment = False
+      self.player.data.during_diagonal_alignment = False
       # Align to horizontal when moving vertically
       if axis == "vertical":
-        diff_x = center_x - self.player.pos_x
+        diff_x = center_x - self.player.data.pos_x
         if diff_x != 0:  # if the difference is 0
-          self.player.during_diagonal_alignment = True
+          self.player.data.during_diagonal_alignment = True
           # (self.playerDOWN_change - self.playerUP_change) counteracts vertical change so the player never moves diagonally
           self.player.update_position(ms if diff_x > 0 else -ms, (self.playerDOWN_change - self.playerUP_change))
-          self.player.set_animation("left.gif") if diff_x > 0 else self.player.set_animation("right.gif")
+          self.player.set_animation(PlayerState.MOVE_LEFT) if diff_x > 0 else self.player.set_animation(PlayerState.MOVE_RIGHT)
 
       # Align to vertical when moving horizontally
       elif axis == "horizontal":
-        diff_y = center_y - self.player.pos_y
+        diff_y = center_y - self.player.data.pos_y
         if diff_y != 0:  # if the difference is 0
-          self.player.during_diagonal_alignment = True
+          self.player.data.during_diagonal_alignment = True
           # (-self.playerLEFT_change +self.playerRIGHT_change) counteracts vertical change so the player never moves diagonally
           self.player.update_position((-self.playerLEFT_change + self.playerRIGHT_change),
                                       ms if diff_y > 0 else -ms)
-          self.player.set_animation("up.gif") if diff_y > 0 else self.player.set_animation("down.gif")
+          self.player.set_animation(PlayerState.MOVE_UP) if diff_y > 0 else self.player.set_animation(PlayerState.MOVE_DOWN)
     else:
       # go to the middle of the tile and set appropriate animations
-      if self.player.pos_x != center_x:
-        if center_x < self.player.pos_x:
-            self.player.set_animation("right.gif")
-            self.player.last_direction = "right"
+      if self.player.data.pos_x != center_x:
+        if center_x < self.player.data.pos_x:
+            self.player.set_animation(PlayerState.MOVE_RIGHT)
+            self.player.data.last_direction = "right"
             self.player.update_position(-ms, 0)
         else:
-            self.player.set_animation("left.gif")
-            self.player.last_direction = "left"
+            self.player.set_animation(PlayerState.MOVE_LEFT)
+            self.player.data.last_direction = "left"
             self.player.update_position(ms, 0)
 
-      elif self.player.pos_y != center_y:
-        if center_y < self.player.pos_y:
-            self.player.set_animation("down.gif")
-            self.player.last_direction = "down"
+      elif self.player.data.pos_y != center_y:
+        if center_y < self.player.data.pos_y:
+            self.player.set_animation(PlayerState.MOVE_DOWN)
+            self.player.data.last_direction = "down"
             self.player.update_position(0, -ms)
         else:
-            self.player.set_animation("up.gif")
-            self.player.last_direction = "up"
+            self.player.set_animation(PlayerState.MOVE_UP)
+            self.player.data.last_direction = "up"
             self.player.update_position(0, ms)
 
       # if the player reached the middle, set animation to idle of last direction
-      if self.player.pos_x == center_x and self.player.pos_y == center_y:
-        self.player.during_diagonal_alignment = False
-        self.player.set_animation(f"idle_{self.player.last_direction}.gif")
+      if self.player.data.pos_x == center_x and self.player.data.pos_y == center_y:
+        self.player.data.during_diagonal_alignment = False
+        if self.player.data.last_direction == "down":
+          self.player.set_animation(PlayerState.IDLE_DOWN)
+        elif self.player.data.last_direction == "up":
+          self.player.set_animation(PlayerState.IDLE_UP)
+        elif self.player.data.last_direction == "left":
+          self.player.set_animation(PlayerState.IDLE_LEFT)
+        elif self.player.data.last_direction == "right":
+          self.player.set_animation(PlayerState.IDLE_RIGHT)
