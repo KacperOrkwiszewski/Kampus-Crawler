@@ -6,7 +6,7 @@ class IntroScreen:
 
     def __init__(self, screen):
         self.screen = screen
-        self.gif_path = "src/intro/navi_intro_gif.gif"
+        self.gif_path = "src/intro/navi_intro.gif"
         self.frames, self.durations = self.load_gif_frames()
 
     def load_gif_frames(self):
