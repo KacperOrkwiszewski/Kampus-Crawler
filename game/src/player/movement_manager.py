@@ -1,5 +1,6 @@
 import pygame
 from .player_state import PlayerState
+from game.src.constants import Constants
 
 
 class MovementManager:
@@ -143,3 +144,22 @@ class MovementManager:
                                             ms if diff_y > 0 else -ms)
                 self.player.set_animation(PlayerState.MOVE_UP) if diff_y > 0 else self.player.set_animation(
                   PlayerState.MOVE_DOWN)
+
+    # final movement function combining all functionalities
+    def move_player(self):
+        x_change, y_change = self.player.movement.calculate_final_change()
+        # check if player is currently moving
+        self.player.movement.is_moving = not (x_change == 0 and y_change == 0)
+        # try to align the player to the middle of a tile
+        self.player.update_position(x_change, y_change)
+        self.player.movement.align_to_tiles(Constants.TILE_HEIGHT, Constants.MAP_SCALE)
+        # Change animation according to movement
+        if not self.player.data.during_diagonal_alignment:
+            if x_change < 0:
+                self.player.set_animation(PlayerState.MOVE_RIGHT)
+            elif x_change > 0:
+                self.player.set_animation(PlayerState.MOVE_LEFT)
+            elif y_change < 0:
+                self.player.set_animation(PlayerState.MOVE_DOWN)
+            elif y_change > 0:
+                self.player.set_animation(PlayerState.MOVE_UP)
