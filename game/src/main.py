@@ -92,6 +92,10 @@ class Game:
         pause_menu = PauseMenu(self.screen)
 
         while self.running:
+            # when server is closed become new server or join another
+            if not self.client.is_connected:
+                print("connection lost, establishing new one")
+                self.start_networking()
             dt = self.clock.tick(60) / 1000
 
             result = self.handle_events(pause_menu)

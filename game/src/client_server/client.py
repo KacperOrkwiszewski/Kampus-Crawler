@@ -12,11 +12,13 @@ class Client:
         self.lock = threading.Lock()
         self.host = hostname
         self.port = port_number
+        self.is_connected = False
 
     def network_thread(self, player):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((self.host, self.port))
         s.settimeout(0.1)
+        self.is_connected = True
         while True:
             try:
                 # Send player data
@@ -31,5 +33,6 @@ class Client:
                     pass
 
             except Exception as e:
+                self.is_connected = False
                 print("Network error:", e)
                 break
