@@ -1,6 +1,7 @@
 import pygame
 import threading
-import client.client as Client
+from client_server.server import Server
+from client_server.client import Client
 from constants import Constants
 from map.game_map import GameMap
 from player.player import Player
@@ -34,9 +35,13 @@ choice = MainMenu(screen).run()
 player = Player(PlayerState.IDLE_DOWN)
 
 if choice == "play":
-
-    #client
-    client_thread = threading.Thread(target=Client.network_thread, args=(player,), daemon=True)
+    # server
+    server = Server('0.0.0.0', 12345)
+    server_thread = threading.Thread(target=server.run_server, daemon=True)  # thread ends if server is already open
+    server_thread.start()  # if server is already online function run_server doesn't create new one
+    # client
+    client = Client("localhost",12345)
+    client_thread = threading.Thread(target=Client.network_thread, args=(client, player), daemon=True)
     client_thread.start()
     # Game loop
     running = True
@@ -103,16 +108,16 @@ if choice == "play":
         screen.fill((0, 0, 0))
         map.draw(screen, Constants.MAP_SCALE, player.data.pos_x, player.data.pos_y)
         # Dispaly other players
-        with Client.lock:
-            for player_id, other_player_data in Client.all_players.items():
-                if player_id not in Client.player_objects: # create new player if doesn t exist
-                    Client.player_objects[player_id] = Player(other_player_data.state)
-                if Client.player_objects[player_id].data.state != other_player_data.state:
-                    Client.player_objects[player_id].set_animation(other_player_data.state)
-                Client.player_objects[player_id].data = other_player_data
+        with client.lock:
+            for player_id, other_player_data in client.all_players.items():
+                if player_id not in client.player_objects: # create new player if doesn t exist
+                    client.player_objects[player_id] = Player(other_player_data.state)
+                if client.player_objects[player_id].data.state != other_player_data.state:
+                    client.player_objects[player_id].set_animation(other_player_data.state)
+                client.player_objects[player_id].data = other_player_data
                 offset_x = (other_player_data.pos_x - player.data.pos_x)
                 offset_y = (other_player_data.pos_y - player.data.pos_y)
-                Client.player_objects[player_id].draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y)
+                client.player_objects[player_id].draw(screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y)
 
         pygame.display.flip()
         pygame.display.update()
