@@ -68,8 +68,8 @@ class MovementManager:
             return "horizontal"
 
     def align_to_tiles(self, tile_size, map_scale):
-        center_x = self.player.data.pos_x - (self.player.data.pos_x % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
-        center_y = self.player.data.pos_y - (self.player.data.pos_y % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
+        center_x = self.get_x_middle(map_scale, tile_size)
+        center_y = self.get_y_middle(map_scale, tile_size)
         ms = self.player.data.movement_speed
 
         if self.is_moving:
@@ -92,6 +92,12 @@ class MovementManager:
                 self.player.set_animation(PlayerState.IDLE_LEFT)
             elif self.player.data.last_direction == "right":
                 self.player.set_animation(PlayerState.IDLE_RIGHT)
+
+    def get_y_middle(self, map_scale, tile_size):
+        return self.player.data.pos_y - (self.player.data.pos_y % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
+
+    def get_x_middle(self, map_scale, tile_size):
+        return self.player.data.pos_x - (self.player.data.pos_x % (tile_size * map_scale)) + (tile_size / 2 * map_scale)
 
     def align_vertical(self, center_y, ms):
         if center_y < self.player.data.pos_y:
