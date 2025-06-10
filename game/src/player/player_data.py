@@ -1,4 +1,5 @@
-from .player_state import PlayerState
+from game.src.player.player_state import PlayerState
+
 
 class PlayerData:
     def __init__(self):

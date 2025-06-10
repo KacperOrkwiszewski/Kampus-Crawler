@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class PlayerState(Enum):
     IDLE_DOWN = 0
     IDLE_UP = 1
@@ -9,6 +10,7 @@ class PlayerState(Enum):
     MOVE_RIGHT = 5
     MOVE_UP = 6
     MOVE_DOWN = 7
+
 
 ANIMATION_FILES = {
     PlayerState.IDLE_DOWN: 'idle_down.gif',
