@@ -1,4 +1,4 @@
-from game.src.player.player_state import PlayerState
+from .player_state import PlayerState
 
 
 class PlayerData:

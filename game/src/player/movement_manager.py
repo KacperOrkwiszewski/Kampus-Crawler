@@ -1,5 +1,5 @@
 import pygame
-from game.src.player.player_state import PlayerState
+from .player_state import PlayerState
 
 
 class MovementManager:
@@ -84,14 +84,14 @@ class MovementManager:
             # if the player has reached the middle, set animation to idle of last direction
             if self.player.data.pos_x == center_x and self.player.data.pos_y == center_y:
                 self.player.data.during_diagonal_alignment = False
-            if self.player.data.last_direction == "down":
-                self.player.set_animation(PlayerState.IDLE_DOWN)
-            elif self.player.data.last_direction == "up":
-                self.player.set_animation(PlayerState.IDLE_UP)
-            elif self.player.data.last_direction == "left":
-                self.player.set_animation(PlayerState.IDLE_LEFT)
-            elif self.player.data.last_direction == "right":
-                self.player.set_animation(PlayerState.IDLE_RIGHT)
+                if self.player.data.last_direction == "down":
+                    self.player.set_animation(PlayerState.IDLE_DOWN)
+                elif self.player.data.last_direction == "up":
+                    self.player.set_animation(PlayerState.IDLE_UP)
+                elif self.player.data.last_direction == "left":
+                    self.player.set_animation(PlayerState.IDLE_LEFT)
+                elif self.player.data.last_direction == "right":
+                    self.player.set_animation(PlayerState.IDLE_RIGHT)
 
     def get_y_middle(self, map_scale, tile_size):
         return self.player.data.pos_y - (self.player.data.pos_y % (tile_size * map_scale)) + (tile_size / 2 * map_scale)

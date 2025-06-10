@@ -1,7 +1,7 @@
-from game.src.player.player_state import ANIMATION_FILES
-from game.src.player.player_image_info import PlayerImageInfo
-from game.src.player.movement_manager import MovementManager
-from game.src.player.player_data import PlayerData
+from .player_state import ANIMATION_FILES
+from .player_image_info import PlayerImageInfo
+from .movement_manager import MovementManager
+from .player_data import PlayerData
 
 
 class Player:
