@@ -1,5 +1,6 @@
 from .player_state import PlayerState
 
+
 class PlayerData:
     def __init__(self):
         self.id = None

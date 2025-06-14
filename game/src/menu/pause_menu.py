@@ -1,8 +1,15 @@
 import pygame
 import sys
 
+
 class PauseMenu:
     def __init__(self, screen):
+        self.rects = None
+        self.bg_images = None
+        self.title_rect = None
+        self.title_text = None
+        self.background = None
+        
         self.screen = screen
         self.load_assets()
 
@@ -27,7 +34,6 @@ class PauseMenu:
 
     def update_layout(self):
         self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
-
         screen_width, screen_height = self.screen.get_size()
         self.title_text = self.title_font.render("PAUSE", True, (182, 143, 64))
         self.title_rect = self.title_text.get_rect(center=(screen_width // 2, 60))
@@ -62,7 +68,7 @@ class PauseMenu:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        # Escape też powoduje wyjście z pauzy
+                        # If escape pressed - quit pause menu
                         return "resume"
 
             self.screen.blit(self.background, (0, 0))

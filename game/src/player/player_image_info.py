@@ -1,13 +1,14 @@
 from PIL import Image
 import pygame
 
+
 class PlayerImageInfo:
     def __init__(self, gif_path, movement_speed):
         # Load all frames from the GIF file
         self.frames = self.load_gif_frames(gif_path)
         self.frame_index = 0  # Index of the current frame
         # Lower value means faster animation
-        self.animation_speed = 0.2 / (movement_speed)  # Animation speed depends on movement speed
+        self.animation_speed = 0.2 / movement_speed  # Animation speed depends on movement speed
         # Slower animation for idle.gif
         if gif_path.startswith('idle'):
             self.animation_speed = 0.5
