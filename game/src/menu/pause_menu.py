@@ -20,7 +20,7 @@ class PauseMenu:
         self.hovering_color = (255, 255, 255)
 
         self.buttons = ["Resume", "Options", "Main Menu"]
-        self.spacing = 49 # 7^2 (nice)
+        self.spacing = 40
 
         self.update_layout()
 
