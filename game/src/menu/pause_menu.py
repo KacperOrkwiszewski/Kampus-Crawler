@@ -16,7 +16,7 @@ class PauseMenu:
         self.font = pygame.font.Font('src/menu/assets/font.ttf', 70)
         self.title_font = pygame.font.Font('src/menu/assets/font.ttf', 80)
 
-        self.base_color = (215, 252, 212)
+        self.base_color = (38, 38, 28) # (215, 252, 212)
         self.hovering_color = (255, 255, 255)
 
         self.buttons = ["Resume", "Options", "Main Menu"]
