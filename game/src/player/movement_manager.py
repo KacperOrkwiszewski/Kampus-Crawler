@@ -1,6 +1,6 @@
 import pygame
 from .player_state import PlayerState
-from game.src.constants import Constants
+from constants import Constants
 
 
 class MovementManager:

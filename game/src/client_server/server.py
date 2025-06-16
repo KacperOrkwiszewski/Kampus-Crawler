@@ -1,7 +1,7 @@
 import socket
 import threading
 # calling absolute path so import works from main as well
-from game.src.client_server.common import recv_pickle, send_pickle
+from client_server.common import recv_pickle, send_pickle
 import time
 
 

@@ -1,6 +1,6 @@
 import socket
 import threading
-from game.src.client_server.common import recv_pickle, send_pickle
+from client_server.common import recv_pickle, send_pickle
 import time
 
 
