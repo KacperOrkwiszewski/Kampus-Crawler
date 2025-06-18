@@ -8,6 +8,8 @@ from player.player import Player
 from player.player_state import PlayerState
 from menu.main_menu import MainMenu
 from menu.pause_menu import PauseMenu
+from menu.options_menu import OptionsMenu
+from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
 
 
@@ -26,6 +28,9 @@ class Game:
         self.server = None
         self.running = True
         self.paused = False
+
+        self.options_menu = OptionsMenu(self.screen)
+        self.character_menu = CharacterMenu(self.screen, self.player)
 
         IntroScreen.play(self.screen)
 
@@ -82,7 +87,8 @@ class Game:
                     if result == "resume":
                         self.paused = False
                     elif result == "options":
-                        pass  # handle options
+                        self.options_menu.run()
+                        self.paused = False
                     elif result == "main menu":
                         return "main_menu"
         return None
@@ -114,14 +120,13 @@ class Game:
 
             if choice == "play":
                 self.player = Player(PlayerState.IDLE_DOWN)
+                self.character_menu.run()
                 self.paused = False
                 result = self.game_loop()
                 if result == "quit":
                     break
             elif choice == "options":
-                # placeholder for future options screen
-                pygame.quit()
-                break
+                self.options_menu.run()
             elif choice == "quit":
                 pygame.quit()
                 break

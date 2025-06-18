@@ -6,9 +6,11 @@ class OptionsMenu:
     def __init__(self, screen):
         self.ok = False
         self.screen = screen
-        self.effects_volume = 10
-        self.music_volume = 10
-        self.game_speed = 10
+
+        # to implement functionality innit these values with parameters given in constructor
+        self.effects_volume = 5  # changes from 1 to 10
+        self.music_volume = 5  # changes from 1 to 10
+        self.game_speed = 5  # changes from 1 to 10
 
         self.x_center = self.screen.get_width() // 2
         self.arrow_offset = 180
@@ -46,7 +48,7 @@ class OptionsMenu:
                 pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/inputbox.png').convert_alpha(),
+                pygame.image.load('src/menu/assets/large_button_down.png').convert_alpha(),
                 (400 * self.button_scale, 120 * self.button_scale))
         ]
         self.bg_images_down = [
@@ -64,7 +66,7 @@ class OptionsMenu:
             {"label": " >", "x": self.x_center + self.arrow_offset, "y": self.y_pos[1], "action": lambda: self.modify_option(1, 1), "button": 0},
             {"label": "<", "x": self.x_center - self.arrow_offset, "y": self.y_pos[2], "action": lambda: self.modify_option(-1, 2), "button": 0},
             {"label": " >", "x": self.x_center + self.arrow_offset, "y": self.y_pos[2], "action": lambda: self.modify_option(1, 2), "button": 0},
-            {"label": "ok", "x": self.x_center, "y": self.y_pos[3], "action": lambda: self.say_ok(), "button": 1}
+            {"label": "OK", "x": self.x_center, "y": self.y_pos[3], "action": lambda: self.say_ok(), "button": 1}
 
         ]
         self.rects = []
@@ -146,7 +148,7 @@ class OptionsMenu:
             rect = bg.get_rect(center=(self.x_center, y))
             text = self.description_font.render(texts[i], True, self.dark_gray)
             text_rect = text.get_rect(center=(rect.midtop[0],rect.midtop[1] - self.description_font_size * 0.6))
-            value_txt = self.indicator_font.render(values[i], True, self.dark_gray)
+            value_txt = self.indicator_font.render(values[i], True, self.base_color)
             value_txt = pygame.transform.scale(value_txt, (int(value_txt.get_width() * 2), value_txt.get_height()))
             value_rect = value_txt.get_rect(midleft=(rect.left + 15, rect.centery - 3))
             i += 1

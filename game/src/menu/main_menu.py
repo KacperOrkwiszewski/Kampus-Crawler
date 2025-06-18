@@ -19,7 +19,6 @@ class MainMenu:
         self.title_font_size = 90
         self.font = pygame.font.Font('src/menu/assets/font.ttf', int(self.button_font_size * self.button_scale))
         self.title_font = pygame.font.Font('src/menu/assets/font.ttf', self.title_font_size)
-        screen_width, screen_height = screen.get_size()
 
         self.buttons = ["Play", "Options", "Quit"]
         self.base_color = (190, 190, 190)  # "a bit darker than #cfcfcf"

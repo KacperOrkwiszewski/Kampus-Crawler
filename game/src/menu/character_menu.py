@@ -23,7 +23,6 @@ class CharacterMenu:
         self.title_font_size = 50
         self.font = pygame.font.Font('src/menu/assets/font.ttf', int(self.button_font_size * self.button_scale))
         self.title_font = pygame.font.Font('src/menu/assets/font.ttf', self.title_font_size)
-        screen_width, screen_height = screen.get_size()
 
         self.buttons = ["<", ">", "Confirm"]
         self.base_color = (190, 190, 190)  # "a bit darker than #cfcfcf"
@@ -133,6 +132,8 @@ class CharacterMenu:
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     for i, rect in enumerate(self.rects):
                         if rect.collidepoint(mouse_pos):
+                            if i == 2 and self.textinput.value == "":  # block blank username
+                                continue
                             button_images[i] = self.bg_images_down[i]
                             clicked = i
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -142,6 +143,8 @@ class CharacterMenu:
                             if clicked == i:
                                 if i == 2:  # 'confirm' button
                                     if not self.textinput.value == "":
+                                        self.player.data.player_name = self.textinput
+                                        self.player.data.character_id = self.selected_character
                                         return self.buttons[i].lower()
                                 if i == 1:
                                     self.selected_character = (self.selected_character + 1) % 3
