@@ -90,6 +90,7 @@ class Game:
                         self.options_menu.run()
                         self.paused = False
                     elif result == "main menu":
+                        self.client.is_connected = False  # disconnect client
                         return "main_menu"
         return None
 
