@@ -21,7 +21,7 @@ class Game:
         pygame.display.set_caption("Kampus Crawler")
         pygame.display.set_icon(pygame.image.load('logo_icon.png'))
 
-        self.map_data = GameMap("map_data/simple_map.tmx")
+        self.map_data = GameMap("map_data/campusA.tmx")
         self.player = Player(PlayerState.IDLE_DOWN)
 
         self.client = None

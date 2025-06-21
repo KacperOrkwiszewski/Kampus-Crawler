@@ -29,6 +29,7 @@ class CharacterMenu:
         self.hovering_color = (207, 207, 207)  # "#cfcfcf"
         self.locked_color = (100,100,100)  # "#cfcfcf"
 
+
         #name input
         self.input_font_size = 70
         self.input_scale = 0.3
@@ -170,16 +171,20 @@ class CharacterMenu:
                 if rect.collidepoint(mouse_pos):
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.hovering_color)
+
                     if i == 2 and self.textinput.value == "":  # do not change color if button not active
                         bg = button_images[i+1]
                         text = self.font.render(self.buttons[i], True, self.locked_color)
 
+
                 else:
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.base_color)
+
                     if i == 2 and self.textinput.value == "":  # do not change color if button not active
                         bg = button_images[i+1]
                         text = self.font.render(self.buttons[i], True, self.locked_color)
+                        
                 if clicked == i:
                     text_rect = text.get_rect(center=(rect.centerx - 13 * self.button_scale + left_arrow_shift, rect.centery))
                 else:

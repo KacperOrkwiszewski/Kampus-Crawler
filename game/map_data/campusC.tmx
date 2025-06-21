@@ -2,9 +2,6 @@
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="125" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="1">
  <tileset firstgid="1" source="alltiles.tsx"/>
  <tileset firstgid="156" source="obiekty.tsx"/>
- <imagelayer id="2" name="Warstwa Obrazka 1" offsetx="-727.273" offsety="112.121">
-  <image source="kmpusC_mapper.png"/>
- </imagelayer>
  <layer id="5" name="podloze" width="50" height="125">
   <data encoding="csv">
 32,32,32,32,32,32,32,32,1,1,39,1,1,16,32,0,0,0,0,0,0,0,0,0,0,0,0,32,16,16,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
