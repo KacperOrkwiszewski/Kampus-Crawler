@@ -4,15 +4,17 @@ import pygame.mixer
 pygame.mixer.init() # forcing to initialize faster
 
 class MusicType(Enum):
-  Menu = 0
+  Menu = 0,
+  Intro = 1
 
 MUSIC_FILES = {
-  MusicType.Menu: "sounds/main_menu_music.mp3"
+  MusicType.Menu: "sounds/main_menu_music.mp3",
+  MusicType.Intro: "sounds/intro_music.mp3",
 }
 
 class SoundEffectType(Enum):
   Hover = 0,
-  Click = 0
+  Click = 1
 
 SOUND_EFFECTS = {
   SoundEffectType.Hover: pygame.mixer.Sound("sounds/hover_effect.mp3"),

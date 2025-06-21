@@ -1,6 +1,8 @@
 import pygame
 from PIL import Image
 
+from sound.SoundManager import SoundManager
+from sound.sound_type import MusicType
 
 class IntroScreen:
 
@@ -34,6 +36,7 @@ class IntroScreen:
         return frames, durations
 
     def _play(self):
+        SoundManager.play_music(MusicType.Intro, False)
         clock = pygame.time.Clock()
         frame_index = 0
         elapsed_time = 0
