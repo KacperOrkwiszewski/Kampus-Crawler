@@ -14,9 +14,23 @@ MUSIC_FILES = {
 
 class SoundEffectType(Enum):
   Hover = 0,
-  Click = 1
+  Click = 1,
+  DoorOpen = 2,
+  EctsLoss = 3,
+  GameOver = 4,
+  HeartLoss = 5,
+  NewMessage = 6,
+  TimesTicking = 7,
+  WrongDoor = 8
 
 SOUND_EFFECTS = {
   SoundEffectType.Hover: pygame.mixer.Sound("sounds/hover_effect.mp3"),
-  SoundEffectType.Click: pygame.mixer.Sound("sounds/click_effect.mp3")
+  SoundEffectType.Click: pygame.mixer.Sound("sounds/click_effect.mp3"),
+  SoundEffectType.DoorOpen: pygame.mixer.Sound("sounds/door_open_effect.mp3"),
+  SoundEffectType.EctsLoss: pygame.mixer.Sound("sounds/ects_loss_effect.mp3"),
+  SoundEffectType.GameOver: pygame.mixer.Sound("sounds/game_over_effect.mp3"),
+  SoundEffectType.HeartLoss: pygame.mixer.Sound("sounds/heart_loss_effect.mp3"),
+  SoundEffectType.NewMessage: pygame.mixer.Sound("sounds/new_message_effect.mp3"),
+  SoundEffectType.TimesTicking: pygame.mixer.Sound("sounds/times_ticking_effect.mp3"),
+  SoundEffectType.WrongDoor: pygame.mixer.Sound("sounds/wrong_door_effect.mp3"),
 }
