@@ -34,7 +34,8 @@ class Game:
         self.character_menu = CharacterMenu(self.screen, self.player)
 
         IntroScreen.play(self.screen)
-        SoundManager.set_music_volume(0.5)
+
+        SoundManager.init()
         SoundManager.play_music(MusicType.Menu)
 
     def start_networking(self):
@@ -129,7 +130,7 @@ class Game:
                 self.player = Player(PlayerState.IDLE_DOWN)
                 self.character_menu.run()
                 self.paused = False
-                SoundManager.stop()
+                SoundManager.stop_music()
                 result = self.game_loop()
                 if result == "quit":
                     break

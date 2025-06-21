@@ -1,6 +1,9 @@
 import pygame
 import sys
 
+from sound.SoundManager import SoundManager
+from sound.sound_type import SoundEffectType
+
 
 class MainMenu:
     def __init__(self, screen):
@@ -79,6 +82,7 @@ class MainMenu:
                             button_images[i] = self.bg_images_down[i]
                             print("ok clicker legend")
                             clicked = i
+                            SoundManager.play_effect(SoundEffectType.Click)
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     button_images = self.bg_images_up.copy()
                     for i, rect in enumerate(self.rects):

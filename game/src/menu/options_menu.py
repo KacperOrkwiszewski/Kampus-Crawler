@@ -1,5 +1,6 @@
 import pygame
 import sys
+from sound.sound_type import SoundEffectType
 from sound.SoundManager import SoundManager
 
 
@@ -111,6 +112,7 @@ class OptionsMenu:
                     if rect.collidepoint(mouse_pos):
                         self.down = i
                         self.clicked = i
+                        SoundManager.play_effect(SoundEffectType.Click)
             elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 for i, rect in enumerate(self.rects):
                     if rect.collidepoint(mouse_pos):
@@ -125,6 +127,7 @@ class OptionsMenu:
     def modify_option(self, direction, option_index):
         if option_index == 1:
             self.effects_volume = max(1, min(10, self.effects_volume + direction))
+            SoundManager.set_effect_volume(self.effects_volume / 10)
         elif option_index == 0:
             self.music_volume = max(1, min(10, self.music_volume + direction))
             SoundManager.set_music_volume(self.music_volume / 10)

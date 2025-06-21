@@ -1,5 +1,7 @@
 import pygame
 import sys
+from sound.SoundManager import SoundManager
+from sound.sound_type import SoundEffectType
 from player.player import Player
 import pygame_textinput
 
@@ -140,6 +142,7 @@ class CharacterMenu:
                                 continue
                             button_images[i] = self.bg_images_down[i]
                             clicked = i
+                            SoundManager.play_effect(SoundEffectType.Click)
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     button_images = self.bg_images_up.copy()
                     for i, rect in enumerate(self.rects):
@@ -184,7 +187,7 @@ class CharacterMenu:
                     if i == 2 and self.textinput.value == "":  # do not change color if button not active
                         bg = button_images[i+1]
                         text = self.font.render(self.buttons[i], True, self.locked_color)
-                        
+
                 if clicked == i:
                     text_rect = text.get_rect(center=(rect.centerx - 13 * self.button_scale + left_arrow_shift, rect.centery))
                 else:
