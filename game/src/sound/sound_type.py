@@ -15,5 +15,6 @@ class SoundEffectType(Enum):
   Click = 0
 
 SOUND_EFFECTS = {
+  SoundEffectType.Hover: pygame.mixer.Sound("sounds/hover_effect.mp3"),
   SoundEffectType.Click: pygame.mixer.Sound("sounds/click_effect.mp3")
 }

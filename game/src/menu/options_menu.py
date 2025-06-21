@@ -6,6 +6,8 @@ from sound.SoundManager import SoundManager
 
 class OptionsMenu:
     def __init__(self, screen):
+        self.hovered_button = None
+
         self.ok = False
         self.screen = screen
 
@@ -90,8 +92,13 @@ class OptionsMenu:
                 bg = self.bg_images_down[button["button"]]
             if rect.collidepoint(mouse_pos):
                 text = self.font.render(self.buttons[i]["label"], True, self.hovering_color)
+                if self.hovered_button != i:
+                    SoundManager.play_effect(SoundEffectType.Hover)
+                    self.hovered_button = i
             else:
                 text = self.font.render(self.buttons[i]["label"], True, self.base_color)
+                if self.hovered_button == i:
+                  self.hovered_button = None
             if self.down == i:
                 text_rect = text.get_rect(center=(rect.centerx - 13 * self.button_scale, rect.centery))
             else:

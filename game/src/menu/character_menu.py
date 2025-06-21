@@ -31,6 +31,7 @@ class CharacterMenu:
         self.hovering_color = (207, 207, 207)  # "#cfcfcf"
         self.locked_color = (100,100,100)  # "#cfcfcf"
 
+        self.hovered_button = None
 
         #name input
         self.input_font_size = 70
@@ -175,14 +176,19 @@ class CharacterMenu:
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.hovering_color)
 
+                    if self.hovered_button != i and not(i == 2 and self.textinput.value == ""):
+                      SoundManager.play_effect(SoundEffectType.Hover)
+                      self.hovered_button = i
+
                     if i == 2 and self.textinput.value == "":  # do not change color if button not active
                         bg = button_images[i+1]
                         text = self.font.render(self.buttons[i], True, self.locked_color)
-
-
                 else:
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.base_color)
+
+                    if self.hovered_button == i:
+                        self.hovered_button = None
 
                     if i == 2 and self.textinput.value == "":  # do not change color if button not active
                         bg = button_images[i+1]
