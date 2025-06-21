@@ -1,4 +1,6 @@
 import pygame.mixer
+
+from constants import Constants
 from .sound_type import *
 
 class SoundManager:
@@ -15,14 +17,11 @@ class SoundManager:
     pygame.mixer.music.set_volume(vol)
 
   def stop_music():
-    pygame.mixer.music.fadeout(1000) # smooth stop
+    pygame.mixer.music.fadeout(Constants.MUSIC_FADEOUT_SPEED) # smooth stop
 
   def play_effect(type):
     SOUND_EFFECTS[type].play()
 
   def set_effect_volume(vol):
-    for sfx in SOUND_EFFECTS.values():
+    for sfx in SOUND_EFFECTS.values(): # for every SFX
       sfx.set_volume(vol)
-
-  def is_music_playing():
-    pygame.mixer.music.get_busy()

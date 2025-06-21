@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-from sound.SoundManager import SoundManager
+from sound.sound_manager import SoundManager
 from sound.sound_type import SoundEffectType
 
 

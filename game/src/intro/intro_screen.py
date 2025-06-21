@@ -1,7 +1,7 @@
 import pygame
 from PIL import Image
 
-from sound.SoundManager import SoundManager
+from sound.sound_manager import SoundManager
 from sound.sound_type import MusicType
 
 class IntroScreen:

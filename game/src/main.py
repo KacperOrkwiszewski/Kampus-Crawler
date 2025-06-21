@@ -12,7 +12,7 @@ from menu.pause_menu import PauseMenu
 from menu.options_menu import OptionsMenu
 from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
-from sound.SoundManager import SoundManager
+from sound.sound_manager import SoundManager
 
 class Game:
     def __init__(self):

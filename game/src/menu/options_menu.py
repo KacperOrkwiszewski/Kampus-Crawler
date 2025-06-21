@@ -1,7 +1,7 @@
 import pygame
 import sys
 from sound.sound_type import SoundEffectType
-from sound.SoundManager import SoundManager
+from sound.sound_manager import SoundManager
 
 
 class OptionsMenu:
