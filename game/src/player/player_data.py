@@ -11,3 +11,6 @@ class PlayerData:
         self.last_direction = PlayerState.IDLE_DOWN
         self.is_moving = False
         self.during_diagonal_alignment = False
+
+        self.character_id = 1
+        self.player_name = "unnamed"
