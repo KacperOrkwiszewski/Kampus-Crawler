@@ -20,6 +20,14 @@ class Client:
         s.settimeout(0.1)
         self.is_connected = True
         while True:
+            if not self.is_connected:
+                if s:
+                    try:
+                        s.shutdown(socket.SHUT_RDWR)
+                    except Exception:
+                        pass
+                    s.close()
+                break
             try:
                 # Send player data
                 send_pickle(s, player.data)

@@ -5,82 +5,130 @@ import sys
 class MainMenu:
     def __init__(self, screen):
         self.screen = screen
+        # background
         self.background = pygame.image.load('src/menu/assets/Background.png')
         self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
-        self.font = pygame.font.Font('src/menu/assets/font.ttf', 70)
-        self.title_font = pygame.font.Font('src/menu/assets/font.ttf', 80)
 
-        screen_width, screen_height = screen.get_size()
+        # buttons
+        # position buttons
+        self.button_scale = 0.6
+        self.start_y = 300
+        self.spacing = 10
+        # text
+        self.button_font_size = 70
+        self.title_font_size = 90
+        self.font = pygame.font.Font('src/menu/assets/font.ttf', int(self.button_font_size * self.button_scale))
+        self.title_font = pygame.font.Font('src/menu/assets/font.ttf', self.title_font_size)
 
         self.buttons = ["Play", "Options", "Quit"]
-        self.base_color = (255, 255, 255)  # light blue color
-        self.hovering_color = (215, 252, 212)  # white
+        self.base_color = (190, 190, 190)  # "a bit darker than #cfcfcf"
+        self.hovering_color = (207, 207, 207)  # "#cfcfcf"
 
         # loading buttons background
-        self.bg_images = [
-            pygame.image.load('src/menu/assets/Play.png').convert_alpha(),
-            pygame.image.load('src/menu/assets/Options.png').convert_alpha(),
-            pygame.image.load('src/menu/assets/Quit.png').convert_alpha()
+        self.bg_images_up = [
+            pygame.transform.smoothscale(
+                pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
+                (400 * self.button_scale, 150 * self.button_scale)),
+            pygame.transform.smoothscale(
+                pygame.image.load('src/menu/assets/large_button_up.png').convert_alpha(),
+                (600 * self.button_scale, 150 * self.button_scale)),
+            pygame.transform.smoothscale(
+                pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
+                (400 * self.button_scale, 150 * self.button_scale)),
+        ]
+        # when hovering
+        self.bg_images_down = [
+            pygame.transform.smoothscale(
+                pygame.image.load('src/menu/assets/button_down.png').convert_alpha(),
+                (400 * self.button_scale, 150 * self.button_scale)),
+            pygame.transform.smoothscale(
+                pygame.image.load('src/menu/assets/large_button_down.png').convert_alpha(),
+                (600 * self.button_scale, 150 * self.button_scale)),
+            pygame.transform.smoothscale(
+                pygame.image.load('src/menu/assets/button_down.png').convert_alpha(),
+                (400 * self.button_scale, 150 * self.button_scale)),
         ]
 
         # default text
         self.texts = [self.font.render(btn, True, self.base_color) for btn in self.buttons]
 
-        spacing = 40
-        total_height = sum(bg.get_height() for bg in self.bg_images) + spacing * (len(self.bg_images) - 1)
-        start_y = (screen_height - total_height) // 2
+        start_y = self.start_y
 
         self.rects = []
         current_y = start_y
-        for bg in self.bg_images:
-            rect = bg.get_rect(center=(screen_width // 2, current_y + bg.get_height() // 2))
+        spacing = 40
+        for bg in self.bg_images_up:
+            rect = bg.get_rect(center=(self.screen.get_width() // 2, current_y + bg.get_height() // 2))
             self.rects.append(rect)
             current_y += bg.get_height() + spacing
 
     def run(self):
+        button_clicked = False
+        button_images = self.bg_images_up.copy()  # copy so it can be modified without affecting original variable
         clock = pygame.time.Clock()
+        clicked = 10  # clicked is the id of button that was clicked starting value is 10 so no button is recognised
         while True:
             mouse_pos = pygame.mouse.get_pos()
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     for i, rect in enumerate(self.rects):
                         if rect.collidepoint(mouse_pos):
-                            return self.buttons[i].lower()
+                            button_images[i] = self.bg_images_down[i]
+                            print("ok clicker legend")
+                            clicked = i
+                elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    button_images = self.bg_images_up.copy()
+                    for i, rect in enumerate(self.rects):
+                        if rect.collidepoint(mouse_pos):
+                            button_images[i] = self.bg_images_down[i]
+                            if clicked == i:
+                                print("aight")
+                                return self.buttons[i].lower()
+                    clicked = 10
+
 
             self.screen.blit(self.background, (0, 0))
 
-            # drawing MAIN MENU text
-            title_text = self.title_font.render("MAIN MENU", True, (182, 143, 64))  # "#b68f40"
-            title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 60))
+            # drawing Kampus Crawler text
+            self.draw_name()
 
-            start_y = 180
-
+            start_y = self.start_y
             self.rects = []
             current_y = start_y
-            spacing = 40
-            for bg in self.bg_images:
+            spacing = self.spacing
+            for bg in button_images:
                 rect = bg.get_rect(center=(self.screen.get_width() // 2, current_y + bg.get_height() // 2))
                 self.rects.append(rect)
                 current_y += bg.get_height() + spacing
-            self.screen.blit(title_text, title_rect)
 
             # drawing buttons
-            for i, (bg, rect) in enumerate(zip(self.bg_images, self.rects)):
-                self.screen.blit(bg, rect)
-
-                # text color change when hovering
+            for i, rect in enumerate(self.rects):
                 if rect.collidepoint(mouse_pos):
+                    bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.hovering_color)
-                else:
-                    text = self.font.render(self.buttons[i], True, self.base_color)
 
-                text_rect = text.get_rect(center=rect.center)
+                else:
+                    bg = button_images[i]
+                    text = self.font.render(self.buttons[i], True, self.base_color)
+                if clicked == i:
+                    text_rect = text.get_rect(center=(rect.centerx - 13 * self.button_scale, rect.centery))
+                else:
+                    text_rect = text.get_rect(center=(rect.centerx, rect.centery - 13 * self.button_scale))
+                self.screen.blit(bg, rect)
                 self.screen.blit(text, text_rect)
 
             pygame.display.flip()
             clock.tick(60)
+    def draw_name(self):
+        title_line1 = self.title_font.render("KAMPUS", True, (207, 207, 207))
+        title_line2 = self.title_font.render("CRAWLER", True, (207, 207, 207))
+        center_x = self.screen.get_width() // 2
+        title_text_top_y = 90
+        title_rect1 = title_line1.get_rect(center=(center_x, title_text_top_y))
+        title_rect2 = title_line2.get_rect(
+            center=(center_x, title_text_top_y + title_line1.get_height() + 15))  # 10 space between lines
+        self.screen.blit(title_line1, title_rect1)
+        self.screen.blit(title_line2, title_rect2)
