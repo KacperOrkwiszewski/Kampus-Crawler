@@ -27,6 +27,7 @@ class CharacterMenu:
         self.buttons = ["<", ">", "Confirm"]
         self.base_color = (190, 190, 190)  # "a bit darker than #cfcfcf"
         self.hovering_color = (207, 207, 207)  # "#cfcfcf"
+        self.locked_color = (100,100,100)  # "#cfcfcf"
 
         #name input
         self.input_font_size = 70
@@ -45,8 +46,7 @@ class CharacterMenu:
         self.input_box_rect = self.input_box_image.get_rect(
             center=(self.screen.get_width() // 2, self.textinput_y + self.input_font_size * self.input_scale /2))
         # placeholder text (when input empty)
-        self.placeholder_surface = self.textinput.font_object.render("username", True,
-                                                                (100, 100, 100))  # placeholer
+        self.placeholder_surface = self.textinput.font_object.render("username", True,self.locked_color)  # placeholer
         self.placeholder_rect = self.placeholder_surface.get_rect(center=(
             self.screen.get_width() // 2,
             self.textinput_y + self.textinput.surface.get_height() // 2
@@ -79,6 +79,9 @@ class CharacterMenu:
             pygame.transform.smoothscale(
                 pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
                 (500 * self.button_scale, 150 * self.button_scale)),
+            pygame.transform.smoothscale(
+                pygame.image.load('src/menu/assets/button_up_locked.png').convert_alpha(),
+                (500 * self.button_scale, 150 * self.button_scale))
         ]
         # when hovering
         self.bg_images_down = [
@@ -167,10 +170,16 @@ class CharacterMenu:
                 if rect.collidepoint(mouse_pos):
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.hovering_color)
+                    if i == 2 and self.textinput.value == "":  # do not change color if button not active
+                        bg = button_images[i+1]
+                        text = self.font.render(self.buttons[i], True, self.locked_color)
 
                 else:
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.base_color)
+                    if i == 2 and self.textinput.value == "":  # do not change color if button not active
+                        bg = button_images[i+1]
+                        text = self.font.render(self.buttons[i], True, self.locked_color)
                 if clicked == i:
                     text_rect = text.get_rect(center=(rect.centerx - 13 * self.button_scale + left_arrow_shift, rect.centery))
                 else:
@@ -183,7 +192,7 @@ class CharacterMenu:
                     # if no username entered - show placeholder
                     self.screen.blit(self.placeholder_surface, self.placeholder_rect)
                 else:
-                    self.screen.blit(self.textinput.surface, (self.screen.get_width() // 2 - self.textinput.surface.get_width() // 2 + self.input_font_size*self.input_scale //2, self.textinput_y))  # pozycja inputa
+                    self.screen.blit(self.textinput.surface, (self.screen.get_width() // 2 - self.textinput.surface.get_width() // 2 + self.input_font_size*self.input_scale //2, self.textinput_y))  # input pos
             pygame.display.flip()
             clock.tick(60)
             if button_clicked:
