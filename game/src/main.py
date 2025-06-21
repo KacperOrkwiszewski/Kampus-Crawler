@@ -116,8 +116,11 @@ class Game:
                 return "main_menu"
 
             if not self.paused:
+                SoundManager.stop_music()
                 self.player.movement.move_player()
                 self.draw_game(dt)
+            else:
+                SoundManager.play_music(MusicType.Menu)
 
         return "quit"
 
