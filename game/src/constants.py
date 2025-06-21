@@ -9,4 +9,4 @@ class Constants:
 
     MAP_SCALE = 5
 
-    MUSIC_FADEOUT_SPEED = 250 # miliseconds
+    MUSIC_FADEOUT_SPEED = 200 # miliseconds

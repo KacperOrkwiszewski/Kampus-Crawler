@@ -3,7 +3,7 @@ import threading
 from client_server.server import Server
 from client_server.client import Client
 from constants import Constants
-from sound.sound_type import MusicType
+from sound.sound_type import MusicType, SoundEffectType
 from map.game_map import GameMap
 from player.player import Player
 from player.player_state import PlayerState
@@ -80,8 +80,10 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.paused = not self.paused
+
                 if not self.paused:
                     self.player.movement.handle_down(event.key)
+
 
             if event.type == pygame.KEYUP:
                 if not self.paused:
@@ -103,6 +105,9 @@ class Game:
     def game_loop(self):
         self.start_networking()
         pause_menu = PauseMenu(self.screen)
+        SoundManager.stop_music()
+        SoundManager.play_music(MusicType.Game)
+        walking_sound_channel = None
 
         while self.running:
             # when server is closed become new server or join another
@@ -116,11 +121,13 @@ class Game:
                 return "main_menu"
 
             if not self.paused:
-                SoundManager.stop_music()
                 self.player.movement.move_player()
+                if self.player.movement.is_moving: # is the player moving?
+                  if walking_sound_channel == None: # check for null
+                      walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
+                  elif not walking_sound_channel.get_busy(): # check if the sound is not currently played
+                    walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
                 self.draw_game(dt)
-            else:
-                SoundManager.play_music(MusicType.Menu)
 
         return "quit"
 
@@ -128,16 +135,15 @@ class Game:
         while True:
             choice = MainMenu(self.screen).run()
 
-
             if choice == "play":
                 self.player = Player(PlayerState.IDLE_DOWN)
                 self.character_menu.run()
                 self.paused = False
-                SoundManager.stop_music()
                 result = self.game_loop()
                 if result == "quit":
                     break
                 elif result == "main_menu":
+                    SoundManager.stop_music()
                     SoundManager.play_music(MusicType.Menu)
                     continue
             elif choice == "options":

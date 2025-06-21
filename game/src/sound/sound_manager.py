@@ -11,6 +11,7 @@ class SoundManager:
 
   def play_music(type, loop = True):
     pygame.mixer.music.load(MUSIC_FILES[type])
+    print(MUSIC_FILES[type])
     pygame.mixer.music.play(-1 if loop else 0) # -1 = loop forever, 0 = only once
 
   def set_music_volume(vol):
@@ -20,7 +21,7 @@ class SoundManager:
     pygame.mixer.music.fadeout(Constants.MUSIC_FADEOUT_SPEED) # smooth stop
 
   def play_effect(type):
-    SOUND_EFFECTS[type].play()
+    return SOUND_EFFECTS[type].play()
 
   def set_effect_volume(vol):
     for sfx in SOUND_EFFECTS.values(): # for every SFX
