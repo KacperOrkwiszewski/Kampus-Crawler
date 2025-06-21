@@ -3,6 +3,7 @@ import threading
 from client_server.server import Server
 from client_server.client import Client
 from constants import Constants
+from sound.sound_type import MusicType
 from map.game_map import GameMap
 from player.player import Player
 from player.player_state import PlayerState
@@ -11,7 +12,7 @@ from menu.pause_menu import PauseMenu
 from menu.options_menu import OptionsMenu
 from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
-
+from sound.SoundManager import SoundManager
 
 class Game:
     def __init__(self):
@@ -33,6 +34,8 @@ class Game:
         self.character_menu = CharacterMenu(self.screen, self.player)
 
         IntroScreen.play(self.screen)
+        SoundManager.set_music_volume(0.5)
+        SoundManager.play_music(MusicType.Menu)
 
     def start_networking(self):
         # Start server
@@ -121,13 +124,18 @@ class Game:
         while True:
             choice = MainMenu(self.screen).run()
 
+
             if choice == "play":
                 self.player = Player(PlayerState.IDLE_DOWN)
                 self.character_menu.run()
                 self.paused = False
+                SoundManager.stop()
                 result = self.game_loop()
                 if result == "quit":
                     break
+                elif result == "main_menu":
+                    SoundManager.play_music(MusicType.Menu)
+                    continue
             elif choice == "options":
                 self.options_menu.run()
             elif choice == "quit":

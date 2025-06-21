@@ -1,5 +1,6 @@
 import pygame
 import sys
+from sound.SoundManager import SoundManager
 
 
 class OptionsMenu:
@@ -126,6 +127,7 @@ class OptionsMenu:
             self.effects_volume = max(1, min(10, self.effects_volume + direction))
         elif option_index == 0:
             self.music_volume = max(1, min(10, self.music_volume + direction))
+            SoundManager.set_music_volume(self.music_volume / 10)
         elif option_index == 2:
             self.game_speed = max(1, min(10, self.game_speed + direction))
     def say_ok(self):
