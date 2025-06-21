@@ -92,6 +92,8 @@ class Game:
                     elif result == "main menu":
                         self.client.is_connected = False  # disconnect client
                         return "main_menu"
+                    elif result == "quit":
+                        self.running = False
         return None
 
     def game_loop(self):

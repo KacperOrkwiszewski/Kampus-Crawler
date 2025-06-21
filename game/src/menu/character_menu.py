@@ -1,6 +1,6 @@
 import pygame
 import sys
-from game.src.player.player import Player
+from player.player import Player
 import pygame_textinput
 
 
