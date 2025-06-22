@@ -8,3 +8,5 @@ class Constants:
     WINDOW_WIDTH = TILES_X * TILE_WIDTH
 
     MAP_SCALE = 5
+
+    MUSIC_FADEOUT_SPEED = 200 # miliseconds

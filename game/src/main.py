@@ -3,6 +3,7 @@ import threading
 from client_server.server import Server
 from client_server.client import Client
 from constants import Constants
+from sound.sound_type import MusicType, SoundEffectType
 from map.game_map import GameMap
 from player.player import Player
 from player.player_state import PlayerState
@@ -11,7 +12,7 @@ from menu.pause_menu import PauseMenu
 from menu.options_menu import OptionsMenu
 from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
-
+from sound.sound_manager import SoundManager
 
 class Game:
     def __init__(self):
@@ -33,6 +34,9 @@ class Game:
         self.character_menu = CharacterMenu(self.screen, self.player)
 
         IntroScreen.play(self.screen)
+
+        SoundManager.init()
+        SoundManager.play_music(MusicType.Menu)
 
     def start_networking(self):
         # Start server
@@ -76,8 +80,10 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.paused = not self.paused
+
                 if not self.paused:
                     self.player.movement.handle_down(event.key)
+
 
             if event.type == pygame.KEYUP:
                 if not self.paused:
@@ -99,6 +105,9 @@ class Game:
     def game_loop(self):
         self.start_networking()
         pause_menu = PauseMenu(self.screen)
+        SoundManager.stop_music()
+        SoundManager.play_music(MusicType.Game)
+        walking_sound_channel = None
 
         while self.running:
             # when server is closed become new server or join another
@@ -113,6 +122,11 @@ class Game:
 
             if not self.paused:
                 self.player.movement.move_player()
+                if self.player.movement.is_moving: # is the player moving?
+                  if walking_sound_channel == None: # check for null
+                      walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
+                  elif not walking_sound_channel.get_busy(): # check if the sound is not currently played
+                    walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
                 self.draw_game(dt)
 
         return "quit"
@@ -128,6 +142,10 @@ class Game:
                 result = self.game_loop()
                 if result == "quit":
                     break
+                elif result == "main_menu":
+                    SoundManager.stop_music()
+                    SoundManager.play_music(MusicType.Menu)
+                    continue
             elif choice == "options":
                 self.options_menu.run()
             elif choice == "quit":
