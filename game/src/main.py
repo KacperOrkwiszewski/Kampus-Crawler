@@ -75,10 +75,14 @@ class Game:
         
         # Msg input box
         if self.msg_typing:
-            font = pygame.font.SysFont("arial", 22)
-            input_surf = font.render(self.msg + "|", True, (255, 255, 255))
-            pygame.draw.rect(self.screen, (0, 0, 0), (40, Constants.WINDOW_HEIGHT - 50, 600, 40))
-            self.screen.blit(input_surf, (50, Constants.WINDOW_HEIGHT - 45))
+            font = pygame.font.SysFont("arial", 18)
+            text = self.msg + "|"
+            text_surface = font.render(text, True, (255, 255, 255))
+            text_rect = text_surface.get_rect(center=(Constants.WINDOW_WIDTH // 2, (Constants.WINDOW_HEIGHT // 2) - 60))
+            # background
+            bubble_rect = text_rect.inflate(16, 8)
+            pygame.draw.rect(self.screen, (0, 0, 0), bubble_rect, border_radius=8)
+            self.screen.blit(text_surface, text_rect)
 
         pygame.display.flip()
 
@@ -99,7 +103,7 @@ class Game:
                     elif event.key == pygame.K_BACKSPACE:
                         self.msg = self.msg[:-1]
                     else:
-                        if len(self.msg) < 60:
+                        if len(self.msg) < 60 and event.unicode.isprintable():
                             self.msg += event.unicode
                 return None
 
@@ -110,12 +114,12 @@ class Game:
                 if not self.paused:
                     self.player.movement.handle_down(event.key)
                 
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_RETURN and not self.msg_typing:
                     self.msg_typing = True
                     self.msg = ""
 
             if event.type == pygame.KEYUP:
-                if not self.paused:
+                if not self.paused and not self.msg_typing:
                     self.player.movement.handle_up(event.key)
                 else:
                     result = pause_menu.run()
