@@ -6,7 +6,7 @@ class MainMenu:
     def __init__(self, screen):
         self.screen = screen
         # background
-        self.background = pygame.image.load('src/menu/assets/Background.png')
+        self.background = pygame.image.load('assets/menu/Background.png')
         self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
 
         # buttons
@@ -17,8 +17,8 @@ class MainMenu:
         # text
         self.button_font_size = 70
         self.title_font_size = 90
-        self.font = pygame.font.Font('src/menu/assets/font.ttf', int(self.button_font_size * self.button_scale))
-        self.title_font = pygame.font.Font('src/menu/assets/font.ttf', self.title_font_size)
+        self.font = pygame.font.Font('assets/menu/font.ttf', int(self.button_font_size * self.button_scale))
+        self.title_font = pygame.font.Font('assets/menu/font.ttf', self.title_font_size)
 
         self.buttons = ["Play", "Options", "Quit"]
         self.base_color = (190, 190, 190)  # "a bit darker than #cfcfcf"
@@ -27,25 +27,25 @@ class MainMenu:
         # loading buttons background
         self.bg_images_up = [
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_up.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/large_button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/large_button_up.png').convert_alpha(),
                 (600 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_up.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale)),
         ]
         # when hovering
         self.bg_images_down = [
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_down.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/large_button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/large_button_down.png').convert_alpha(),
                 (600 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_down.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale)),
         ]
 

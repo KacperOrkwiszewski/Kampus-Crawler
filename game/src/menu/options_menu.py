@@ -20,10 +20,10 @@ class OptionsMenu:
         self.button_font_size = 60
         self.title_font_size = 70
         self.description_font_size = 25
-        self.font = pygame.font.Font('src/menu/assets/font.ttf', int(self.button_font_size * self.button_scale))
-        self.title_font = pygame.font.Font('src/menu/assets/font.ttf', self.title_font_size)
-        self.description_font = pygame.font.Font('src/menu/assets/font.ttf', self.description_font_size)
-        self.indicator_font = pygame.font.Font('src/menu/assets/PIXEAB__.ttf', 30)
+        self.font = pygame.font.Font('assets/menu/font.ttf', int(self.button_font_size * self.button_scale))
+        self.title_font = pygame.font.Font('assets/menu/font.ttf', self.title_font_size)
+        self.description_font = pygame.font.Font('assets/menu/font.ttf', self.description_font_size)
+        self.indicator_font = pygame.font.Font('assets/menu/PIXEAB__.ttf', 30)
         self.buttons = ["Play", "Options", "Quit"]
         self.base_color = (190, 190, 190)  # "a bit darker than #cfcfcf"
         self.hovering_color = (207, 207, 207)  # "#cfcfcf"
@@ -38,25 +38,25 @@ class OptionsMenu:
         self.y_pos.append(current_y - self.spacing)
         self.clicked = 12
         self.down = 12
-        self.background = pygame.image.load('src/menu/assets/Background_options.png')
+        self.background = pygame.image.load('assets/menu/Background_options.png')
         self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
         self.bg_images_up = [
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/round_button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/round_button_up.png').convert_alpha(),
                 (150 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_up.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/large_button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/large_button_down.png').convert_alpha(),
                 (400 * self.button_scale, 120 * self.button_scale))
         ]
         self.bg_images_down = [
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/round_button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/round_button_down.png').convert_alpha(),
                 (150 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_down.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale))
         ]
         self.buttons = [
