@@ -1,6 +1,9 @@
 import pygame
 import sys
 
+from sound.sound_manager import SoundManager
+from sound.sound_type import SoundEffectType
+
 
 class PauseMenu:
     def __init__(self, screen):
@@ -9,7 +12,7 @@ class PauseMenu:
         self.title_rect = None
         self.title_text = None
         self.background = None
-        
+
         self.screen = screen
 
         self.button_scale = 0.6
@@ -24,6 +27,8 @@ class PauseMenu:
 
         self.buttons = ["Resume", "Options", "Main Menu","Quit"]
         self.spacing = 10
+
+        self.hovered_button = None
 
         self.update_layout()
 
@@ -94,6 +99,7 @@ class PauseMenu:
                         if rect.collidepoint(mouse_pos):
                             button_images[i] = self.bg_images_down[i]
                             clicked = i
+                            SoundManager.play_effect(SoundEffectType.Click)
 
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     button_images = self.bg_images_up.copy()
@@ -116,10 +122,14 @@ class PauseMenu:
                 if rect.collidepoint(mouse_pos):
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.hovering_color)
-
+                    if self.hovered_button != i:
+                      SoundManager.play_effect(SoundEffectType.Hover)
+                      self.hovered_button = i
                 else:
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.base_color)
+                    if self.hovered_button == i:
+                        self.hovered_button = None
                 if clicked == i:
                     text_rect = text.get_rect(center=(rect.centerx - 13 * self.button_scale, rect.centery))
                 else:

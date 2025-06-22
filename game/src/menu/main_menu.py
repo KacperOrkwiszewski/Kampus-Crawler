@@ -1,6 +1,9 @@
 import pygame
 import sys
 
+from sound.sound_manager import SoundManager
+from sound.sound_type import SoundEffectType
+
 
 class MainMenu:
     def __init__(self, screen):
@@ -48,6 +51,7 @@ class MainMenu:
                 pygame.image.load('assets/menu/button_down.png').convert_alpha(),
                 (400 * self.button_scale, 150 * self.button_scale)),
         ]
+        self.hovered_button = None
 
         # default text
         self.texts = [self.font.render(btn, True, self.base_color) for btn in self.buttons]
@@ -69,6 +73,7 @@ class MainMenu:
         clicked = 10  # clicked is the id of button that was clicked starting value is 10 so no button is recognised
         while True:
             mouse_pos = pygame.mouse.get_pos()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -79,6 +84,7 @@ class MainMenu:
                             button_images[i] = self.bg_images_down[i]
                             print("ok clicker legend")
                             clicked = i
+                            SoundManager.play_effect(SoundEffectType.Click)
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     button_images = self.bg_images_up.copy()
                     for i, rect in enumerate(self.rects):
@@ -109,10 +115,14 @@ class MainMenu:
                 if rect.collidepoint(mouse_pos):
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.hovering_color)
-
+                    if self.hovered_button != i:
+                      SoundManager.play_effect(SoundEffectType.Hover)
+                      self.hovered_button = i
                 else:
                     bg = button_images[i]
                     text = self.font.render(self.buttons[i], True, self.base_color)
+                    if self.hovered_button == i:
+                        self.hovered_button = None
                 if clicked == i:
                     text_rect = text.get_rect(center=(rect.centerx - 13 * self.button_scale, rect.centery))
                 else:
