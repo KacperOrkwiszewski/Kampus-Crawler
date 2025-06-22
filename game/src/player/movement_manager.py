@@ -14,38 +14,49 @@ class MovementManager:
         self.ignore_vertical_movement = False
         self.player = player
 
+    def stop(self):
+        if self.is_moving:
+            self.playerDOWN_change = 0
+            self.ignore_vertical_movement = False
+            self.playerUP_change = 0
+            self.ignore_vertical_movement = False
+            self.playerLEFT_change = 0
+            self.ignore_horizontal_movement = False
+            self.playerRIGHT_change = 0
+            self.ignore_horizontal_movement = False
+
     def handle_up(self, key):
         if key == pygame.K_DOWN:
             self.playerDOWN_change = 0
             self.ignore_vertical_movement = False
-            self.player.data.last_direction = 'down'
         if key == pygame.K_UP:
             self.playerUP_change = 0
-            self.player.data.last_direction = 'up'
             self.ignore_vertical_movement = False
         if key == pygame.K_LEFT:
             self.playerLEFT_change = 0
-            self.player.data.last_direction = 'left'
             self.ignore_horizontal_movement = False
         if key == pygame.K_RIGHT:
             self.playerRIGHT_change = 0
-            self.player.data.last_direction = 'right'
             self.ignore_horizontal_movement = False
 
     def handle_down(self, key):
         if key == pygame.K_DOWN:
+            self.player.data.last_direction = 'down'
             self.playerDOWN_change = self.player.data.movement_speed
             self.ignore_horizontal_movement = True
             self.ignore_vertical_movement = False
         if key == pygame.K_UP:
+            self.player.data.last_direction = 'up'
             self.playerUP_change = self.player.data.movement_speed
             self.ignore_horizontal_movement = True
             self.ignore_vertical_movement = False
         if key == pygame.K_LEFT:
+            self.player.data.last_direction = 'left'
             self.playerLEFT_change = self.player.data.movement_speed
             self.ignore_vertical_movement = True
             self.ignore_horizontal_movement = False
         if key == pygame.K_RIGHT:
+            self.player.data.last_direction = 'right'
             self.playerRIGHT_change = self.player.data.movement_speed
             self.ignore_vertical_movement = True
             self.ignore_horizontal_movement = False

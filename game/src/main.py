@@ -75,13 +75,15 @@ class Game:
         
         # Msg input box
         if self.msg_typing:
-            font = pygame.font.SysFont("arial", 18)
+            font = pygame.font.Font("assets/menu/font.ttf", 10)
             text = self.msg + "|"
-            text_surface = font.render(text, True, (255, 255, 255))
+            text_surface = font.render(text, True, (38, 38, 38))
             text_rect = text_surface.get_rect(center=(Constants.WINDOW_HEIGHT / 2, (Constants.WINDOW_WIDTH / 2) - (self.player.player_img_info.scale_size_x / 2) - 20))
             # background
             bubble_rect = text_rect.inflate(16, 8)
-            pygame.draw.rect(self.screen, (0, 0, 0), bubble_rect, border_radius=8)
+            outline_rect = bubble_rect.inflate(4, 4)
+            pygame.draw.rect(self.screen, (100, 100, 100), outline_rect, border_radius=10)
+            pygame.draw.rect(self.screen, (207, 207, 207), bubble_rect, border_radius=8)
             self.screen.blit(text_surface, text_rect)
 
         pygame.display.flip()
@@ -90,9 +92,11 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                return None
 
             # Handle chat message input
             if self.msg_typing:
+                self.player.movement.stop()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if self.msg.strip():
@@ -102,10 +106,13 @@ class Game:
                         self.msg_typing = False
                     elif event.key == pygame.K_BACKSPACE:
                         self.msg = self.msg[:-1]
+                    elif event.key == pygame.K_ESCAPE:
+                        self.msg_typing = False
+                        self.msg = ""
                     else:
                         if len(self.msg) < 60 and event.unicode.isprintable():
                             self.msg += event.unicode
-                return None
+                continue
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
