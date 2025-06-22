@@ -1,7 +1,7 @@
 import pygame
 import sys
-from player.player import Player
 import pygame_textinput
+from player.player_state import PlayerCharacter
 
 
 class CharacterMenu:

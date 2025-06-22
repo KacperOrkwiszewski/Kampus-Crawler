@@ -10,7 +10,7 @@ class PlayerImageInfo:
         # Lower value means faster animation
         self.animation_speed = 0.2 / movement_speed  # Animation speed depends on movement speed
         # Slower animation for idle.gif
-        if gif_path.startswith('idle'):
+        if 'idle' in gif_path:
             self.animation_speed = 0.5
         self.time_since_last_frame = 0.0  # Time since last frame update
 
