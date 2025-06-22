@@ -2,9 +2,6 @@
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="1">
  <tileset firstgid="1" source="kafle.tsx"/>
  <tileset firstgid="161" source="kafle2.tsx"/>
- <imagelayer id="2" name="Warstwa Obrazka 1" visible="0" offsetx="-263.333" offsety="20">
-  <image source="../../../../miedzywydzialowe.png" width="2027" height="1514"/>
- </imagelayer>
  <layer id="7" name="inne spód" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

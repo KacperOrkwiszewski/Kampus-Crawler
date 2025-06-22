@@ -6,7 +6,7 @@ from constants import Constants
 from sound.sound_type import MusicType, SoundEffectType
 from map.game_map import GameMap
 from player.player import Player
-from player.player_state import PlayerState
+from player.player_state import PlayerState, PlayerCharacter
 from menu.main_menu import MainMenu
 from menu.pause_menu import PauseMenu
 from menu.options_menu import OptionsMenu
@@ -20,9 +20,9 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((Constants.WINDOW_HEIGHT, Constants.WINDOW_WIDTH))
         pygame.display.set_caption("Kampus Crawler")
-        pygame.display.set_icon(pygame.image.load('logo_icon.png'))
+        pygame.display.set_icon(pygame.image.load('assets/logo/logo_icon.png'))
 
-        self.map_data = GameMap("map_data/campusA.tmx")
+        self.map_data = GameMap("assets/map_data/campusA.tmx")
         self.player = Player(PlayerState.IDLE_DOWN)
 
         self.client = None
@@ -57,7 +57,7 @@ class Game:
         with self.client.lock:
             for player_id, other_player_data in self.client.all_players.items():
                 if player_id not in self.client.player_objects:
-                    self.client.player_objects[player_id] = Player(other_player_data.state)
+                    self.client.player_objects[player_id] = Player(other_player_data.state, other_player_data.character)
 
                 if self.client.player_objects[player_id].data.state != other_player_data.state:
                     self.client.player_objects[player_id].set_animation(other_player_data.state)
@@ -134,10 +134,10 @@ class Game:
     def run(self):
         while True:
             choice = MainMenu(self.screen).run()
-
+            print(f"Main menu choice: {choice}")
             if choice == "play":
-                self.player = Player(PlayerState.IDLE_DOWN)
                 self.character_menu.run()
+                self.player = Player(PlayerState.IDLE_DOWN, PlayerCharacter(self.character_menu.selected_character))
                 self.paused = False
                 result = self.game_loop()
                 if result == "quit":

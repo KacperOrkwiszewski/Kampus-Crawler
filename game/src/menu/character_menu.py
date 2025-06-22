@@ -11,7 +11,7 @@ class CharacterMenu:
         self.screen = screen
         self.player = player
         # background
-        self.background = pygame.image.load('src/menu/assets/Background_character.png')
+        self.background = pygame.image.load('assets/menu/Background_character.png')
         self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
 
         # buttons
@@ -23,8 +23,8 @@ class CharacterMenu:
         # text
         self.button_font_size = 70
         self.title_font_size = 50
-        self.font = pygame.font.Font('src/menu/assets/font.ttf', int(self.button_font_size * self.button_scale))
-        self.title_font = pygame.font.Font('src/menu/assets/font.ttf', self.title_font_size)
+        self.font = pygame.font.Font('assets/menu/font.ttf', int(self.button_font_size * self.button_scale))
+        self.title_font = pygame.font.Font('assets/menu/font.ttf', self.title_font_size)
 
         self.buttons = ["<", ">", "Confirm"]
         self.base_color = (190, 190, 190)  # "a bit darker than #cfcfcf"
@@ -39,13 +39,13 @@ class CharacterMenu:
         self.textinput_y = 180
 
         self.textinput = pygame_textinput.TextInputVisualizer(
-            font_object=pygame.font.Font('src/menu/assets/font.ttf', int(self.input_font_size * self.input_scale)),
+            font_object=pygame.font.Font('assets/menu/font.ttf', int(self.input_font_size * self.input_scale)),
             font_color=(38, 38, 38),
             cursor_color=(207, 207, 207)
         )
         # self.textinput.value = "username"
         self.input_box_image = pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/inputbox.png').convert_alpha(),
+                pygame.image.load('assets/menu/inputbox.png').convert_alpha(),
                 (900 * self.input_scale, 208 * self.input_scale))
         self.input_box_rect = self.input_box_image.get_rect(
             center=(self.screen.get_width() // 2, self.textinput_y + self.input_font_size * self.input_scale /2))
@@ -63,40 +63,40 @@ class CharacterMenu:
         #loading player models
         self.characters = [
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/brandon.gif').convert_alpha(),
+                pygame.image.load('assets/menu/brandon.gif').convert_alpha(),
                 (160 * self.character_scale, 160 * self.character_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/david.gif').convert_alpha(),
+                pygame.image.load('assets/menu/david.gif').convert_alpha(),
                 (160 * self.character_scale, 160 * self.character_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/jane.gif').convert_alpha(),
+                pygame.image.load('assets/menu/jane.gif').convert_alpha(),
                 (160 * self.character_scale, 160 * self.character_scale)),
         ]
         # loading buttons background
         self.bg_images_up = [
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/round_button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/round_button_up.png').convert_alpha(),
                 (150 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/round_button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/round_button_up.png').convert_alpha(),
                 (150* self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_up.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_up.png').convert_alpha(),
                 (500 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_up_locked.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_up_locked.png').convert_alpha(),
                 (500 * self.button_scale, 150 * self.button_scale))
         ]
         # when hovering
         self.bg_images_down = [
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/round_button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/round_button_down.png').convert_alpha(),
                 (150 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/round_button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/round_button_down.png').convert_alpha(),
                 (150 * self.button_scale, 150 * self.button_scale)),
             pygame.transform.smoothscale(
-                pygame.image.load('src/menu/assets/button_down.png').convert_alpha(),
+                pygame.image.load('assets/menu/button_down.png').convert_alpha(),
                 (500 * self.button_scale, 150 * self.button_scale)),
         ]
 
