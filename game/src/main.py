@@ -19,7 +19,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((Constants.WINDOW_HEIGHT, Constants.WINDOW_WIDTH))
         pygame.display.set_caption("Kampus Crawler")
-        pygame.display.set_icon(pygame.image.load('logo_icon.png'))
+        pygame.display.set_icon(pygame.image.load('assets/logo/logo_icon.png'))
 
         self.map_data = GameMap("map_data/campusA.tmx")
         self.player = Player(PlayerState.IDLE_DOWN)
