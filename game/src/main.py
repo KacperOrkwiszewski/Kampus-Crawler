@@ -78,7 +78,7 @@ class Game:
             font = pygame.font.SysFont("arial", 18)
             text = self.msg + "|"
             text_surface = font.render(text, True, (255, 255, 255))
-            text_rect = text_surface.get_rect(center=(Constants.WINDOW_WIDTH // 2, (Constants.WINDOW_HEIGHT // 2) - 60))
+            text_rect = text_surface.get_rect(center=(Constants.WINDOW_HEIGHT / 2, (Constants.WINDOW_WIDTH / 2) - (self.player.player_img_info.scale_size_x / 2) - 20))
             # background
             bubble_rect = text_rect.inflate(16, 8)
             pygame.draw.rect(self.screen, (0, 0, 0), bubble_rect, border_radius=8)

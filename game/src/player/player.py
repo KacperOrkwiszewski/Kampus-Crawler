@@ -22,7 +22,9 @@ class Player:
             # Draw the chat message above the player
             font = pygame.font.SysFont("arial", 18)
             text_surface = font.render(self.data.chat_message, True, (255, 255, 255))
-            text_rect = text_surface.get_rect(center=(screen_y / 2, (screen_x / 2) - self.player_img_info.scale_size_y - 20))
+            text_rect = text_surface.get_rect(center=(screen_y / 2 - (self.player_img_info.scale_size_y / 2) - offset_x + 40, (screen_x / 2) - (self.player_img_info.scale_size_x / 2) - offset_y - 20))
+            bubble_rect = text_rect.inflate(16, 8)
+            pygame.draw.rect(screen, (0, 0, 0), bubble_rect, border_radius=8)
             screen.blit(text_surface, text_rect)
 
     def update_position(self, x, y):
