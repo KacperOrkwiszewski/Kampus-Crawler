@@ -3,478 +3,478 @@
  <tileset firstgid="1" name="buildings_sand" tilewidth="16" tileheight="16" tilecount="24" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="24">
-   <image source="../../tiles/buildings_sand/building_20.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_20.png" width="16" height="16"/>
   </tile>
   <tile id="25">
-   <image source="../../tiles/buildings_sand/modular_home_0.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/modular_home_0.png" width="16" height="16"/>
   </tile>
   <tile id="26">
-   <image source="../../tiles/buildings_sand/modular_home_1.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/modular_home_1.png" width="16" height="16"/>
   </tile>
   <tile id="27">
-   <image source="../../tiles/buildings_sand/modular_home_2.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/modular_home_2.png" width="16" height="16"/>
   </tile>
   <tile id="28">
-   <image source="../../tiles/buildings_sand/modular_home_3.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/modular_home_3.png" width="16" height="16"/>
   </tile>
   <tile id="29">
-   <image source="../../tiles/buildings_sand/modular_home_4.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/modular_home_4.png" width="16" height="16"/>
   </tile>
   <tile id="30">
-   <image source="../../tiles/buildings_sand/modular_home_5.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/modular_home_5.png" width="16" height="16"/>
   </tile>
   <tile id="31">
-   <image source="../../tiles/buildings_sand/modular_home_6.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/modular_home_6.png" width="16" height="16"/>
   </tile>
   <tile id="32">
-   <image source="../../tiles/buildings_sand/sprite_18 1.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/sprite_18 1.png" width="16" height="16"/>
   </tile>
   <tile id="33">
-   <image source="../../tiles/buildings_sand/sprite_19 1.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/sprite_19 1.png" width="16" height="16"/>
   </tile>
   <tile id="34">
-   <image source="../../tiles/buildings_sand/sprite_20 1.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/sprite_20 1.png" width="16" height="16"/>
   </tile>
   <tile id="35">
-   <image source="../../tiles/buildings_sand/building_07.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_07.png" width="16" height="16"/>
   </tile>
   <tile id="36">
-   <image source="../../tiles/buildings_sand/building_08.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_08.png" width="16" height="16"/>
   </tile>
   <tile id="37">
-   <image source="../../tiles/buildings_sand/building_09.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_09.png" width="16" height="16"/>
   </tile>
   <tile id="38">
-   <image source="../../tiles/buildings_sand/building_09-1.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_09-1.png" width="16" height="16"/>
   </tile>
   <tile id="39">
-   <image source="../../tiles/buildings_sand/building_10.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_10.png" width="16" height="16"/>
   </tile>
   <tile id="40">
-   <image source="../../tiles/buildings_sand/building_10-1.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_10-1.png" width="16" height="16"/>
   </tile>
   <tile id="41">
-   <image source="../../tiles/buildings_sand/building_11.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_11.png" width="16" height="16"/>
   </tile>
   <tile id="42">
-   <image source="../../tiles/buildings_sand/building_14.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_14.png" width="16" height="16"/>
   </tile>
   <tile id="43">
-   <image source="../../tiles/buildings_sand/building_14-1.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_14-1.png" width="16" height="16"/>
   </tile>
   <tile id="44">
-   <image source="../../tiles/buildings_sand/building_15.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_15.png" width="16" height="16"/>
   </tile>
   <tile id="45">
-   <image source="../../tiles/buildings_sand/building_16.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_16.png" width="16" height="16"/>
   </tile>
   <tile id="46">
-   <image source="../../tiles/buildings_sand/building_17.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_17.png" width="16" height="16"/>
   </tile>
   <tile id="47">
-   <image source="../../tiles/buildings_sand/building_19.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_sand/building_19.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="49" name="borders" tilewidth="292" tileheight="71" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/borders/borders_1.png" width="133" height="71"/>
+   <image source="../assets/tiles/borders/borders_1.png" width="133" height="71"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/borders/border2 3.png" width="292" height="45"/>
+   <image source="../assets/tiles/borders/border2 3.png" width="292" height="45"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/borders/borders_0.png" width="133" height="71"/>
+   <image source="../assets/tiles/borders/borders_0.png" width="133" height="71"/>
   </tile>
  </tileset>
  <tileset firstgid="52" name="buildings_clay" tilewidth="16" tileheight="16" tilecount="23" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/buildings_clay/buildings_clay_00.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_00.png" width="16" height="16"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/buildings_clay/buildings_clay_01.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_01.png" width="16" height="16"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/buildings_clay/buildings_clay_02.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_02.png" width="16" height="16"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/buildings_clay/buildings_clay_03.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_03.png" width="16" height="16"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/buildings_clay/buildings_clay_04.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_04.png" width="16" height="16"/>
   </tile>
   <tile id="5">
-   <image source="../../tiles/buildings_clay/buildings_clay_05.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_05.png" width="16" height="16"/>
   </tile>
   <tile id="6">
-   <image source="../../tiles/buildings_clay/buildings_clay_06.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_06.png" width="16" height="16"/>
   </tile>
   <tile id="7">
-   <image source="../../tiles/buildings_clay/buildings_clay_07.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_07.png" width="16" height="16"/>
   </tile>
   <tile id="8">
-   <image source="../../tiles/buildings_clay/buildings_clay_08.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_08.png" width="16" height="16"/>
   </tile>
   <tile id="9">
-   <image source="../../tiles/buildings_clay/buildings_clay_09.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_09.png" width="16" height="16"/>
   </tile>
   <tile id="10">
-   <image source="../../tiles/buildings_clay/buildings_clay_10.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_10.png" width="16" height="16"/>
   </tile>
   <tile id="11">
-   <image source="../../tiles/buildings_clay/buildings_clay_11.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_11.png" width="16" height="16"/>
   </tile>
   <tile id="12">
-   <image source="../../tiles/buildings_clay/buildings_clay_12.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_12.png" width="16" height="16"/>
   </tile>
   <tile id="13">
-   <image source="../../tiles/buildings_clay/buildings_clay_13.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_13.png" width="16" height="16"/>
   </tile>
   <tile id="14">
-   <image source="../../tiles/buildings_clay/buildings_clay_14.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_14.png" width="16" height="16"/>
   </tile>
   <tile id="15">
-   <image source="../../tiles/buildings_clay/buildings_clay_15.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_15.png" width="16" height="16"/>
   </tile>
   <tile id="16">
-   <image source="../../tiles/buildings_clay/buildings_clay_16.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_16.png" width="16" height="16"/>
   </tile>
   <tile id="17">
-   <image source="../../tiles/buildings_clay/buildings_clay_17.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_17.png" width="16" height="16"/>
   </tile>
   <tile id="18">
-   <image source="../../tiles/buildings_clay/buildings_clay_18.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_18.png" width="16" height="16"/>
   </tile>
   <tile id="19">
-   <image source="../../tiles/buildings_clay/buildings_clay_19.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_19.png" width="16" height="16"/>
   </tile>
   <tile id="20">
-   <image source="../../tiles/buildings_clay/buildings_clay_20.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_20.png" width="16" height="16"/>
   </tile>
   <tile id="21">
-   <image source="../../tiles/buildings_clay/buildings_clay_21.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_21.png" width="16" height="16"/>
   </tile>
   <tile id="22">
-   <image source="../../tiles/buildings_clay/buildings_clay_22.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_clay/buildings_clay_22.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="75" name="buildings_gray" tilewidth="16" tileheight="16" tilecount="22" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/buildings_gray/building_gray_14.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_14.png" width="16" height="16"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/buildings_gray/building_gray_15.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_15.png" width="16" height="16"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/buildings_gray/building_gray_16.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_16.png" width="16" height="16"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/buildings_gray/building_gray_17.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_17.png" width="16" height="16"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/buildings_gray/building_gray_18.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_18.png" width="16" height="16"/>
   </tile>
   <tile id="5">
-   <image source="../../tiles/buildings_gray/building_gray_19.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_19.png" width="16" height="16"/>
   </tile>
   <tile id="6">
-   <image source="../../tiles/buildings_gray/building_gray_20.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_20.png" width="16" height="16"/>
   </tile>
   <tile id="7">
-   <image source="../../tiles/buildings_gray/building_gray_21.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_21.png" width="16" height="16"/>
   </tile>
   <tile id="8">
-   <image source="../../tiles/buildings_gray/building_gray_00.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_00.png" width="16" height="16"/>
   </tile>
   <tile id="9">
-   <image source="../../tiles/buildings_gray/building_gray_01.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_01.png" width="16" height="16"/>
   </tile>
   <tile id="10">
-   <image source="../../tiles/buildings_gray/building_gray_02.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_02.png" width="16" height="16"/>
   </tile>
   <tile id="11">
-   <image source="../../tiles/buildings_gray/building_gray_03.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_03.png" width="16" height="16"/>
   </tile>
   <tile id="12">
-   <image source="../../tiles/buildings_gray/building_gray_04.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_04.png" width="16" height="16"/>
   </tile>
   <tile id="13">
-   <image source="../../tiles/buildings_gray/building_gray_05.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_05.png" width="16" height="16"/>
   </tile>
   <tile id="14">
-   <image source="../../tiles/buildings_gray/building_gray_06.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_06.png" width="16" height="16"/>
   </tile>
   <tile id="15">
-   <image source="../../tiles/buildings_gray/building_gray_07.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_07.png" width="16" height="16"/>
   </tile>
   <tile id="16">
-   <image source="../../tiles/buildings_gray/building_gray_08.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_08.png" width="16" height="16"/>
   </tile>
   <tile id="17">
-   <image source="../../tiles/buildings_gray/building_gray_09.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_09.png" width="16" height="16"/>
   </tile>
   <tile id="18">
-   <image source="../../tiles/buildings_gray/building_gray_10.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_10.png" width="16" height="16"/>
   </tile>
   <tile id="19">
-   <image source="../../tiles/buildings_gray/building_gray_11.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_11.png" width="16" height="16"/>
   </tile>
   <tile id="20">
-   <image source="../../tiles/buildings_gray/building_gray_12.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_12.png" width="16" height="16"/>
   </tile>
   <tile id="21">
-   <image source="../../tiles/buildings_gray/building_gray_13.png" width="16" height="16"/>
+   <image source="../assets/tiles/buildings_gray/building_gray_13.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="97" name="grass" tilewidth="16" tileheight="16" tilecount="14" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/grass/l0_grass_01.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_01.png" width="16" height="16"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/grass/l0_grass_02.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_02.png" width="16" height="16"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/grass/l0_grass_03.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_03.png" width="16" height="16"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/grass/l0_grass_04.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_04.png" width="16" height="16"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/grass/l0_grass_05.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_05.png" width="16" height="16"/>
   </tile>
   <tile id="5">
-   <image source="../../tiles/grass/l0_grass_06.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_06.png" width="16" height="16"/>
   </tile>
   <tile id="6">
-   <image source="../../tiles/grass/l0_grass_07.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_07.png" width="16" height="16"/>
   </tile>
   <tile id="7">
-   <image source="../../tiles/grass/l0_grass_08.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_08.png" width="16" height="16"/>
   </tile>
   <tile id="8">
-   <image source="../../tiles/grass/l0_grass_09.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_09.png" width="16" height="16"/>
   </tile>
   <tile id="9">
-   <image source="../../tiles/grass/l0_grass_10.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_10.png" width="16" height="16"/>
   </tile>
   <tile id="10">
-   <image source="../../tiles/grass/l0_grass_11.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_11.png" width="16" height="16"/>
   </tile>
   <tile id="11">
-   <image source="../../tiles/grass/l0_grass_12.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_12.png" width="16" height="16"/>
   </tile>
   <tile id="12">
-   <image source="../../tiles/grass/l0_grass_13.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/l0_grass_13.png" width="16" height="16"/>
   </tile>
   <tile id="13">
-   <image source="../../tiles/grass/grass 298.png" width="16" height="16"/>
+   <image source="../assets/tiles/grass/grass 298.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="111" name="gravel" tilewidth="16" tileheight="16" tilecount="14" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/gravel/l0_road_01.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_01.png" width="16" height="16"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/gravel/l0_road_02.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_02.png" width="16" height="16"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/gravel/l0_road_03.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_03.png" width="16" height="16"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/gravel/l0_road_04.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_04.png" width="16" height="16"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/gravel/l0_road_05.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_05.png" width="16" height="16"/>
   </tile>
   <tile id="5">
-   <image source="../../tiles/gravel/l0_road_06.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_06.png" width="16" height="16"/>
   </tile>
   <tile id="6">
-   <image source="../../tiles/gravel/l0_road_07.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_07.png" width="16" height="16"/>
   </tile>
   <tile id="7">
-   <image source="../../tiles/gravel/l0_road_08.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_08.png" width="16" height="16"/>
   </tile>
   <tile id="8">
-   <image source="../../tiles/gravel/l0_road_09.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_09.png" width="16" height="16"/>
   </tile>
   <tile id="9">
-   <image source="../../tiles/gravel/l0_road_10.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_10.png" width="16" height="16"/>
   </tile>
   <tile id="10">
-   <image source="../../tiles/gravel/l0_road_11.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_11.png" width="16" height="16"/>
   </tile>
   <tile id="11">
-   <image source="../../tiles/gravel/l0_road_12.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_12.png" width="16" height="16"/>
   </tile>
   <tile id="12">
-   <image source="../../tiles/gravel/l0_road_13.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_13.png" width="16" height="16"/>
   </tile>
   <tile id="13">
-   <image source="../../tiles/gravel/l0_road_14.png" width="16" height="16"/>
+   <image source="../assets/tiles/gravel/l0_road_14.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="125" name="icons" tilewidth="20" tileheight="20" tilecount="11" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/icons/sprite_4.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/sprite_4.png" width="20" height="20"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/icons/time.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/time.png" width="20" height="20"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/icons/ects.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/ects.png" width="20" height="20"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/icons/gear.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/gear.png" width="20" height="20"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/icons/icons0.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/icons0.png" width="20" height="20"/>
   </tile>
   <tile id="5">
-   <image source="../../tiles/icons/icons1.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/icons1.png" width="20" height="20"/>
   </tile>
   <tile id="6">
-   <image source="../../tiles/icons/icons2.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/icons2.png" width="20" height="20"/>
   </tile>
   <tile id="7">
-   <image source="../../tiles/icons/movement_speed.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/movement_speed.png" width="20" height="20"/>
   </tile>
   <tile id="8">
-   <image source="../../tiles/icons/quit.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/quit.png" width="20" height="20"/>
   </tile>
   <tile id="9">
-   <image source="../../tiles/icons/sign_out.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/sign_out.png" width="20" height="20"/>
   </tile>
   <tile id="10">
-   <image source="../../tiles/icons/sprite_3.png" width="20" height="20"/>
+   <image source="../assets/tiles/icons/sprite_3.png" width="20" height="20"/>
   </tile>
  </tileset>
  <tileset firstgid="136" name="objects" tilewidth="32" tileheight="32" tilecount="16" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/objects/bench 1.png" width="32" height="32"/>
+   <image source="../assets/tiles/objects/bench 1.png" width="32" height="32"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/objects/bench_side 1.png" width="32" height="32"/>
+   <image source="../assets/tiles/objects/bench_side 1.png" width="32" height="32"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/objects/bus_stop 2.png" width="32" height="32"/>
+   <image source="../assets/tiles/objects/bus_stop 2.png" width="32" height="32"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/objects/fence 8.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/fence 8.png" width="16" height="16"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/objects/image 49.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/image 49.png" width="16" height="16"/>
   </tile>
   <tile id="5">
-   <image source="../../tiles/objects/image 51.png" width="24" height="16"/>
+   <image source="../assets/tiles/objects/image 51.png" width="24" height="16"/>
   </tile>
   <tile id="6">
-   <image source="../../tiles/objects/image 54.png" width="24" height="16"/>
+   <image source="../assets/tiles/objects/image 54.png" width="24" height="16"/>
   </tile>
   <tile id="7">
-   <image source="../../tiles/objects/Kosz 7.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/Kosz 7.png" width="16" height="16"/>
   </tile>
   <tile id="8">
-   <image source="../../tiles/objects/lamp 4.png" width="16" height="32"/>
+   <image source="../assets/tiles/objects/lamp 4.png" width="16" height="32"/>
   </tile>
   <tile id="9">
-   <image source="../../tiles/objects/map 1.png" width="32" height="32"/>
+   <image source="../assets/tiles/objects/map 1.png" width="32" height="32"/>
   </tile>
   <tile id="10">
-   <image source="../../tiles/objects/railroad_0.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/railroad_0.png" width="16" height="16"/>
   </tile>
   <tile id="11">
-   <image source="../../tiles/objects/railroad_1.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/railroad_1.png" width="16" height="16"/>
   </tile>
   <tile id="12">
-   <image source="../../tiles/objects/railroad_2.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/railroad_2.png" width="16" height="16"/>
   </tile>
   <tile id="13">
-   <image source="../../tiles/objects/railroad_3.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/railroad_3.png" width="16" height="16"/>
   </tile>
   <tile id="14">
-   <image source="../../tiles/objects/railroad_4.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/railroad_4.png" width="16" height="16"/>
   </tile>
   <tile id="15">
-   <image source="../../tiles/objects/railroad_5.png" width="16" height="16"/>
+   <image source="../assets/tiles/objects/railroad_5.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="152" name="road" tilewidth="16" tileheight="16" tilecount="14" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/road/smooth_road_01.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_01.png" width="16" height="16"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/road/smooth_road_02.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_02.png" width="16" height="16"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/road/smooth_road_03.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_03.png" width="16" height="16"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/road/smooth_road_04.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_04.png" width="16" height="16"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/road/smooth_road_05.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_05.png" width="16" height="16"/>
   </tile>
   <tile id="5">
-   <image source="../../tiles/road/smooth_road_06.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_06.png" width="16" height="16"/>
   </tile>
   <tile id="6">
-   <image source="../../tiles/road/smooth_road_07.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_07.png" width="16" height="16"/>
   </tile>
   <tile id="7">
-   <image source="../../tiles/road/smooth_road_08.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_08.png" width="16" height="16"/>
   </tile>
   <tile id="8">
-   <image source="../../tiles/road/smooth_road_09.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_09.png" width="16" height="16"/>
   </tile>
   <tile id="9">
-   <image source="../../tiles/road/smooth_road_10.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_10.png" width="16" height="16"/>
   </tile>
   <tile id="10">
-   <image source="../../tiles/road/smooth_road_11.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_11.png" width="16" height="16"/>
   </tile>
   <tile id="11">
-   <image source="../../tiles/road/smooth_road_12.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_12.png" width="16" height="16"/>
   </tile>
   <tile id="12">
-   <image source="../../tiles/road/smooth_road_13.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_13.png" width="16" height="16"/>
   </tile>
   <tile id="13">
-   <image source="../../tiles/road/smooth_road_00.png" width="16" height="16"/>
+   <image source="../assets/tiles/road/smooth_road_00.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="166" name="sidewalk_concrete" tilewidth="16" tileheight="16" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/sidewalk_concrete/concrete.png" width="16" height="16"/>
+   <image source="../assets/tiles/sidewalk_concrete/concrete.png" width="16" height="16"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/sidewalk_concrete/sidewalk.png" width="16" height="16"/>
+   <image source="../assets/tiles/sidewalk_concrete/sidewalk.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="168" name="trees" tilewidth="33" tileheight="33" tilecount="5" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../tiles/trees/tree_0.png" width="32" height="32"/>
+   <image source="../assets/tiles/trees/tree_0.png" width="32" height="32"/>
   </tile>
   <tile id="1">
-   <image source="../../tiles/trees/tree_1.png" width="32" height="32"/>
+   <image source="../assets/tiles/trees/tree_1.png" width="32" height="32"/>
   </tile>
   <tile id="2">
-   <image source="../../tiles/trees/tree_2.png" width="32" height="32"/>
+   <image source="../assets/tiles/trees/tree_2.png" width="32" height="32"/>
   </tile>
   <tile id="3">
-   <image source="../../tiles/trees/tree_3.png" width="33" height="32"/>
+   <image source="../assets/tiles/trees/tree_3.png" width="33" height="32"/>
   </tile>
   <tile id="4">
-   <image source="../../tiles/trees/tree_4.png" width="33" height="33"/>
+   <image source="../assets/tiles/trees/tree_4.png" width="33" height="33"/>
   </tile>
  </tileset>
  <layer id="3" name="Wszystko" width="100" height="100">
