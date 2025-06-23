@@ -63,7 +63,7 @@ class Game:
         #server_thread.start()
 
         # Start client
-        self.client = Client("localhost", 49158) # remote: "193.93.88.233"
+        self.client = Client("193.93.88.233", 49158)
         client_thread = threading.Thread(target=Client.network_thread, args=(self.client, self.player), daemon=True)
         client_thread.start()
 
@@ -233,7 +233,7 @@ class Game:
                                 self.player.data.stamina = self.player.data.max_stamina
 
                 self.game_time_seconds -= self.dt * float(self.player.movement.base_movement_speed / 2)  # from conflict
-                
+
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # time ran out ¯\_(ツ)_/¯
                 self.player.movement.move_player(self.map_data.get_collision_rects())
