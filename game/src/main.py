@@ -43,12 +43,12 @@ class Game:
 
     def start_networking(self):
         # Start server
-        self.server = Server('0.0.0.0', 12345)
-        server_thread = threading.Thread(target=self.server.run_server, daemon=True)
-        server_thread.start()
+        #self.server = Server('0.0.0.0', 12345)
+        #server_thread = threading.Thread(target=self.server.run_server, daemon=True)
+        #server_thread.start()
 
         # Start client
-        self.client = Client("localhost", 12345)
+        self.client = Client("193.93.88.233", 49158)
         client_thread = threading.Thread(target=Client.network_thread, args=(self.client, self.player), daemon=True)
         client_thread.start()
 
@@ -72,7 +72,7 @@ class Game:
                 self.client.player_objects[player_id].draw(
                     self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y
                 )
-        
+
         # Msg input box
         if self.msg_typing:
             font = pygame.font.Font("assets/menu/font.ttf", 10)
@@ -120,7 +120,7 @@ class Game:
 
                 if not self.paused:
                     self.player.movement.handle_down(event.key)
-                
+
                 if event.key == pygame.K_RETURN and not self.msg_typing:
                     self.msg_typing = True
                     self.msg = ""
