@@ -38,6 +38,9 @@ class Game:
         SoundManager.init()
         SoundManager.play_music(MusicType.Menu)
 
+        self.msg_typing = False
+        self.msg = ""
+
     def start_networking(self):
         # Start server
         self.server = Server('0.0.0.0', 12345)
@@ -69,6 +72,19 @@ class Game:
                 self.client.player_objects[player_id].draw(
                     self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y
                 )
+        
+        # Msg input box
+        if self.msg_typing:
+            font = pygame.font.Font("assets/menu/font.ttf", 10)
+            text = self.msg + "|"
+            text_surface = font.render(text, True, (38, 38, 38))
+            text_rect = text_surface.get_rect(center=(Constants.WINDOW_HEIGHT / 2, (Constants.WINDOW_WIDTH / 2) - (self.player.player_img_info.scale_size_x / 2) - 20))
+            # background
+            bubble_rect = text_rect.inflate(16, 8)
+            outline_rect = bubble_rect.inflate(4, 4)
+            pygame.draw.rect(self.screen, (100, 100, 100), outline_rect, border_radius=10)
+            pygame.draw.rect(self.screen, (207, 207, 207), bubble_rect, border_radius=8)
+            self.screen.blit(text_surface, text_rect)
 
         pygame.display.flip()
 
@@ -76,6 +92,27 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                return None
+
+            # Handle chat message input
+            if self.msg_typing:
+                self.player.movement.stop()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        if self.msg.strip():
+                            self.player.data.chat_message = self.msg
+                            self.player.data.chat_timer = 180
+                        self.msg = ""
+                        self.msg_typing = False
+                    elif event.key == pygame.K_BACKSPACE:
+                        self.msg = self.msg[:-1]
+                    elif event.key == pygame.K_ESCAPE:
+                        self.msg_typing = False
+                        self.msg = ""
+                    else:
+                        if len(self.msg) < 60 and event.unicode.isprintable():
+                            self.msg += event.unicode
+                continue
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -83,10 +120,13 @@ class Game:
 
                 if not self.paused:
                     self.player.movement.handle_down(event.key)
-
+                
+                if event.key == pygame.K_RETURN and not self.msg_typing:
+                    self.msg_typing = True
+                    self.msg = ""
 
             if event.type == pygame.KEYUP:
-                if not self.paused:
+                if not self.paused and not self.msg_typing:
                     self.player.movement.handle_up(event.key)
                 else:
                     result = pause_menu.run()
@@ -100,6 +140,7 @@ class Game:
                         return "main_menu"
                     elif result == "quit":
                         self.running = False
+
         return None
 
     def game_loop(self):
@@ -128,6 +169,9 @@ class Game:
                   elif not walking_sound_channel.get_busy(): # check if the sound is not currently played
                     walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
                 self.draw_game(dt)
+
+            if self.player.data.chat_timer > 0:
+                self.player.data.chat_timer -= 1
 
         return "quit"
 
