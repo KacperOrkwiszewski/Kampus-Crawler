@@ -59,12 +59,12 @@ class Game:
 
     def start_networking(self):
         # Start server
-        self.server = Server('0.0.0.0', 12345)
-        server_thread = threading.Thread(target=self.server.run_server, daemon=True)
-        server_thread.start()
+        #self.server = Server('0.0.0.0', 12345)
+        #server_thread = threading.Thread(target=self.server.run_server, daemon=True)
+        #server_thread.start()
 
         # Start client
-        self.client = Client("localhost", 12345)
+        self.client = Client("193.93.88.233", 49158)
         client_thread = threading.Thread(target=Client.network_thread, args=(self.client, self.player), daemon=True)
         client_thread.start()
 
