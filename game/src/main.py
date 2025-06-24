@@ -1,7 +1,6 @@
 import pygame
 import threading
-from client_server.server import Server
-from client_server.client import Client
+from client_server.client_udp import Client
 from constants import Constants
 from sound.sound_type import MusicType, SoundEffectType
 from map.game_map import GameMap
@@ -64,7 +63,7 @@ class Game:
         #server_thread.start()
 
         # Start client
-        self.client = Client("193.93.88.233", 49158)
+        self.client = Client("localhost", 49158) # remote: "193.93.88.233"
         client_thread = threading.Thread(target=Client.network_thread, args=(self.client, self.player), daemon=True)
         client_thread.start()
 
