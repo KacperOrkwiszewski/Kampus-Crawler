@@ -14,6 +14,9 @@ class MovementManager:
         self.ignore_vertical_movement = False
         self.player = player
 
+        self.base_movement_speed = self.player.data.movement_speed  # Zapisz początkową prędkość
+        self.sprint_movement_speed = self.base_movement_speed * 2  # Prędkość sprintu
+
     def stop(self):
         if self.is_moving:
             self.playerDOWN_change = 0
@@ -38,6 +41,11 @@ class MovementManager:
         if key == pygame.K_RIGHT:
             self.playerRIGHT_change = 0
             self.ignore_horizontal_movement = False
+        if key == pygame.K_LSHIFT:
+            self.player.data.is_sprinting = False
+            self.player.data.movement_speed = self.base_movement_speed
+            self.player.data.stamina_regen_timer = self.player.data.stamina_regen_delay
+            self._update_movement_changes_speed()
 
     def handle_down(self, key):
         if key == pygame.K_DOWN:
@@ -60,6 +68,27 @@ class MovementManager:
             self.playerRIGHT_change = self.player.data.movement_speed
             self.ignore_vertical_movement = True
             self.ignore_horizontal_movement = False
+        if key == pygame.K_LSHIFT or key == pygame.K_RSHIFT:
+            if self.player.data.stamina > 0:
+                self.player.data.is_sprinting = True
+                self.player.data.movement_speed = self.sprint_movement_speed
+                self.player.data.stamina_regen_timer = 0.0
+                self._update_movement_changes_speed()
+            else:
+                self.player.data.is_sprinting = False
+                self.player.data.movement_speed = self.base_movement_speed
+                self._update_movement_changes_speed()
+
+
+    def _update_movement_changes_speed(self):
+        if self.playerDOWN_change != 0:
+            self.playerDOWN_change = self.player.data.movement_speed
+        if self.playerUP_change != 0:
+            self.playerUP_change = self.player.data.movement_speed
+        if self.playerLEFT_change != 0:
+            self.playerLEFT_change = self.player.data.movement_speed
+        if self.playerRIGHT_change != 0:
+            self.playerRIGHT_change = self.player.data.movement_speed
 
     def calculate_final_change(self):
         player_x_change = 0

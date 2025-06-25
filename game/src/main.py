@@ -13,6 +13,7 @@ from menu.options_menu import OptionsMenu
 from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
 from sound.sound_manager import SoundManager
+from ui.UI import UI
 
 class Game:
     def __init__(self):
@@ -40,6 +41,10 @@ class Game:
 
         self.msg_typing = False
         self.msg = ""
+
+        self.ui = UI(self.screen)
+        self.game_time_seconds = 600
+        self.current_objective = "Znajdz budynek C4"  # Póki co statycznie ustawiony cel
 
     def start_networking(self):
         # Start server
@@ -85,6 +90,8 @@ class Game:
             pygame.draw.rect(self.screen, (100, 100, 100), outline_rect, border_radius=10)
             pygame.draw.rect(self.screen, (207, 207, 207), bubble_rect, border_radius=8)
             self.screen.blit(text_surface, text_rect)
+
+        self.ui.draw(self.player.data, self.game_time_seconds, self.current_objective)
 
         pygame.display.flip()
 
@@ -162,6 +169,26 @@ class Game:
                 return "main_menu"
 
             if not self.paused:
+                # Sprint handling
+                if self.player.data.is_sprinting:
+                    if self.player.movement.is_moving:
+                        self.player.data.stamina -= self.player.data.stamina_drain_rate * dt
+                        if self.player.data.stamina <= 0:
+                            self.player.data.stamina = 0
+                            self.player.data.is_sprinting = False
+                            self.player.data.movement_speed = self.player.movement.base_movement_speed
+                            self.player.movement._update_movement_changes_speed()
+                            self.player.data.stamina_regen_timer = self.player.data.stamina_regen_delay
+                else:
+                    if self.player.data.stamina < self.player.data.max_stamina:
+                        if self.player.data.stamina_regen_timer > 0:
+                            self.player.data.stamina_regen_timer -= dt
+                        else:
+                            self.player.data.stamina += self.player.data.stamina_regen_rate * dt
+                            if self.player.data.stamina > self.player.data.max_stamina:
+                                self.player.data.stamina = self.player.data.max_stamina
+
+                self.game_time_seconds -= dt
                 self.player.movement.move_player()
                 if self.player.movement.is_moving: # is the player moving?
                   if walking_sound_channel == None: # check for null
