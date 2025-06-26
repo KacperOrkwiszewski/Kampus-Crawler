@@ -121,6 +121,10 @@ class Game:
                             self.msg += event.unicode
                 continue
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.ui.handle_click(event.pos)
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.paused = not self.paused
@@ -189,6 +193,8 @@ class Game:
                                 self.player.data.stamina = self.player.data.max_stamina
 
                 self.game_time_seconds -= dt
+                if self.game_time_seconds < 0:
+                    self.game_time_seconds = 0  # kunic czasu ¯\_(ツ)_/¯
                 self.player.movement.move_player()
                 if self.player.movement.is_moving: # is the player moving?
                   if walking_sound_channel == None: # check for null

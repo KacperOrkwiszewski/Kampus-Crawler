@@ -79,7 +79,6 @@ class MovementManager:
                 self.player.data.movement_speed = self.base_movement_speed
                 self._update_movement_changes_speed()
 
-
     def _update_movement_changes_speed(self):
         if self.playerDOWN_change != 0:
             self.playerDOWN_change = self.player.data.movement_speed
@@ -89,6 +88,7 @@ class MovementManager:
             self.playerLEFT_change = self.player.data.movement_speed
         if self.playerRIGHT_change != 0:
             self.playerRIGHT_change = self.player.data.movement_speed
+        self.player.update_animation()
 
     def calculate_final_change(self):
         player_x_change = 0
