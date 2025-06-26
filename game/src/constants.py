@@ -10,3 +10,6 @@ class Constants:
     MAP_SCALE = 5
 
     MUSIC_FADEOUT_SPEED = 200 # miliseconds
+
+    MAP_ORIGIN_X = 360
+    MAP_ORIGIN_Y = 280

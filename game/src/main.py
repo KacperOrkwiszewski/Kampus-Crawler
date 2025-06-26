@@ -22,7 +22,7 @@ class Game:
         pygame.display.set_caption("Kampus Crawler")
         pygame.display.set_icon(pygame.image.load('assets/logo/logo_icon.png'))
 
-        self.map_data = GameMap("assets/map_data/campusB.tmx")
+        self.map_data = GameMap("assets/map_data/map_all.tmx", Constants.MAP_SCALE)
         self.player = Player(PlayerState.IDLE_DOWN)
 
         self.client = None
@@ -54,7 +54,7 @@ class Game:
 
     def draw_game(self, dt):
         self.screen.fill((0, 0, 0))
-        self.map_data.draw(self.screen, Constants.MAP_SCALE, self.player.data.pos_x, self.player.data.pos_y)
+        self.map_data.draw(self.screen, self.player.data.pos_x, self.player.data.pos_y)
 
         # Draw other players
         with self.client.lock:
@@ -72,19 +72,6 @@ class Game:
                 self.client.player_objects[player_id].draw(
                     self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y
                 )
-        
-        # Msg input box
-        if self.msg_typing:
-            font = pygame.font.Font("assets/menu/font.ttf", 10)
-            text = self.msg + "|"
-            text_surface = font.render(text, True, (38, 38, 38))
-            text_rect = text_surface.get_rect(center=(Constants.WINDOW_HEIGHT / 2, (Constants.WINDOW_WIDTH / 2) - (self.player.player_img_info.scale_size_x / 2) - 20))
-            # background
-            bubble_rect = text_rect.inflate(16, 8)
-            outline_rect = bubble_rect.inflate(4, 4)
-            pygame.draw.rect(self.screen, (100, 100, 100), outline_rect, border_radius=10)
-            pygame.draw.rect(self.screen, (207, 207, 207), bubble_rect, border_radius=8)
-            self.screen.blit(text_surface, text_rect)
 
         pygame.display.flip()
 
@@ -120,7 +107,7 @@ class Game:
 
                 if not self.paused:
                     self.player.movement.handle_down(event.key)
-                
+
                 if event.key == pygame.K_RETURN and not self.msg_typing:
                     self.msg_typing = True
                     self.msg = ""
@@ -162,7 +149,8 @@ class Game:
                 return "main_menu"
 
             if not self.paused:
-                self.player.movement.move_player()
+                self.player.movement.move_player(self.map_data.get_collision_rects())
+
                 if self.player.movement.is_moving: # is the player moving?
                   if walking_sound_channel == None: # check for null
                       walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
@@ -195,7 +183,6 @@ class Game:
             elif choice == "quit":
                 pygame.quit()
                 break
-
 
 if __name__ == "__main__":
     game = Game()
