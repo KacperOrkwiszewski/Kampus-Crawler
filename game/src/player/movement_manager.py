@@ -174,7 +174,17 @@ class MovementManager:
         # Jeśli koliduje z czymkolwiek, zablokuj ruch
         for rect in collision_rects:
             if future_rect.colliderect(rect):
-                return  # if it collides, go back
+                x_change = 0
+                y_change = 0
+                self.player.is_moving = False
+                if self.player.data.state == PlayerState.MOVE_RIGHT:
+                  self.player.set_animation(PlayerState.IDLE_RIGHT)
+                elif self.player.data.state == PlayerState.MOVE_LEFT:
+                  self.player.set_animation(PlayerState.IDLE_LEFT)
+                if self.player.data.state == PlayerState.MOVE_DOWN:
+                  self.player.set_animation(PlayerState.IDLE_DOWN)
+                elif self.player.data.state == PlayerState.MOVE_UP:
+                  self.player.set_animation(PlayerState.IDLE_UP)
 
 
         # try to align the player to the middle of a tile
