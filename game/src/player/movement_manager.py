@@ -157,10 +157,36 @@ class MovementManager:
                   PlayerState.MOVE_DOWN)
 
     # final movement function combining all functionalities
-    def move_player(self):
+    def move_player(self, collision_rects):
         x_change, y_change = self.player.movement.calculate_final_change()
         # check if player is currently moving
         self.player.movement.is_moving = not (x_change == 0 and y_change == 0)
+
+
+        # Create a rectangle from the new position
+        future_rect = pygame.Rect(
+            self.player.data.pos_x + x_change,
+            self.player.data.pos_y + y_change,
+            self.player.player_img_info.scale_size_x,
+            self.player.player_img_info.scale_size_y
+        )
+
+        # Jeśli koliduje z czymkolwiek, zablokuj ruch
+        for rect in collision_rects:
+            if future_rect.colliderect(rect):
+                x_change = 0
+                y_change = 0
+                self.player.is_moving = False
+                if self.player.data.state == PlayerState.MOVE_RIGHT:
+                  self.player.set_animation(PlayerState.IDLE_RIGHT)
+                elif self.player.data.state == PlayerState.MOVE_LEFT:
+                  self.player.set_animation(PlayerState.IDLE_LEFT)
+                if self.player.data.state == PlayerState.MOVE_DOWN:
+                  self.player.set_animation(PlayerState.IDLE_DOWN)
+                elif self.player.data.state == PlayerState.MOVE_UP:
+                  self.player.set_animation(PlayerState.IDLE_UP)
+
+
         # try to align the player to the middle of a tile
         self.player.update_position(x_change, y_change)
         self.player.movement.align_to_tiles(Constants.TILE_HEIGHT, Constants.MAP_SCALE)
