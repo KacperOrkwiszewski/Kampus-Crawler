@@ -23,9 +23,10 @@ class QuickHelp:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         return
-
+                # return also if mouse clicked
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    return
             #  self.screen.fill((0, 0, 0))
             self.screen.blit(self.image, self.offset)
             pygame.display.flip()
             self.clock.tick(60)
-
