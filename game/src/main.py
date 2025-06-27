@@ -13,6 +13,7 @@ from menu.options_menu import OptionsMenu
 from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
 from sound.sound_manager import SoundManager
+from map.ui_map import MapViewer
 
 class Game:
     def __init__(self):
@@ -29,6 +30,7 @@ class Game:
         self.server = None
         self.running = True
         self.paused = False
+        self.map_open = False
 
         self.options_menu = OptionsMenu(self.screen)
         self.character_menu = CharacterMenu(self.screen, self.player)
@@ -93,7 +95,6 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = False
                 return None
-
             # Handle chat message input
             if self.msg_typing:
                 self.player.movement.stop()
@@ -115,6 +116,8 @@ class Game:
                 continue
 
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_m:
+                    MapViewer(self.screen).run()
                 if event.key == pygame.K_ESCAPE:
                     self.paused = not self.paused
 
@@ -149,6 +152,7 @@ class Game:
         SoundManager.stop_music()
         SoundManager.play_music(MusicType.Game)
         walking_sound_channel = None
+        ui_map = MapViewer(self.screen)
 
         while self.running:
             # when server is closed become new server or join another
