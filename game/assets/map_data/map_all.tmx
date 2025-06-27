@@ -322,155 +322,155 @@
  <tileset firstgid="481" source="water.tsx"/>
  <tileset firstgid="484" source="brg.tsx"/>
  <tileset firstgid="488" source="new_objects.tsx"/>
- <tileset firstgid="529" source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/map_data/alltiles.tsx"/>
+ <tileset firstgid="529" source="../map_data/alltiles.tsx"/>
  <tileset firstgid="684" name="buildings_sand" tilewidth="16" tileheight="16" tilecount="24" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="24">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_20.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_20.png" width="16" height="16"/>
   </tile>
   <tile id="25">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/modular_home_0.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/modular_home_0.png" width="16" height="16"/>
   </tile>
   <tile id="26">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/modular_home_1.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/modular_home_1.png" width="16" height="16"/>
   </tile>
   <tile id="27">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/modular_home_2.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/modular_home_2.png" width="16" height="16"/>
   </tile>
   <tile id="28">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/modular_home_3.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/modular_home_3.png" width="16" height="16"/>
   </tile>
   <tile id="29">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/modular_home_4.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/modular_home_4.png" width="16" height="16"/>
   </tile>
   <tile id="30">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/modular_home_5.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/modular_home_5.png" width="16" height="16"/>
   </tile>
   <tile id="31">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/modular_home_6.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/modular_home_6.png" width="16" height="16"/>
   </tile>
   <tile id="32">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/sprite_18 1.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/sprite_18 1.png" width="16" height="16"/>
   </tile>
   <tile id="33">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/sprite_19 1.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/sprite_19 1.png" width="16" height="16"/>
   </tile>
   <tile id="34">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/sprite_20 1.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/sprite_20 1.png" width="16" height="16"/>
   </tile>
   <tile id="35">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_07.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_07.png" width="16" height="16"/>
   </tile>
   <tile id="36">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_08.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_08.png" width="16" height="16"/>
   </tile>
   <tile id="37">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_09.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_09.png" width="16" height="16"/>
   </tile>
   <tile id="38">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_09-1.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_09-1.png" width="16" height="16"/>
   </tile>
   <tile id="39">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_10.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_10.png" width="16" height="16"/>
   </tile>
   <tile id="40">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_10-1.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_10-1.png" width="16" height="16"/>
   </tile>
   <tile id="41">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_11.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_11.png" width="16" height="16"/>
   </tile>
   <tile id="42">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_14.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_14.png" width="16" height="16"/>
   </tile>
   <tile id="43">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_14-1.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_14-1.png" width="16" height="16"/>
   </tile>
   <tile id="44">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_15.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_15.png" width="16" height="16"/>
   </tile>
   <tile id="45">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_16.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_16.png" width="16" height="16"/>
   </tile>
   <tile id="46">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_17.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_17.png" width="16" height="16"/>
   </tile>
   <tile id="47">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_sand/building_19.png" width="16" height="16"/>
+   <image source="../tiles/buildings_sand/building_19.png" width="16" height="16"/>
   </tile>
  </tileset>
  <tileset firstgid="732" name="buildings_clay" tilewidth="16" tileheight="16" tilecount="23" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_00.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_00.png" width="16" height="16"/>
   </tile>
   <tile id="1">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_01.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_01.png" width="16" height="16"/>
   </tile>
   <tile id="2">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_02.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_02.png" width="16" height="16"/>
   </tile>
   <tile id="3">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_03.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_03.png" width="16" height="16"/>
   </tile>
   <tile id="4">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_04.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_04.png" width="16" height="16"/>
   </tile>
   <tile id="5">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_05.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_05.png" width="16" height="16"/>
   </tile>
   <tile id="6">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_06.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_06.png" width="16" height="16"/>
   </tile>
   <tile id="7">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_07.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_07.png" width="16" height="16"/>
   </tile>
   <tile id="8">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_08.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_08.png" width="16" height="16"/>
   </tile>
   <tile id="9">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_09.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_09.png" width="16" height="16"/>
   </tile>
   <tile id="10">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_10.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_10.png" width="16" height="16"/>
   </tile>
   <tile id="11">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_11.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_11.png" width="16" height="16"/>
   </tile>
   <tile id="12">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_12.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_12.png" width="16" height="16"/>
   </tile>
   <tile id="13">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_13.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_13.png" width="16" height="16"/>
   </tile>
   <tile id="14">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_14.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_14.png" width="16" height="16"/>
   </tile>
   <tile id="15">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_15.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_15.png" width="16" height="16"/>
   </tile>
   <tile id="16">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_16.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_16.png" width="16" height="16"/>
   </tile>
   <tile id="17">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_17.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_17.png" width="16" height="16"/>
   </tile>
   <tile id="18">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_18.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_18.png" width="16" height="16"/>
   </tile>
   <tile id="19">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_19.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_19.png" width="16" height="16"/>
   </tile>
   <tile id="20">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_20.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_20.png" width="16" height="16"/>
   </tile>
   <tile id="21">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_21.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_21.png" width="16" height="16"/>
   </tile>
   <tile id="22">
-   <image source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/tiles/buildings_clay/buildings_clay_22.png" width="16" height="16"/>
+   <image source="../tiles/buildings_clay/buildings_clay_22.png" width="16" height="16"/>
   </tile>
  </tileset>
- <tileset firstgid="755" source="../../../../../Nowy folder (2)/Kampus-Crawler/game/assets/map_data/kafle.tsx"/>
+ <tileset firstgid="755" source="../map_data/kafle.tsx"/>
  <group id="8" name="ground">
   <layer id="5" name="ground_0" width="155" height="310">
    <data encoding="csv">
