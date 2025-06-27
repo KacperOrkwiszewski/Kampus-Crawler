@@ -33,6 +33,7 @@ class Game:
         self.paused = False
         self.map_open = False
 
+        self.map_viewer = MapViewer(self.screen)
         self.options_menu = OptionsMenu(self.screen)
         self.character_menu = CharacterMenu(self.screen, self.player)
 
@@ -43,8 +44,7 @@ class Game:
 
         self.msg_typing = False
         self.msg = ""
-
-        self.ui = UI(self.screen)
+        self.ui = None
         self.game_time_seconds = 600
         self.current_objective = "Znajdz budynek C4"  # Póki co statycznie ustawiony cel
 
@@ -93,7 +93,7 @@ class Game:
             pygame.draw.rect(self.screen, (207, 207, 207), bubble_rect, border_radius=8)
             self.screen.blit(text_surface, text_rect)
 
-        self.ui.draw(self.player.data, self.game_time_seconds, self.current_objective)
+        self.ui.draw()
 
         pygame.display.flip()
 
@@ -128,7 +128,7 @@ class Game:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_m:
-                    MapViewer(self.screen).run()
+                    self.map_viewer.run()
                 if event.key == pygame.K_ESCAPE:
                     self.paused = not self.paused
 
@@ -163,7 +163,6 @@ class Game:
         SoundManager.stop_music()
         SoundManager.play_music(MusicType.Game)
         walking_sound_channel = None
-        ui_map = MapViewer(self.screen)
 
         while self.running:
             # when server is closed become new server or join another
@@ -199,7 +198,6 @@ class Game:
                 self.game_time_seconds -= dt
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # kunic czasu ¯\_(ツ)_/¯
-                self.player.movement.move_player()
                 self.player.movement.move_player(self.map_data.get_collision_rects())
                 
                 if self.player.movement.is_moving: # is the player moving?
@@ -217,10 +215,10 @@ class Game:
     def run(self):
         while True:
             choice = MainMenu(self.screen).run()
-            print(f"Main menu choice: {choice}")
             if choice == "play":
                 self.character_menu.run()
                 self.player = Player(PlayerState.IDLE_DOWN, PlayerCharacter(self.character_menu.selected_character))
+                self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False
                 result = self.game_loop()
                 if result == "quit":

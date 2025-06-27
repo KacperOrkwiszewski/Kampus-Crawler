@@ -107,29 +107,26 @@ class OptionsMenu:
             self.screen.blit(text, text_rect)
             self.draw_option_values()
 
-
-    def handle_input(self):
+    def handle_input(self,event):
         mouse_pos = pygame.mouse.get_pos()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                for i, rect in enumerate(self.rects):
-                    if rect.collidepoint(mouse_pos):
-                        self.down = i
-                        self.clicked = i
-                        SoundManager.play_effect(SoundEffectType.Click)
-            elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                for i, rect in enumerate(self.rects):
-                    if rect.collidepoint(mouse_pos):
-                        if self.clicked == i:
-                            print("clicker")
-                            self.down = 12
-                            self.clicked = 12
-                            return self.buttons[i]["action"]
-                self.down = 12
-                self.clicked = 12
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            for i, rect in enumerate(self.rects):
+                if rect.collidepoint(mouse_pos):
+                    self.down = i
+                    self.clicked = i
+                    SoundManager.play_effect(SoundEffectType.Click)
+        elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            for i, rect in enumerate(self.rects):
+                if rect.collidepoint(mouse_pos):
+                    if self.clicked == i:
+                        self.down = 12
+                        self.clicked = 12
+                        return self.buttons[i]["action"]
+            self.down = 12
+            self.clicked = 12
 
     def modify_option(self, direction, option_index):
         if option_index == 1:
@@ -140,8 +137,10 @@ class OptionsMenu:
             SoundManager.set_music_volume(self.music_volume / 10)
         elif option_index == 2:
             self.game_speed = max(1, min(10, self.game_speed + direction))
+
     def say_ok(self):
         self.ok = True
+
     def draw_option_values(self):
         texts = [
             "music vol:",
@@ -167,6 +166,7 @@ class OptionsMenu:
             self.screen.blit(bg, rect)
             self.screen.blit(text, text_rect)
             self.screen.blit(value_txt,value_rect)
+
     def draw_title(self):
         title = self.title_font.render("OPTIONS", True, (207, 207, 207))
         center_x = self.screen.get_width() // 2
@@ -178,9 +178,18 @@ class OptionsMenu:
         self.ok = False
         clock = pygame.time.Clock()
         while not self.ok:
-            action = self.handle_input()
-            if action:
-                action()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.ok = True  # quit if esc
+                if event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
+                    # handle mouse clicks
+                    action = self.handle_input(event)
+                    if action:
+                        action()
             self.draw()
             clock.tick(60)
             pygame.display.flip()

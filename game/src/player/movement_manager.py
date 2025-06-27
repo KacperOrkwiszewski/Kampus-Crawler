@@ -14,8 +14,8 @@ class MovementManager:
         self.ignore_vertical_movement = False
         self.player = player
 
-        self.base_movement_speed = self.player.data.movement_speed  # Zapisz początkową prędkość
-        self.sprint_movement_speed = self.base_movement_speed * 2  # Prędkość sprintu
+        self.base_movement_speed = self.player.data.movement_speed
+        self.sprint_movement_speed = self.base_movement_speed * 2  # Sprint multiplier
 
     def stop(self):
         if self.is_moving:
@@ -31,16 +31,16 @@ class MovementManager:
     def handle_up(self, key):
         if key == pygame.K_DOWN:
             self.playerDOWN_change = 0
-            self.ignore_vertical_movement = False
+            self.ignore_horizontal_movement = False
         if key == pygame.K_UP:
             self.playerUP_change = 0
-            self.ignore_vertical_movement = False
+            self.ignore_horizontal_movement = False
         if key == pygame.K_LEFT:
             self.playerLEFT_change = 0
-            self.ignore_horizontal_movement = False
+            self.ignore_vertical_movement = False
         if key == pygame.K_RIGHT:
             self.playerRIGHT_change = 0
-            self.ignore_horizontal_movement = False
+            self.ignore_vertical_movement = False
         if key == pygame.K_LSHIFT:
             self.player.data.is_sprinting = False
             self.player.data.movement_speed = self.base_movement_speed
@@ -111,7 +111,7 @@ class MovementManager:
     def align_to_tiles(self, tile_size, map_scale):
         center_x = self.get_x_middle(map_scale, tile_size)
         center_y = self.get_y_middle(map_scale, tile_size)
-        ms = self.player.data.movement_speed
+        ms = self.base_movement_speed  # so character doesn't get stuck quick fix
 
         if self.is_moving:
             self.align_diagonal(center_x, center_y, ms)
