@@ -14,3 +14,15 @@ class PlayerData:
         self.player_name = "unnamed"
         self.chat_message = ""
         self.chat_timer = 0
+
+        self.stamina = 100  # Aktualna stamina
+        self.max_stamina = 100
+        self.stamina_drain_rate = 15  # Punkty staminy na sekundę
+        self.stamina_regen_rate = 10  # Punkty staminy na sekundę
+        self.stamina_regen_delay = 1.0  # Opóźnienie przed regeneracją po puszczeniu SHIFT (w sekundach)
+        self.stamina_regen_timer = 0.0
+        self.is_sprinting = False
+
+        self.lives = 3
+        self.max_lives = 3
+        self.ects = 15  # Na razie statyczne

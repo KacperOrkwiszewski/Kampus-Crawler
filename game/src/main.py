@@ -13,6 +13,7 @@ from menu.options_menu import OptionsMenu
 from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
 from sound.sound_manager import SoundManager
+from ui.UI import UI
 from map.ui_map import MapViewer
 
 class Game:
@@ -42,6 +43,10 @@ class Game:
 
         self.msg_typing = False
         self.msg = ""
+
+        self.ui = UI(self.screen)
+        self.game_time_seconds = 600
+        self.current_objective = "Znajdz budynek C4"  # Póki co statycznie ustawiony cel
 
     def start_networking(self):
         # Start server
@@ -88,6 +93,8 @@ class Game:
             pygame.draw.rect(self.screen, (207, 207, 207), bubble_rect, border_radius=8)
             self.screen.blit(text_surface, text_rect)
 
+        self.ui.draw(self.player.data, self.game_time_seconds, self.current_objective)
+
         pygame.display.flip()
 
     def handle_events(self, pause_menu):
@@ -114,6 +121,10 @@ class Game:
                         if len(self.msg) < 60 and event.unicode.isprintable():
                             self.msg += event.unicode
                 continue
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.ui.handle_click(event.pos)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_m:
@@ -166,8 +177,31 @@ class Game:
                 return "main_menu"
 
             if not self.paused:
-                self.player.movement.move_player(self.map_data.get_collision_rects())
+                # Sprint handling
+                if self.player.data.is_sprinting:
+                    if self.player.movement.is_moving:
+                        self.player.data.stamina -= self.player.data.stamina_drain_rate * dt
+                        if self.player.data.stamina <= 0:
+                            self.player.data.stamina = 0
+                            self.player.data.is_sprinting = False
+                            self.player.data.movement_speed = self.player.movement.base_movement_speed
+                            self.player.movement._update_movement_changes_speed()
+                            self.player.data.stamina_regen_timer = self.player.data.stamina_regen_delay
+                else:
+                    if self.player.data.stamina < self.player.data.max_stamina:
+                        if self.player.data.stamina_regen_timer > 0:
+                            self.player.data.stamina_regen_timer -= dt
+                        else:
+                            self.player.data.stamina += self.player.data.stamina_regen_rate * dt
+                            if self.player.data.stamina > self.player.data.max_stamina:
+                                self.player.data.stamina = self.player.data.max_stamina
 
+                self.game_time_seconds -= dt
+                if self.game_time_seconds < 0:
+                    self.game_time_seconds = 0  # kunic czasu ¯\_(ツ)_/¯
+                self.player.movement.move_player()
+                self.player.movement.move_player(self.map_data.get_collision_rects())
+                
                 if self.player.movement.is_moving: # is the player moving?
                   if walking_sound_channel == None: # check for null
                       walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
