@@ -15,7 +15,6 @@ class Player:
         self.data.pos_y = -200
 
     def draw(self, screen, screen_x, screen_y, dt, offset_x=0, offset_y=0):
-        print("x: ",self.data.pos_x, "y:", self.data.pos_y)
         # Get the current animation frame based on elapsed time (dt)
         frame = self.player_img_info.get_current_frame(dt)
         # Draw the current frame centered on the screen
