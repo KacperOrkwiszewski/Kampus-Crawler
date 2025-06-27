@@ -14,6 +14,7 @@ from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
 from sound.sound_manager import SoundManager
 from ui.UI import UI
+from map.ui_map import MapViewer
 
 class Game:
     def __init__(self):
@@ -23,13 +24,14 @@ class Game:
         pygame.display.set_caption("Kampus Crawler")
         pygame.display.set_icon(pygame.image.load('assets/logo/logo_icon.png'))
 
-        self.map_data = GameMap("assets/map_data/campusB.tmx")
+        self.map_data = GameMap("assets/map_data/map_all.tmx", Constants.MAP_SCALE)
         self.player = Player(PlayerState.IDLE_DOWN)
 
         self.client = None
         self.server = None
         self.running = True
         self.paused = False
+        self.map_open = False
 
         self.options_menu = OptionsMenu(self.screen)
         self.character_menu = CharacterMenu(self.screen, self.player)
@@ -59,7 +61,7 @@ class Game:
 
     def draw_game(self, dt):
         self.screen.fill((0, 0, 0))
-        self.map_data.draw(self.screen, Constants.MAP_SCALE, self.player.data.pos_x, self.player.data.pos_y)
+        self.map_data.draw(self.screen, self.player.data.pos_x, self.player.data.pos_y)
 
         # Draw other players
         with self.client.lock:
@@ -77,7 +79,7 @@ class Game:
                 self.client.player_objects[player_id].draw(
                     self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y
                 )
-        
+
         # Msg input box
         if self.msg_typing:
             font = pygame.font.Font("assets/menu/font.ttf", 10)
@@ -100,7 +102,6 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = False
                 return None
-
             # Handle chat message input
             if self.msg_typing:
                 self.player.movement.stop()
@@ -126,12 +127,14 @@ class Game:
                     self.ui.handle_click(event.pos)
 
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_m:
+                    MapViewer(self.screen).run()
                 if event.key == pygame.K_ESCAPE:
                     self.paused = not self.paused
 
                 if not self.paused:
                     self.player.movement.handle_down(event.key)
-                
+
                 if event.key == pygame.K_RETURN and not self.msg_typing:
                     self.msg_typing = True
                     self.msg = ""
@@ -160,6 +163,7 @@ class Game:
         SoundManager.stop_music()
         SoundManager.play_music(MusicType.Game)
         walking_sound_channel = None
+        ui_map = MapViewer(self.screen)
 
         while self.running:
             # when server is closed become new server or join another
@@ -196,6 +200,8 @@ class Game:
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # kunic czasu ¯\_(ツ)_/¯
                 self.player.movement.move_player()
+                self.player.movement.move_player(self.map_data.get_collision_rects())
+                
                 if self.player.movement.is_moving: # is the player moving?
                   if walking_sound_channel == None: # check for null
                       walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
@@ -228,7 +234,6 @@ class Game:
             elif choice == "quit":
                 pygame.quit()
                 break
-
 
 if __name__ == "__main__":
     game = Game()
