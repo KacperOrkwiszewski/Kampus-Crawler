@@ -19,6 +19,7 @@ class BuildingInfo:
 
     def wrong_building(self):
         if self.game.gaming.left_door == True:
+            self.game.ui.show_time_penalty()
             self.building_msg = self.building[0] + ": Wrong one"
             self.msg_set = True
 
