@@ -5,8 +5,9 @@ from sound.sound_manager import SoundManager
 
 
 class OptionsMenu:
-    def __init__(self, screen):
+    def __init__(self, screen, player):
         self.hovered_button = None
+        self.player = player
 
         self.ok = False
         self.screen = screen
@@ -137,6 +138,9 @@ class OptionsMenu:
             SoundManager.set_music_volume(self.music_volume / 10)
         elif option_index == 2:
             self.game_speed = max(2, min(10, self.game_speed + direction * 2))
+            self.player.movement.base_movement_speed = int(pow(2, self.game_speed / 2 - 1)) #magic calculation 2 4 6 8 10 -> 1 2 4 8 16
+            self.player.movement.sprint_movement_speed = self.player.movement.base_movement_speed * 2
+            self.player.data.movement_speed = self.player.movement.sprint_movement_speed if self.player.data.is_sprinting else self.player.movement.base_movement_speed
 
     def say_ok(self):
         self.ok = True
