@@ -18,7 +18,7 @@ class MapViewer:
 
         self.screen_rect = screen.get_rect()
         self.image_rect = self.image.get_rect()
-        self.offset = [0, 0]  # image offset
+        self.offset = [-360, -180]  # image offset
         self.dragging = False
         self.last_mouse_pos = (0, 0)
 
@@ -33,6 +33,7 @@ class MapViewer:
         self.offset[1] = max(min(self.offset[1], max_y), min_y)
 
     def run(self):
+        print(self.offset)
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

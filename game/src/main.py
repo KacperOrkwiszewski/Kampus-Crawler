@@ -16,6 +16,7 @@ from sound.sound_manager import SoundManager
 from ui.UI import UI
 from map.ui_map import MapViewer
 
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -36,6 +37,7 @@ class Game:
         self.map_viewer = MapViewer(self.screen)
         self.options_menu = OptionsMenu(self.screen)
         self.character_menu = CharacterMenu(self.screen, self.player)
+        self.pause_menu = PauseMenu(self.screen)
 
         IntroScreen.play(self.screen)
 
@@ -46,7 +48,8 @@ class Game:
         self.msg = ""
         self.ui = None
         self.game_time_seconds = 600
-        self.current_objective = "Znajdz budynek C4"  # Póki co statycznie ustawiony cel
+        self.max_game_time = 600
+        self.current_objective = "C4"  # static for now
 
     def start_networking(self):
         # Start server
@@ -85,7 +88,8 @@ class Game:
             font = pygame.font.Font("assets/menu/font.ttf", 10)
             text = self.msg + "|"
             text_surface = font.render(text, True, (38, 38, 38))
-            text_rect = text_surface.get_rect(center=(Constants.WINDOW_HEIGHT / 2, (Constants.WINDOW_WIDTH / 2) - (self.player.player_img_info.scale_size_x / 2) - 20))
+            text_rect = text_surface.get_rect(center=(Constants.WINDOW_HEIGHT / 2, (Constants.WINDOW_WIDTH / 2) - (
+                        self.player.player_img_info.scale_size_x / 2) - 20))
             # background
             bubble_rect = text_rect.inflate(16, 8)
             outline_rect = bubble_rect.inflate(4, 4)
@@ -93,11 +97,11 @@ class Game:
             pygame.draw.rect(self.screen, (207, 207, 207), bubble_rect, border_radius=8)
             self.screen.blit(text_surface, text_rect)
 
-        self.ui.draw()
+        self.ui.draw(self.current_objective, self.max_game_time, self.game_time_seconds)
 
         pygame.display.flip()
 
-    def handle_events(self, pause_menu):
+    def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -143,7 +147,7 @@ class Game:
                 if not self.paused and not self.msg_typing:
                     self.player.movement.handle_up(event.key)
                 else:
-                    result = pause_menu.run()
+                    result = self.pause_menu.run()
                     if result == "resume":
                         self.paused = False
                     elif result == "options":
@@ -159,7 +163,6 @@ class Game:
 
     def game_loop(self):
         self.start_networking()
-        pause_menu = PauseMenu(self.screen)
         SoundManager.stop_music()
         SoundManager.play_music(MusicType.Game)
         walking_sound_channel = None
@@ -171,9 +174,25 @@ class Game:
                 self.start_networking()
             dt = self.clock.tick(60) / 1000
 
-            result = self.handle_events(pause_menu)
+            result = self.handle_events()
             if result == "main_menu":
                 return "main_menu"
+
+            # ui icon click pause menu
+            if self.ui.paused:
+                self.ui.paused = False
+                self.paused = True
+                result = self.pause_menu.run()
+                if result == "resume":
+                    self.paused = False
+                elif result == "options":
+                    self.options_menu.run()
+                    self.paused = False
+                elif result == "main menu":
+                    self.client.is_connected = False  # disconnect client
+                    return "main_menu"
+                elif result == "quit":
+                    self.running = False
 
             if not self.paused:
                 # Sprint handling
@@ -197,14 +216,14 @@ class Game:
 
                 self.game_time_seconds -= dt
                 if self.game_time_seconds < 0:
-                    self.game_time_seconds = 0  # kunic czasu ¯\_(ツ)_/¯
+                    self.game_time_seconds = 0  # time ran out ¯\_(ツ)_/¯
                 self.player.movement.move_player(self.map_data.get_collision_rects())
-                
-                if self.player.movement.is_moving: # is the player moving?
-                  if walking_sound_channel == None: # check for null
-                      walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
-                  elif not walking_sound_channel.get_busy(): # check if the sound is not currently played
-                    walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
+
+                if self.player.movement.is_moving:  # is the player moving?
+                    if walking_sound_channel == None:  # check for null
+                        walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
+                    elif not walking_sound_channel.get_busy():  # check if the sound is not currently played
+                        walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
                 self.draw_game(dt)
 
             if self.player.data.chat_timer > 0:
@@ -232,6 +251,7 @@ class Game:
             elif choice == "quit":
                 pygame.quit()
                 break
+
 
 if __name__ == "__main__":
     game = Game()
