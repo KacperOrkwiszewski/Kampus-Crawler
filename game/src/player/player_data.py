@@ -25,4 +25,4 @@ class PlayerData:
 
         self.lives = 3
         self.max_lives = 3
-        self.ects = 15  # static for now
+        self.ects = 15
