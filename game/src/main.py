@@ -135,6 +135,7 @@ class Game:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_m:
+                    self.player.movement.stop()
                     self.map_viewer.run()
                 if event.key == pygame.K_ESCAPE:
                     self.paused = not self.paused
