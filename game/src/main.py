@@ -37,6 +37,7 @@ class Game:
         self.map_viewer = MapViewer(self.screen)
         self.options_menu = OptionsMenu(self.screen)
         self.character_menu = CharacterMenu(self.screen, self.player)
+        self.pause_menu = PauseMenu(self.screen)
 
         IntroScreen.play(self.screen)
 
@@ -100,7 +101,7 @@ class Game:
 
         pygame.display.flip()
 
-    def handle_events(self, pause_menu):
+    def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -146,7 +147,7 @@ class Game:
                 if not self.paused and not self.msg_typing:
                     self.player.movement.handle_up(event.key)
                 else:
-                    result = pause_menu.run()
+                    result = self.pause_menu.run()
                     if result == "resume":
                         self.paused = False
                     elif result == "options":
@@ -162,7 +163,6 @@ class Game:
 
     def game_loop(self):
         self.start_networking()
-        pause_menu = PauseMenu(self.screen)
         SoundManager.stop_music()
         SoundManager.play_music(MusicType.Game)
         walking_sound_channel = None
@@ -174,9 +174,25 @@ class Game:
                 self.start_networking()
             dt = self.clock.tick(60) / 1000
 
-            result = self.handle_events(pause_menu)
+            result = self.handle_events()
             if result == "main_menu":
                 return "main_menu"
+
+            # ui icon click pause menu
+            if self.ui.paused:
+                self.ui.paused = False
+                self.paused = True
+                result = self.pause_menu.run()
+                if result == "resume":
+                    self.paused = False
+                elif result == "options":
+                    self.options_menu.run()
+                    self.paused = False
+                elif result == "main menu":
+                    self.client.is_connected = False  # disconnect client
+                    return "main_menu"
+                elif result == "quit":
+                    self.running = False
 
             if not self.paused:
                 # Sprint handling

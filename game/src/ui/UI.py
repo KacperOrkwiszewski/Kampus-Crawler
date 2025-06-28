@@ -63,14 +63,13 @@ class UI:
 
         self.help_menu = QuickHelp(self.screen)
         self.options_menu = options_menu
-        self.pause_menu = PauseMenu(self.screen)
+        self.paused = False
 
         self.objective_text = "OBJECTIVE:"
 
     def handle_click(self, mouse_pos):
         if self.pause_button_rect and self.pause_button_rect.collidepoint(mouse_pos):
-            self.pause_menu.run()
-
+            self.paused = True
         elif self.options_button_rect and self.options_button_rect.collidepoint(mouse_pos):
             self.options_menu.run()
         elif self.help_button_rect and self.help_button_rect.collidepoint(mouse_pos):
