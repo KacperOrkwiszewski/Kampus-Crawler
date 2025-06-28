@@ -34,6 +34,7 @@ class Gaming:
             self.game.game_time_seconds = 0
 
     def check_building(self):
+        self.out_of_time()
         player_point = Point(self.game.player.data.pos_x, self.game.player.data.pos_y)
         all_entrances = list(Constants.entrences_campus_A.values()) + \
                         list(Constants.entrences_campus_B.values()) + \
@@ -56,6 +57,8 @@ class Gaming:
         if self.game.game_time_seconds <= 0:
             self.game.player.data.lives -= 1
             self.game.player.data.ects -= random.randint(1, 5)
+            if self.game.player.data.ects < 0:
+                self.game.player.data.ects = 0
             SoundManager.play_effect(SoundEffectType.EctsLoss)
             if self.game.player.data.lives <= 0:
                 self.game.player.data.lives = 0
