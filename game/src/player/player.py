@@ -6,8 +6,8 @@ from .player_data import PlayerData
 
 
 class Player:
-    def __init__(self, state, character=PlayerCharacter.DAVID):
-        self.data = PlayerData(state, character)
+    def __init__(self, state, character=PlayerCharacter.DAVID, base_ms=2):
+        self.data = PlayerData(state, base_ms, character)
         self.player_img_info = PlayerImageInfo(self.data.folder + self.gif_name(), self.data.movement_speed)
         self.current_animation = self.gif_name()
         self.movement = MovementManager(self)

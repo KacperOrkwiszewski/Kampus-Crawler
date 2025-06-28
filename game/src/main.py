@@ -244,7 +244,7 @@ class Game:
             choice = MainMenu(self.screen).run()
             if choice == "play":
                 self.character_menu.run()
-                self.player = Player(PlayerState.IDLE_DOWN, PlayerCharacter(self.character_menu.selected_character))
+                self.player = Player(PlayerState.IDLE_DOWN, PlayerCharacter(self.character_menu.selected_character), self.player.movement.base_movement_speed)
                 self.options_menu.player = self.player # I have to update the instance of the player in the options menu
                 self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False
