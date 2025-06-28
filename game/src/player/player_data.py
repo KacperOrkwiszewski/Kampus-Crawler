@@ -3,7 +3,7 @@ class PlayerData:
         self.id = None
         self.pos_x = 40
         self.pos_y = 40
-        self.movement_speed = 20
+        self.movement_speed = 2
         self.folder = "assets/characters/"
         self.state = state
         self.character = character
