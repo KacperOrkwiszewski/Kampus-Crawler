@@ -8,6 +8,7 @@ class Gaming:
     def __init__(self, game):
         self.game = game
         self.buliding_count = 0
+        self.in_door = False
 
     def reset(self):
         self.game.player.data.ects = 0
@@ -27,19 +28,29 @@ class Gaming:
         self.new_objective()
     
     def wrong_building(self):
-        self.game.game_time_seconds -= 30
+        if self.game.game_time_seconds > 30:
+            self.game.game_time_seconds -= 30
+        else:
+            self.game.game_time_seconds = 0
 
     def check_building(self):
-        if [Point(self.game.player.data.pos_x, self.game.player.data.pos_y)] in Constants.entrences_campus_A.values() or \
-           [Point(self.game.player.data.pos_x, self.game.player.data.pos_y)] in Constants.entrences_campus_B.values() or \
-           [Point(self.game.player.data.pos_x, self.game.player.data.pos_y)] in Constants.entrences_campus_C.values():
+        player_point = Point(self.game.player.data.pos_x, self.game.player.data.pos_y)
+        all_entrances = list(Constants.entrences_campus_A.values()) + \
+                        list(Constants.entrences_campus_B.values()) + \
+                        list(Constants.entrences_campus_C.values())
+        if any(player_point in entrance for entrance in all_entrances):
+            if self.in_door:
+                return
             SoundManager.play_effect(SoundEffectType.DoorOpen)
-            if [Point(self.game.player.data.pos_x, self.game.player.data.pos_y)] == self.game.current_objective:
+            self.in_door = True
+            if player_point in self.game.current_objective[1]:
                 self.right_bulding()
                 self.new_objective()
             else:
                 SoundManager.play_effect(SoundEffectType.WrongDoor)
                 self.wrong_building()
+        else:
+            self.in_door = False
     
     def out_of_time(self):
         if self.game.game_time_seconds <= 0:

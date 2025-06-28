@@ -6,6 +6,9 @@ class Point:
         self.x = x
         self.y = y
 
+    def __eq__(self, other):
+        return isinstance(other, Point) and self.x == other.x and self.y == other.y
+
 class Constants:
     TILES_Y = 50
     TILES_X = 38
@@ -103,10 +106,10 @@ class Constants:
 
     def random_entrance_campus(campus):
         if campus == 'A':
-            return Constants.entrences_campus_A
+            return random.choice(list(Constants.entrences_campus_A.items()))
         elif campus == 'B':
-            return Constants.entrences_campus_B
+            return random.choice(list(Constants.entrences_campus_B.items()))
         elif campus == 'C':
-            return Constants.entrences_campus_C
+            return random.choice(list(Constants.entrences_campus_C.items()))
         else:
             raise ValueError("Invalid campus identifier. Use 'A', 'B', or 'C'.")
