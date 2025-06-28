@@ -229,9 +229,9 @@ class Game:
                         walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
                     elif not walking_sound_channel.get_busy():  # check if the sound is not currently played
                         walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
-                
+
                 self.gaming.check_building()
-                
+
                 self.draw_game(dt)
 
             if self.player.data.chat_timer > 0:

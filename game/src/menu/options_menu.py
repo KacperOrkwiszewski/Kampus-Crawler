@@ -12,9 +12,9 @@ class OptionsMenu:
         self.screen = screen
 
         # to implement functionality innit these values with parameters given in constructor
-        self.effects_volume = 5  # changes from 1 to 10
-        self.music_volume = 5  # changes from 1 to 10
-        self.game_speed = 5  # changes from 1 to 10
+        self.effects_volume = 5  # changes from 1 to 10 by 1
+        self.music_volume = 5  # changes from 1 to 10 by 1
+        self.game_speed = 4  # changes from 1 to 10 by 2
 
         self.x_center = self.screen.get_width() // 2
         self.arrow_offset = 180
@@ -136,7 +136,7 @@ class OptionsMenu:
             self.music_volume = max(1, min(10, self.music_volume + direction))
             SoundManager.set_music_volume(self.music_volume / 10)
         elif option_index == 2:
-            self.game_speed = max(1, min(10, self.game_speed + direction))
+            self.game_speed = max(2, min(10, self.game_speed + direction * 2))
 
     def say_ok(self):
         self.ok = True
