@@ -10,7 +10,6 @@ class PlayerData:
         self.last_direction = state
         self.is_moving = False
         self.during_diagonal_alignment = False
-        self.character_id = 1
         self.player_name = "unnamed"
         self.chat_message = ""
         self.chat_timer = 0

@@ -244,7 +244,6 @@ class Game:
             choice = MainMenu(self.screen).run()
             if choice == "play":
                 self.character_menu.run()
-                self.player = Player(PlayerState.IDLE_DOWN, PlayerCharacter(self.character_menu.selected_character))
                 self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False
                 result = self.game_loop()
