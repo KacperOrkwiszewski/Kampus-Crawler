@@ -8,10 +8,10 @@ class GameMap:
         self.filename = filename
         self.tmx_data = pytmx.load_pygame(filename)
         self.scale = scale
-        self.tile_width = 80
-        self.tile_height = 80
+        self.tile_width = Constants.TILE_WIDTH * Constants.MAP_SCALE
+        self.tile_height = Constants.TILE_HEIGHT * Constants.MAP_SCALE
         self.map_surface = self._render_map()
-        self.collision_rects = self._generate_collision_rects("buildings_1")
+        self.collision_rects = self._generate_collision_rects(["buildings_1", "objects", "borders"])
 
     def _render_map(self):
         map_width = self.tmx_data.width * self.tile_width
@@ -31,12 +31,12 @@ class GameMap:
 
         return surface
 
-    def _generate_collision_rects(self, target_layer_name):
+    def _generate_collision_rects(self, target_layer_names):
           collision_rects = []
 
           def find_layers(layers):
               for layer in layers:
-                  if isinstance(layer, pytmx.TiledTileLayer) and layer.name == target_layer_name:
+                  if isinstance(layer, pytmx.TiledTileLayer) and (layer.name in target_layer_names):
                       for x, y, gid in layer:
                           if gid != 0:
                               rect = pygame.Rect(
