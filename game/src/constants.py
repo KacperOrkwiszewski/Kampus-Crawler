@@ -3,6 +3,9 @@ class Point:
         self.x = x
         self.y = y
 
+    def __eq__(self, other):
+        return isinstance(other, Point) and self.x == other.x and self.y == other.y
+
 class Constants:
     TILES_Y = 50
     TILES_X = 38

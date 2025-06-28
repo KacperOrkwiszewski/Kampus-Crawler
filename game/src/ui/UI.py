@@ -139,7 +139,7 @@ class UI:
         self.screen.blit(self.middle_border_img,
                          (self.screen.get_width() // 2 - self.middle_border_img.get_width() // 2, 0))
         # objective text
-        objective_text = self.objective_text + objective
+        objective_text = self.objective_text + objective[0]
         outline_width = 2
         base = self.font_large.render(objective_text, True, self.text_color)
         size = (base.get_width() + 2 * outline_width, base.get_height() + 2 * outline_width)
