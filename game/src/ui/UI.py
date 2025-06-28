@@ -195,11 +195,15 @@ class UI:
             bar_height
         )
         # change color with time
-        r = int((1 - time_ratio) * 255 + time_ratio * 57)
-        g = int((1 - time_ratio) * 50 + time_ratio * 115)
-        b = int((1 - time_ratio) * 50 + time_ratio * 48)
-        bar_color = (r, g, b)
-
+        # do not if time > half
+        if time_ratio > 0.5:
+            bar_color = (57, 115, 48)  # original color
+        else:
+            t = time_ratio * 2  # scale 0..0.5 to 0..1
+            r = int((1 - t) * 255 + t * 57)
+            g = int((1 - t) * 50 + t * 115)
+            b = int((1 - t) * 50 + t * 48)
+            bar_color = (r, g, b)
         pygame.draw.rect(self.screen, (20, 20, 20), time_rect, border_radius=3)
         pygame.draw.rect(self.screen, bar_color, fill_rect_time, border_radius=3)
         pygame.draw.rect(self.screen, (207, 207, 207), time_rect, width=2, border_radius=3)
