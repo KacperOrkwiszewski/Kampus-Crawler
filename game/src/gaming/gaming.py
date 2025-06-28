@@ -18,7 +18,7 @@ class Gaming:
 
     def new_objective(self):
         self.game.game_time_seconds = self.game.max_game_time
-        self.game.current_objective = Constants.random_entrance_campus(Constants.random_campus())
+        self.game.current_objective = self.random_entrance_campus(self.random_campus())
     
     def right_bulding(self):
         self.buliding_count += 1
@@ -66,3 +66,17 @@ class Gaming:
                 SoundManager.play_effect(SoundEffectType.GameOver)
             else:
                 self.new_objective()
+
+    def random_campus(self):
+        campuses = ['A', 'B', 'C']
+        return random.choice(campuses)
+
+    def random_entrance_campus(self, campus):
+        if campus == 'A':
+            return random.choice(list(Constants.entrences_campus_A.items()))
+        elif campus == 'B':
+            return random.choice(list(Constants.entrences_campus_B.items()))
+        elif campus == 'C':
+            return random.choice(list(Constants.entrences_campus_C.items()))
+        else:
+            raise ValueError("Invalid campus identifier. Use 'A', 'B', or 'C'.")
