@@ -30,3 +30,4 @@ class QuickHelp:
             self.screen.blit(self.image, self.offset)
             pygame.display.flip()
             self.clock.tick(60)
+
