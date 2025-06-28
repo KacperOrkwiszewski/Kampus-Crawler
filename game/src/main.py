@@ -219,7 +219,7 @@ class Game:
                             if self.player.data.stamina > self.player.data.max_stamina:
                                 self.player.data.stamina = self.player.data.max_stamina
 
-                self.game_time_seconds -= dt
+                self.game_time_seconds -= dt * float(self.player.movement.base_movement_speed / 2)
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # time ran out ¯\_(ツ)_/¯
                 self.player.movement.move_player(self.map_data.get_collision_rects())
