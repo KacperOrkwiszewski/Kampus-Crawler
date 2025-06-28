@@ -1,3 +1,6 @@
+import random
+
+
 class Point:
     def __init__(self, x, y):
         self.x = x
@@ -93,3 +96,17 @@ class Constants:
         "C17": [Point(-2760, -20680)],
         "C18": [Point(-2120, -21240)]
     }
+
+    def random_campus():
+        campuses = ['A', 'B', 'C']
+        return random.choice(campuses)
+
+    def random_entrance_campus(campus):
+        if campus == 'A':
+            return Constants.entrences_campus_A
+        elif campus == 'B':
+            return Constants.entrences_campus_B
+        elif campus == 'C':
+            return Constants.entrences_campus_C
+        else:
+            raise ValueError("Invalid campus identifier. Use 'A', 'B', or 'C'.")

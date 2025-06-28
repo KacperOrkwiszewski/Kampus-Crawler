@@ -15,6 +15,7 @@ from intro.intro_screen import IntroScreen
 from sound.sound_manager import SoundManager
 from ui.UI import UI
 from map.ui_map import MapViewer
+from gaming.gaming import Gaming
 
 
 class Game:
@@ -50,6 +51,8 @@ class Game:
         self.game_time_seconds = 600
         self.max_game_time = 600
         self.current_objective = "C4"  # static for now
+        self.game_over = False
+        self.gaming = Gaming(self)
 
     def start_networking(self):
         # Start server
@@ -166,6 +169,7 @@ class Game:
         SoundManager.stop_music()
         SoundManager.play_music(MusicType.Game)
         walking_sound_channel = None
+        self.gaming.reset()
 
         while self.running:
             # when server is closed become new server or join another
@@ -224,6 +228,9 @@ class Game:
                         walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
                     elif not walking_sound_channel.get_busy():  # check if the sound is not currently played
                         walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
+                
+                self.gaming.check_building()
+                
                 self.draw_game(dt)
 
             if self.player.data.chat_timer > 0:
