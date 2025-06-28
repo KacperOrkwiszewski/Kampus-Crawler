@@ -36,7 +36,7 @@ class Game:
         self.map_open = False
 
         self.map_viewer = MapViewer(self.screen)
-        self.options_menu = OptionsMenu(self.screen, self)
+        self.options_menu = OptionsMenu(self.screen, self.player)
         self.character_menu = CharacterMenu(self.screen, self.player)
         self.pause_menu = PauseMenu(self.screen)
 
@@ -219,7 +219,7 @@ class Game:
                             if self.player.data.stamina > self.player.data.max_stamina:
                                 self.player.data.stamina = self.player.data.max_stamina
 
-                self.game_time_seconds -= dt * float(self.player.movement.base_movement_speed / 2) # magic calculation 1 2 4 8 16 -> 0.5 1 2 4 8
+                self.game_time_seconds -= dt
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # time ran out ¯\_(ツ)_/¯
                 self.player.movement.move_player(self.map_data.get_collision_rects())
@@ -245,6 +245,7 @@ class Game:
             if choice == "play":
                 self.character_menu.run()
                 self.player = Player(PlayerState.IDLE_DOWN, PlayerCharacter(self.character_menu.selected_character))
+                self.options_menu.player = self.player # I have to update the instance of the player in the options menu
                 self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False
                 result = self.game_loop()
