@@ -131,10 +131,10 @@ class OptionsMenu:
 
     def modify_option(self, direction, option_index):
         if option_index == 1:
-            self.effects_volume = max(1, min(10, self.effects_volume + direction))
+            self.effects_volume = max(0, min(10, self.effects_volume + direction))
             SoundManager.set_effect_volume(self.effects_volume / 10)
         elif option_index == 0:
-            self.music_volume = max(1, min(10, self.music_volume + direction))
+            self.music_volume = max(0, min(10, self.music_volume + direction))
             SoundManager.set_music_volume(self.music_volume / 10)
         elif option_index == 2:
             self.game_speed = max(2, min(10, self.game_speed + direction * 2))
