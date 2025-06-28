@@ -2,8 +2,8 @@ import pygame
 import sys
 from sound.sound_manager import SoundManager
 from sound.sound_type import SoundEffectType
-from player.player import Player
 import pygame_textinput
+from player.player_state import PlayerCharacter
 
 
 class CharacterMenu:
@@ -151,8 +151,9 @@ class CharacterMenu:
                             if clicked == i:
                                 if i == 2:  # 'confirm' button
                                     if not self.textinput.value == "":
-                                        self.player.data.player_name = self.textinput
-                                        self.player.data.character_id = self.selected_character
+                                        self.player.data.player_name = self.textinput.value
+                                        #self.player.data.character_id = self.selected_character
+                                        self.player.data.character = PlayerCharacter(self.selected_character)
                                         return self.buttons[i].lower()
                                 if i == 1:
                                     self.selected_character = (self.selected_character + 1) % 3
