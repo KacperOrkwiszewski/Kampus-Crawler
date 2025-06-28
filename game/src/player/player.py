@@ -15,6 +15,14 @@ class Player:
         self.data.pos_y = -200
 
     def draw(self, screen, screen_x, screen_y, dt, offset_x=0, offset_y=0):
+        if not 'idle' in self.gif_name():
+          if self.data.is_sprinting:
+              self.player_img_info.animation_speed = 0.2 / self.movement.sprint_movement_speed
+          else:
+              self.player_img_info.animation_speed = 0.2 / self.movement.base_movement_speed
+        else:
+            self.player_img_info.animation_speed = 0.5
+
         # Get the current animation frame based on elapsed time (dt)
         frame = self.player_img_info.get_current_frame(dt)
         # Draw the current frame centered on the screen
