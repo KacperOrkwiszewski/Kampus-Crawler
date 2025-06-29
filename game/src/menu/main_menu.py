@@ -82,7 +82,6 @@ class MainMenu:
                     for i, rect in enumerate(self.rects):
                         if rect.collidepoint(mouse_pos):
                             button_images[i] = self.bg_images_down[i]
-                            print("ok clicker legend")
                             clicked = i
                             SoundManager.play_effect(SoundEffectType.Click)
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -91,7 +90,6 @@ class MainMenu:
                         if rect.collidepoint(mouse_pos):
                             button_images[i] = self.bg_images_down[i]
                             if clicked == i:
-                                print("aight")
                                 return self.buttons[i].lower()
                     clicked = 10
 

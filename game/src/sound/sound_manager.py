@@ -11,7 +11,6 @@ class SoundManager:
 
   def play_music(type, loop = True):
     pygame.mixer.music.load(MUSIC_FILES[type])
-    print(MUSIC_FILES[type])
     pygame.mixer.music.play(-1 if loop else 0) # -1 = loop forever, 0 = only once
 
   def set_music_volume(vol):

@@ -11,8 +11,8 @@ class Player:
         self.player_img_info = PlayerImageInfo(self.data.folder + self.gif_name(), self.data.movement_speed)
         self.current_animation = self.gif_name()
         self.movement = MovementManager(self)
-        self.data.pos_x = -4200
-        self.data.pos_y = -200
+        self.data.pos_x = - 8360
+        self.data.pos_y = - 11880
 
     def draw(self, screen, screen_x, screen_y, dt, offset_x=0, offset_y=0):
         if not 'idle' in self.gif_name():
@@ -75,3 +75,8 @@ class Player:
 
     def gif_name(self):
         return str(CHARACTERS_FILES[self.data.character]) + "_" + str(ANIMATION_FILES[self.data.state])
+
+    def reset(self, state, character=PlayerCharacter.DAVID, base_ms=2):
+        self.data.reset(state, base_ms, character)
+        self.data.pos_x = - 8360
+        self.data.pos_y = - 11880
