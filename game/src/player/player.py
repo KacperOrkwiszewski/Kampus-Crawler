@@ -3,6 +3,7 @@ from .player_state import ANIMATION_FILES, CHARACTERS_FILES, PlayerCharacter
 from .player_image_info import PlayerImageInfo
 from .movement_manager import MovementManager
 from .player_data import PlayerData
+from constants import Constants
 
 
 class Player:
@@ -80,3 +81,9 @@ class Player:
         self.data.reset(state, base_ms, character)
         self.data.pos_x = - 8360
         self.data.pos_y = - 11880
+
+    def align_immediate(self):
+        self.data.pos_x = self.data.pos_x - self.data.pos_x % (
+                16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
+        self.data.pos_y = self.data.pos_y - self.data.pos_y % (
+                16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2

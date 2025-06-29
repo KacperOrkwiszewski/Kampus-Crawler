@@ -16,7 +16,8 @@ from ui.UI import UI
 from ui.building_info import BuildingInfo
 from map.ui_map import MapViewer
 from gaming.gaming import Gaming
-
+from menu.game_over import GameOver
+from menu.win_screen import WinScreen
 
 class Game:
     def __init__(self):
@@ -163,13 +164,12 @@ class Game:
                         self.paused = False
                     elif result == "options":
                         self.options_menu.run()
-                        self.player.data.pos_x = self.player.data.pos_x - self.player.data.pos_x % (16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
-                        self.player.data.pos_y = self.player.data.pos_y - self.player.data.pos_y % (16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
+                        self.player.align_immediate()
                         self.player.movement.stop()
                         self.paused = False
                     elif result == "main menu":
                         self.client.is_connected = False  # disconnect client
-                        self.player.reset(PlayerState.IDLE_DOWN)
+                        self.player.align_immediate()
                         return "main_menu"
                     elif result == "quit":
                         self.running = False
@@ -182,8 +182,21 @@ class Game:
         SoundManager.play_music(MusicType.Game)
         walking_sound_channel = None
         self.gaming.reset()
-
+        self.player.align_immediate()
+        self.player.movement.stop()
+        self.player.data.movement_speed = 2
+        self.options_menu.game_speed = 4
         while self.running:
+            if self.player.data.ects >= 30:
+                self.player.align_immediate()
+                WinScreen(self.screen, self.player.data.character).run()
+                self.player.reset(PlayerState.IDLE_DOWN)
+                return "main_menu"
+            elif self.player.data.lives == 0:
+                self.player.align_immediate()
+                GameOver(self.screen, self.player.data.character).run()
+                self.player.reset(PlayerState.IDLE_DOWN)
+                return "main_menu"
             # when server is closed become new server or join another
             if not self.client.is_connected:
                 print("connection lost, establishing new one")
@@ -193,6 +206,10 @@ class Game:
             result = self.handle_events()
             if result == "main_menu":
                 self.player.reset(PlayerState.IDLE_DOWN)
+                self.player.data.pos_x = self.player.data.pos_x - self.player.data.pos_x % (
+                        16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
+                self.player.data.pos_y = self.player.data.pos_y - self.player.data.pos_y % (
+                        16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
                 return "main_menu"
 
             # ui icon click pause menu
@@ -203,11 +220,16 @@ class Game:
                 if result == "resume":
                     self.paused = False
                 elif result == "options":
+                    self.player.align_immediate()
                     self.options_menu.run()
                     self.paused = False
                 elif result == "main menu":
                     self.client.is_connected = False  # disconnect client
                     self.player.reset(PlayerState.IDLE_DOWN)
+                    self.player.data.pos_x = self.player.data.pos_x - self.player.data.pos_x % (
+                            16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
+                    self.player.data.pos_y = self.player.data.pos_y - self.player.data.pos_y % (
+                            16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
                     return "main_menu"
                 elif result == "quit":
                     self.running = False
@@ -256,19 +278,21 @@ class Game:
         while True:
             choice = MainMenu(self.screen).run()
             if choice == "play":
+                self.player.align_immediate()
                 self.character_menu.run()
                 self.options_menu.player = self.player # I have to update the instance of the player in the options menu - to verify
-
                 self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False
                 result = self.game_loop()
                 if result == "quit":
                     break
                 elif result == "main_menu":
+                    self.player.align_immediate()
                     SoundManager.stop_music()
                     SoundManager.play_music(MusicType.Menu)
                     continue
             elif choice == "options":
+                self.player.align_immediate()
                 self.options_menu.run()
             elif choice == "quit":
                 pygame.quit()
