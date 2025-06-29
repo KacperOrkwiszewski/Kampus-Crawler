@@ -10,26 +10,9 @@ class GameMap:
         self.scale = scale
         self.tile_width = Constants.TILE_WIDTH * Constants.MAP_SCALE
         self.tile_height = Constants.TILE_HEIGHT * Constants.MAP_SCALE
-        self.map_surface = self._render_map()
         self.collision_rects = self._generate_collision_rects(["buildings_1", "objects", "borders"])
 
-    def _render_map(self):
-        map_width = self.tmx_data.width * self.tile_width
-        map_height = self.tmx_data.height * self.tile_height
-
-        surface = pygame.Surface((map_width, map_height), pygame.SRCALPHA)
-
-        for layer in self.tmx_data.visible_layers:
-            if isinstance(layer, pytmx.TiledTileLayer):
-                for x, y, gid in layer:
-                    tile = self.tmx_data.get_tile_image_by_gid(gid)
-                    if tile:
-                        tile = pygame.transform.scale(tile, (self.tile_width, self.tile_height))
-                        px = x * self.tile_width
-                        py = y * self.tile_height
-                        surface.blit(tile, (px, py))
-
-        return surface
+        self.map_as_image = pygame.image.load("assets/map_data/map_all.png").convert()
 
     def _generate_collision_rects(self, target_layer_names):
           collision_rects = []
@@ -56,4 +39,4 @@ class GameMap:
         return self.collision_rects
 
     def draw(self, screen, offset_x, offset_y):
-        screen.blit(self.map_surface, (offset_x, offset_y))
+        screen.blit(self.map_as_image, (offset_x, offset_y))

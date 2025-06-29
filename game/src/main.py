@@ -161,6 +161,14 @@ class Game:
                         self.paused = False
                     elif result == "options":
                         self.options_menu.run()
+                        print(self.player.data.pos_y,self.player.data.pos_x)
+
+                        print('align')
+                        self.player.data.pos_x = self.player.data.pos_x - self.player.data.pos_x % (16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
+                        self.player.data.pos_y = self.player.data.pos_y - self.player.data.pos_y % (16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
+                        self.player.movement.stop()
+
+                        print(self.player.data.pos_y, self.player.data.pos_x)
                         self.paused = False
                     elif result == "main menu":
                         self.client.is_connected = False  # disconnect client
