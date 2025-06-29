@@ -22,6 +22,9 @@ class Constants:
     MAP_ORIGIN_X = 360
     MAP_ORIGIN_Y = 280
 
+    SERVER_IP_ADDR = "193.93.88.233"
+    SERVER_PORT = 49158
+
     entrences_campus_A = {
         "A1": [Point(-8440, -1160)],
         "A2": [Point(-8520, -2040)],
