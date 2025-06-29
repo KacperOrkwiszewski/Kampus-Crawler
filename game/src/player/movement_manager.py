@@ -19,6 +19,7 @@ class MovementManager:
 
     def stop(self):
         if self.is_moving:
+            self.player.data.is_sprinting = False
             self.playerDOWN_change = 0
             self.ignore_vertical_movement = False
             self.playerUP_change = 0

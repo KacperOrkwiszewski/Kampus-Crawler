@@ -17,24 +17,22 @@ class Server:
         s.bind((self.host, self.port))
         while True:
             try:
-                # Odbierz dane od gracza
+                # Receive data
                 player, addr = recv_pickle_udp(s)
                 now = time.time()
                 with self.lock:
                     self.players[addr] = player
                     self.last_seen[addr] = now
-
-                    # Usuń nieaktywnych graczy
+                    # delete inactive clients
                     to_remove = [a for a, t in self.last_seen.items() if now - t > self.timeout]
                     for a in to_remove:
                         del self.players[a]
                         del self.last_seen[a]
-
                     all_players = self.players.copy()
-
-                # Odesłanie liczby graczy i wszystkich graczy do nadawcy
+                # Send id, then number of players them player datas
+                # send_pickle_udp(s, addr, addr)
                 send_pickle_udp(s, len(all_players), addr)
                 send_pickle_udp(s, all_players, addr)
             except Exception as e:
                 print("UDP server error:", e)
-            time.sleep(0.005)
+            time.sleep(0.05)

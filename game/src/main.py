@@ -1,6 +1,7 @@
 import pygame
 import threading
 from client_server.client_udp import Client
+from client_server.server_udp import Server
 from constants import Constants
 from sound.sound_type import MusicType, SoundEffectType
 from map.game_map import GameMap
@@ -18,6 +19,7 @@ from map.ui_map import MapViewer
 from gaming.gaming import Gaming
 from menu.game_over import GameOver
 from menu.win_screen import WinScreen
+
 
 class Game:
     def __init__(self):
@@ -57,24 +59,30 @@ class Game:
         self.building_info = BuildingInfo(self)
         self.dt = 0
 
+        self.client = Client(Constants.SERVER_IP_ADDR, Constants.SERVER_PORT)  # comment for local server
+        # self.client = Client('127.0.0.1', 12345)  # uncomment for local server
+        # self.server = Server('0.0.0.0', 12345)  # uncomment for local server
     def start_networking(self):
         # Start server
-        #self.server = Server('0.0.0.0', 12345)
-        #server_thread = threading.Thread(target=self.server.run_server, daemon=True)
-        #server_thread.start()
+        # server_thread = threading.Thread(target=self.server.run_server, daemon=True)  #uncomment for local server
+        # server_thread.start()  #uncomment for local server
 
         # Start client
-        self.client = Client(Constants.SERVER_IP_ADDR, Constants.SERVER_PORT)
+        self.client.disconnect = False
         client_thread = threading.Thread(target=Client.network_thread, args=(self.client, self.player), daemon=True)
         client_thread.start()
 
     def draw_game(self, dt):
-        self.screen.fill((0, 0, 0))
+        self.screen.fill((30, 30, 30))
         self.map_data.draw(self.screen, self.player.data.pos_x, self.player.data.pos_y)
-
+        self.player.draw(
+            self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, self.dt, 0, 0
+        )
         # Draw other players
         with self.client.lock:
             for player_id, other_player_data in self.client.all_players.items():
+                if other_player_data.clientID == self.player.data.clientID:
+                    continue
                 if player_id not in self.client.player_objects:
                     self.client.player_objects[player_id] = Player(other_player_data.state, other_player_data.character)
 
@@ -127,6 +135,7 @@ class Game:
                     elif event.key == pygame.K_BACKSPACE:
                         self.msg = self.msg[:-1]
                     elif event.key == pygame.K_ESCAPE:
+                        self.player.movement.stop()
                         self.msg_typing = False
                         self.msg = ""
                     else:
@@ -143,6 +152,7 @@ class Game:
                     self.player.movement.stop()
                     self.map_viewer.run()
                 if event.key == pygame.K_ESCAPE:
+                    self.player.movement.stop()
                     self.paused = not self.paused
 
                 if not self.paused:
@@ -168,7 +178,7 @@ class Game:
                         self.player.movement.stop()
                         self.paused = False
                     elif result == "main menu":
-                        self.client.is_connected = False  # disconnect client
+                        self.client.disconnect = True  # disconnect client
                         self.player.align_immediate()
                         return "main_menu"
                     elif result == "quit":
@@ -184,28 +194,26 @@ class Game:
         self.gaming.reset()
         self.player.align_immediate()
         self.player.movement.stop()
-        self.player.data.movement_speed = 2
-        self.options_menu.game_speed = 4
         while self.running:
             if self.player.data.ects >= 30:
                 self.player.align_immediate()
                 WinScreen(self.screen, self.player.data.character).run()
-                self.player.reset(PlayerState.IDLE_DOWN)
+                self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.data.movement_speed)
                 return "main_menu"
             elif self.player.data.lives == 0:
                 self.player.align_immediate()
                 GameOver(self.screen, self.player.data.character).run()
-                self.player.reset(PlayerState.IDLE_DOWN)
+                self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.data.movement_speed)
                 return "main_menu"
             # when server is closed become new server or join another
-            if not self.client.is_connected:
-                print("connection lost, establishing new one")
-                self.start_networking()
+           #if not self.client.is_connected:
+            #    print("connection lost, establishing new one")
+           #     self.start_networking()
             self.dt = self.clock.tick(60) / 1000
 
             result = self.handle_events()
             if result == "main_menu":
-                self.player.reset(PlayerState.IDLE_DOWN)
+                self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.data.movement_speed)
                 self.player.data.pos_x = self.player.data.pos_x - self.player.data.pos_x % (
                         16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
                 self.player.data.pos_y = self.player.data.pos_y - self.player.data.pos_y % (
@@ -224,8 +232,8 @@ class Game:
                     self.options_menu.run()
                     self.paused = False
                 elif result == "main menu":
-                    self.client.is_connected = False  # disconnect client
-                    self.player.reset(PlayerState.IDLE_DOWN)
+                    self.client.disconnect = True  # disconnect client
+                    self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.data.movement_speed)
                     self.player.data.pos_x = self.player.data.pos_x - self.player.data.pos_x % (
                             16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
                     self.player.data.pos_y = self.player.data.pos_y - self.player.data.pos_y % (
@@ -276,10 +284,14 @@ class Game:
 
     def run(self):
         while True:
+            self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.data.movement_speed)
+            self.player.movement.stop()
             choice = MainMenu(self.screen).run()
             if choice == "play":
                 self.player.align_immediate()
                 self.character_menu.run()
+                self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.data.movement_speed)
+                self.player.movement.stop()
                 self.options_menu.player = self.player # I have to update the instance of the player in the options menu - to verify
                 self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False

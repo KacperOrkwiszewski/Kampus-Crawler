@@ -1,6 +1,6 @@
 import pygame
 import sys
-from src.player.player_state import PlayerCharacter
+from player.player_state import PlayerCharacter
 
 class GameOver:
     def __init__(self, screen, character):
