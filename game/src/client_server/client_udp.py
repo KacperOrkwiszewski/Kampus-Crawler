@@ -18,7 +18,7 @@ class Client:
             print("Attempting to connect to UDP server...")
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                s.settimeout(0.5)
+                s.settimeout(2)
                 server_addr = (self.host, self.port)
                 self.is_connected = True
             except Exception as e:
@@ -30,7 +30,10 @@ class Client:
                     self.currentPlayerNumber, _ = recv_pickle_udp(s)
                     all_players, _ = recv_pickle_udp(s)
                     with self.lock:
-                        self.all_players = all_players
+                        if isinstance(all_players, dict):
+                            self.all_players = all_players
+                        else:
+                            print("Odebrano nieprawidłowe dane all_players:", all_players)
                     time.sleep(0.005)
                 except Exception as e:
                     print("UDP client error:", e)
