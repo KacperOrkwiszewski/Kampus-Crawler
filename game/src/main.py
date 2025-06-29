@@ -194,8 +194,6 @@ class Game:
         self.gaming.reset()
         self.player.align_immediate()
         self.player.movement.stop()
-        self.player.data.movement_speed = 2
-        self.options_menu.game_speed = 4
         while self.running:
             if self.player.data.ects >= 30:
                 self.player.align_immediate()
@@ -291,6 +289,7 @@ class Game:
             choice = MainMenu(self.screen).run()
             if choice == "play":
                 self.player.align_immediate()
+                self.character_menu.run()
                 self.player.movement.stop()
                 self.options_menu.player = self.player # I have to update the instance of the player in the options menu - to verify
                 self.ui = UI(self.screen, self.options_menu, self.player)
