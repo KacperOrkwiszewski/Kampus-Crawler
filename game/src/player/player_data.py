@@ -26,17 +26,5 @@ class PlayerData:
         self.max_lives = 3
         self.ects = 15
 
-    def reset(self, state, base_ms, character):
-        self.id = None
-        self.movement_speed = base_ms
-        self.folder = "assets/characters/"
-        self.state = state
-        self.character = character
-        self.last_direction = state
-        self.is_moving = False
-        self.during_diagonal_alignment = False
-        self.chat_message = ""
-        self.chat_timer = 0
-        self.is_sprinting = False
-        self.lives = 3
-        self.stamina = 100
+        self.clientID = None
+

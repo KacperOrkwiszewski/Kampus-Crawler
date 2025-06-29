@@ -78,7 +78,7 @@ class Player:
         return str(CHARACTERS_FILES[self.data.character]) + "_" + str(ANIMATION_FILES[self.data.state])
 
     def reset(self, state, character=PlayerCharacter.DAVID, base_ms=2):
-        self.data.reset(state, base_ms, character)
+        self.reset_data(state, base_ms, character)
         self.data.pos_x = - 8360
         self.data.pos_y = - 11880
 
@@ -87,3 +87,18 @@ class Player:
                 16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
         self.data.pos_y = self.data.pos_y - self.data.pos_y % (
                 16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
+
+    def reset_data(self, state, base_ms, character):
+        self.data.id = None
+        self.data.movement_speed = base_ms
+        self.data.folder = "assets/characters/"
+        self.data.state = state
+        self.data.character = character
+        self.data.last_direction = state
+        self.data.is_moving = False
+        self.data.during_diagonal_alignment = False
+        self.data.chat_message = ""
+        self.data.chat_timer = 0
+        self.data.is_sprinting = False
+        self.data.lives = 3
+        self.data.stamina = 100

@@ -1,6 +1,7 @@
 import pygame
 import threading
 from client_server.client_udp import Client
+from client_server.server_udp import Server
 from constants import Constants
 from sound.sound_type import MusicType, SoundEffectType
 from map.game_map import GameMap
@@ -18,6 +19,7 @@ from map.ui_map import MapViewer
 from gaming.gaming import Gaming
 from menu.game_over import GameOver
 from menu.win_screen import WinScreen
+
 
 class Game:
     def __init__(self):
@@ -57,24 +59,32 @@ class Game:
         self.building_info = BuildingInfo(self)
         self.dt = 0
 
+        self.client = Client(Constants.SERVER_IP_ADDR, Constants.SERVER_PORT)  # comment for local server
+        # self.client = Client('127.0.0.1', 12345)  # uncomment for local server
+        # self.server = Server('0.0.0.0', 12345)  # uncomment for local server
     def start_networking(self):
         # Start server
-        #self.server = Server('0.0.0.0', 12345)
-        #server_thread = threading.Thread(target=self.server.run_server, daemon=True)
-        #server_thread.start()
+        # server_thread = threading.Thread(target=self.server.run_server, daemon=True)  #uncomment for local server
+        # server_thread.start()  #uncomment for local server
 
         # Start client
-        self.client = Client(Constants.SERVER_IP_ADDR, Constants.SERVER_PORT)
+        self.client.disconnect = False
         client_thread = threading.Thread(target=Client.network_thread, args=(self.client, self.player), daemon=True)
         client_thread.start()
 
     def draw_game(self, dt):
-        self.screen.fill((0, 0, 0))
+        self.screen.fill((30, 30, 30))
         self.map_data.draw(self.screen, self.player.data.pos_x, self.player.data.pos_y)
-
+        self.player.draw(
+            self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, self.dt, 0, 0
+        )
         # Draw other players
         with self.client.lock:
             for player_id, other_player_data in self.client.all_players.items():
+                print(other_player_data.clientID)
+                print(self.player.data.clientID)
+                if other_player_data.clientID == self.player.data.clientID:
+                    continue
                 if player_id not in self.client.player_objects:
                     self.client.player_objects[player_id] = Player(other_player_data.state, other_player_data.character)
 
@@ -168,7 +178,7 @@ class Game:
                         self.player.movement.stop()
                         self.paused = False
                     elif result == "main menu":
-                        self.client.is_connected = False  # disconnect client
+                        self.client.disconnect = True  # disconnect client
                         self.player.align_immediate()
                         return "main_menu"
                     elif result == "quit":
@@ -198,9 +208,9 @@ class Game:
                 self.player.reset(PlayerState.IDLE_DOWN)
                 return "main_menu"
             # when server is closed become new server or join another
-            if not self.client.is_connected:
-                print("connection lost, establishing new one")
-                self.start_networking()
+           #if not self.client.is_connected:
+            #    print("connection lost, establishing new one")
+           #     self.start_networking()
             self.dt = self.clock.tick(60) / 1000
 
             result = self.handle_events()
@@ -224,7 +234,7 @@ class Game:
                     self.options_menu.run()
                     self.paused = False
                 elif result == "main menu":
-                    self.client.is_connected = False  # disconnect client
+                    self.client.disconnect = True  # disconnect client
                     self.player.reset(PlayerState.IDLE_DOWN)
                     self.player.data.pos_x = self.player.data.pos_x - self.player.data.pos_x % (
                             16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
