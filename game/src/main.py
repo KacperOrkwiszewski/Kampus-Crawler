@@ -1,7 +1,6 @@
 import pygame
 import threading
-from client_server.server import Server
-from client_server.client import Client
+from client_server.client_udp import Client
 from constants import Constants
 from sound.sound_type import MusicType, SoundEffectType
 from map.game_map import GameMap
@@ -59,12 +58,12 @@ class Game:
 
     def start_networking(self):
         # Start server
-        self.server = Server('0.0.0.0', 12345)
-        server_thread = threading.Thread(target=self.server.run_server, daemon=True)
-        server_thread.start()
+        #self.server = Server('0.0.0.0', 12345)
+        #server_thread = threading.Thread(target=self.server.run_server, daemon=True)
+        #server_thread.start()
 
         # Start client
-        self.client = Client("localhost", 12345)
+        self.client = Client(Constants.SERVER_IP_ADDR, Constants.SERVER_PORT)
         client_thread = threading.Thread(target=Client.network_thread, args=(self.client, self.player), daemon=True)
         client_thread.start()
 
@@ -234,7 +233,7 @@ class Game:
                                 self.player.data.stamina = self.player.data.max_stamina
 
                 self.game_time_seconds -= self.dt * float(self.player.movement.base_movement_speed / 2)  # from conflict
-                
+
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # time ran out ¯\_(ツ)_/¯
                 self.player.movement.move_player(self.map_data.get_collision_rects())
