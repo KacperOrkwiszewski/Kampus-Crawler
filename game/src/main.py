@@ -37,7 +37,7 @@ class Game:
         self.map_open = False
 
         self.map_viewer = MapViewer(self.screen)
-        self.options_menu = OptionsMenu(self.screen)
+        self.options_menu = OptionsMenu(self.screen, self.player)
         self.character_menu = CharacterMenu(self.screen, self.player)
         self.pause_menu = PauseMenu(self.screen)
 
@@ -224,7 +224,8 @@ class Game:
                             if self.player.data.stamina > self.player.data.max_stamina:
                                 self.player.data.stamina = self.player.data.max_stamina
 
-                self.game_time_seconds -= self.dt
+                self.game_time_seconds -= self.dt * float(self.player.movement.base_movement_speed / 2)  # from conflict
+                
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # time ran out ¯\_(ツ)_/¯
                 self.player.movement.move_player(self.map_data.get_collision_rects())
@@ -234,10 +235,9 @@ class Game:
                         walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
                     elif not walking_sound_channel.get_busy():  # check if the sound is not currently played
                         walking_sound_channel = SoundManager.play_effect(SoundEffectType.Walking)
-                
+
                 self.gaming.check_building()
-                
-                self.draw_game(self.dt)
+                self.draw_game(self.dt)   # from conflict
 
             if self.player.data.chat_timer > 0:
                 self.player.data.chat_timer -= 1
@@ -249,6 +249,8 @@ class Game:
             choice = MainMenu(self.screen).run()
             if choice == "play":
                 self.character_menu.run()
+                self.options_menu.player = self.player # I have to update the instance of the player in the options menu - to verify
+
                 self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False
                 result = self.game_loop()

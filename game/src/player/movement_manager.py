@@ -90,6 +90,7 @@ class MovementManager:
             self.playerRIGHT_change = self.player.data.movement_speed
         self.player.update_animation()
 
+
     def calculate_final_change(self):
         player_x_change = 0
         player_y_change = 0

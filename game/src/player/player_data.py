@@ -1,9 +1,9 @@
 class PlayerData:
-    def __init__(self, state, character):
+    def __init__(self, state, base_ms, character):
         self.id = None
         self.pos_x = 40
         self.pos_y = 40
-        self.movement_speed = 2
+        self.movement_speed = base_ms
         self.folder = "assets/characters/"
         self.state = state
         self.character = character
