@@ -11,20 +11,28 @@ class Client:
         self.lock = threading.Lock()
         self.host = hostname
         self.port = port_number
-        self.is_connected = True
+        self.is_connected = False
 
     def network_thread(self, player):
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        server_addr = (self.host, self.port)
-        while self.is_connected:
+        while not self.is_connected:
+            print("Attempting to connect to UDP server...")
             try:
-                send_pickle_udp(s, player.data, server_addr)
-                self.currentPlayerNumber, _ = recv_pickle_udp(s)
-                all_players, _ = recv_pickle_udp(s)
-                with self.lock:
-                    self.all_players = all_players
-                time.sleep(0.005)
+                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                s.settimeout(0.5)
+                server_addr = (self.host, self.port)
+                self.is_connected = True
             except Exception as e:
-                print("UDP client error:", e)
-                self.is_connected = False
-                break
+                print("UDP connection error:", e)
+                time.sleep(0.5)
+            while self.is_connected:
+                try:
+                    send_pickle_udp(s, player.data, server_addr)
+                    self.currentPlayerNumber, _ = recv_pickle_udp(s)
+                    all_players, _ = recv_pickle_udp(s)
+                    with self.lock:
+                        self.all_players = all_players
+                    time.sleep(0.005)
+                except Exception as e:
+                    print("UDP client error:", e)
+                    self.is_connected = False
+                    s.close()
