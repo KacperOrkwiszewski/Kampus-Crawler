@@ -1,8 +1,8 @@
 class PlayerData:
     def __init__(self, state, base_ms, character):
         self.id = None
-        self.pos_x = 40
-        self.pos_y = 40
+        self.pos_x = 40  # overwritten in player
+        self.pos_y = 40  # overwritten in player
         self.movement_speed = base_ms
         self.folder = "assets/characters/"
         self.state = state
@@ -25,3 +25,18 @@ class PlayerData:
         self.lives = 3
         self.max_lives = 3
         self.ects = 15
+
+    def reset(self, state, base_ms, character):
+        self.id = None
+        self.movement_speed = base_ms
+        self.folder = "assets/characters/"
+        self.state = state
+        self.character = character
+        self.last_direction = state
+        self.is_moving = False
+        self.during_diagonal_alignment = False
+        self.chat_message = ""
+        self.chat_timer = 0
+        self.is_sprinting = False
+        self.lives = 3
+        self.stamina = 100

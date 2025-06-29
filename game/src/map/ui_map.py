@@ -33,7 +33,6 @@ class MapViewer:
         self.offset[1] = max(min(self.offset[1], max_y), min_y)
 
     def run(self):
-        print(self.offset)
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

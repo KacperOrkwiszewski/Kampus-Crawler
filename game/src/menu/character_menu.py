@@ -56,7 +56,7 @@ class CharacterMenu:
             self.textinput_y + self.textinput.surface.get_height() // 2
         ))
         #characters
-        self.selected_character = 0
+        self.selected_character = 1
         self.number_of_characters = 3
         self.character_y = 260
         self.character_scale = 1
