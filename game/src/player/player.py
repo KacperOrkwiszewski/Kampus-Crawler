@@ -56,7 +56,7 @@ class Player:
                         )
             text_img.blit(text_surface, (outline_width, outline_width))
             screen.blit(text_img, text_rect)
-            
+
     def update_position(self, x, y):
         self.data.pos_x += x
         self.data.pos_y += y
@@ -95,8 +95,8 @@ class Player:
         self.data.movement_speed = base_ms
         self.data.folder = "assets/characters/"
         self.data.state = state
-        self.update_animation()
         self.data.character = character
+        self.update_animation()
         self.data.last_direction = state
         self.data.is_moving = False
         self.data.during_diagonal_alignment = False
