@@ -71,7 +71,7 @@ class Player:
         # Otherwise, update the current animation and reload frames
         self.data.state = state
         self.current_animation = filename
-        self.player_img_info = PlayerImageInfo(self.data.folder + filename, self.data.movement_speed)
+        self.player_img_info.update_image_info(self.data.folder + filename, self.data.movement_speed)
 
     def gif_name(self):
         return str(CHARACTERS_FILES[self.data.character]) + "_" + str(ANIMATION_FILES[self.data.state])

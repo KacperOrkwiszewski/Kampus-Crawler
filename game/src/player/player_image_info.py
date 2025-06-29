@@ -60,3 +60,13 @@ class PlayerImageInfo:
             self.time_since_last_frame = 0
         # Return the current frame surface
         return self.frames[self.frame_index]
+
+    def update_image_info(self, gif_path, ms):
+        movement_speed = ms
+        self.animation_speed = 0.2 / movement_speed  # Animation speed depends on movement speed
+        # Slower animation for idle.gif
+        if 'idle' in gif_path:
+            self.animation_speed = 0.5
+        self.time_since_last_frame = 0.0  # Time since last frame update
+        self.frames = self.load_gif_frames(gif_path)
+        self.frame_index = 0  # Index of the current frame
