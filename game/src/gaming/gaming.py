@@ -11,6 +11,7 @@ class Gaming:
         self.in_door = False
         self.right_door = False
         self.left_door = False
+        self.i_need_more_flags_bcs_im_lazy = False
 
     def reset(self):
         self.game.player.data.ects = 0
@@ -37,7 +38,7 @@ class Gaming:
         else:
             self.game.game_time_seconds = 0
 
-    def check_building(self):
+    def update_stuff(self):
         self.out_of_time()
         player_point = Point(self.game.player.data.pos_x, self.game.player.data.pos_y)
         all_entrances = list(Constants.entrences_campus_A.values()) + \
@@ -46,18 +47,31 @@ class Gaming:
         if any(player_point in entrance for entrance in all_entrances):
             if self.in_door:
                 return
-            SoundManager.play_effect(SoundEffectType.DoorOpen)
             self.in_door = True
+        else:
+            self.in_door = False
+            self.right_door = False
+            self.left_door = False
+            self.i_need_more_flags_bcs_im_lazy = False
+
+    def check_building(self):
+        if not self.in_door:
+            return
+        player_point = Point(self.game.player.data.pos_x, self.game.player.data.pos_y)
+        all_entrances = list(Constants.entrences_campus_A.values()) + \
+                        list(Constants.entrences_campus_B.values()) + \
+                        list(Constants.entrences_campus_C.values())
+        if any(player_point in entrance for entrance in all_entrances):
+            if self.i_need_more_flags_bcs_im_lazy:
+                return
+            SoundManager.play_effect(SoundEffectType.DoorOpen)
+            self.i_need_more_flags_bcs_im_lazy = True
             if player_point in self.game.current_objective[1]:
                 self.right_bulding()
                 self.new_objective()
             else:
                 SoundManager.play_effect(SoundEffectType.WrongDoor)
                 self.wrong_building()
-        else:
-            self.in_door = False
-            self.right_door = False
-            self.left_door = False
     
     def out_of_time(self):
         if self.game.game_time_seconds <= 0:
