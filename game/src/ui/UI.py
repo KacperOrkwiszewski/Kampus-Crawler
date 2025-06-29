@@ -226,10 +226,10 @@ class UI:
             color = (255, 60, 60)
             text = font.render(self.floating_time_msg, True, color)
             x = self.screen.get_width() // 2 + bar_width // 2 + 40
-            y = 100 - self.floating_time_y_offset
+            y = 140 - self.floating_time_y_offset
             self.screen.blit(text, (x, y))
-            # animacja: przesuwanie w górę i znikanie
-            self.floating_time_y_offset += 60 * self.screen.get_height() / 1080 * (1/60)  # dostosuj szybkość
+            # move up and disappear
+            self.floating_time_y_offset += 60 * self.screen.get_height() / 1080 * (1/60)  # speed
             self.floating_time_timer -= 1/60
             if self.floating_time_timer <= 0:
                 self.floating_time_msg = None

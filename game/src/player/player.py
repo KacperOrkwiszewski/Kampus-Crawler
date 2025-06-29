@@ -39,9 +39,9 @@ class Player:
             pygame.draw.rect(screen, (207, 207, 207), bubble_rect, border_radius=8)
             screen.blit(text_surface, text_rect)
         else:
-            outline_width = 1
+            outline_width = 2
             font = pygame.font.Font("assets/menu/font.ttf", 10)
-            text_surface = font.render(self.data.player_name, True, (255, 255, 255))
+            text_surface = font.render(self.data.player_name, True, (207, 207, 207))
             size = (text_surface.get_width() + 2 * outline_width, text_surface.get_height() + 2 * outline_width)
             text_img = pygame.Surface(size, pygame.SRCALPHA)
             text_rect = text_surface.get_rect(center=(screen_y / 2 - (self.player_img_info.scale_size_y / 2) - offset_x + 40, (screen_x / 2) - (self.player_img_info.scale_size_x / 2) - offset_y - 20))
