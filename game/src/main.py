@@ -81,8 +81,6 @@ class Game:
         # Draw other players
         with self.client.lock:
             for player_id, other_player_data in self.client.all_players.items():
-                print(other_player_data.clientID)
-                print(self.player.data.clientID)
                 if other_player_data.clientID == self.player.data.clientID:
                     continue
                 if player_id not in self.client.player_objects:
@@ -137,6 +135,7 @@ class Game:
                     elif event.key == pygame.K_BACKSPACE:
                         self.msg = self.msg[:-1]
                     elif event.key == pygame.K_ESCAPE:
+                        self.player.movement.stop()
                         self.msg_typing = False
                         self.msg = ""
                     else:
@@ -153,6 +152,7 @@ class Game:
                     self.player.movement.stop()
                     self.map_viewer.run()
                 if event.key == pygame.K_ESCAPE:
+                    self.player.movement.stop()
                     self.paused = not self.paused
 
                 if not self.paused:
@@ -286,10 +286,12 @@ class Game:
 
     def run(self):
         while True:
+            self.player.reset(PlayerState.IDLE_DOWN)
+            self.player.movement.stop()
             choice = MainMenu(self.screen).run()
             if choice == "play":
                 self.player.align_immediate()
-                self.character_menu.run()
+                self.player.movement.stop()
                 self.options_menu.player = self.player # I have to update the instance of the player in the options menu - to verify
                 self.ui = UI(self.screen, self.options_menu, self.player)
                 self.paused = False

@@ -35,12 +35,12 @@ class Client:
                         self.all_players = all_players
                     else:
                         print("corrupt data all_players:", all_players)
-                time.sleep(0.01)
+                # time.sleep(0.01)
             except Exception as e:
                 print("UDP client error:", e)
                 self.is_connected = False
                 self.socket.close()
-            time.sleep(0.05)
+            # time.sleep(0.05)
 
     def connect_to_server(self):
         try:

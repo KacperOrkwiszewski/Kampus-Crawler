@@ -30,7 +30,7 @@ class Server:
                         del self.last_seen[a]
                     all_players = self.players.copy()
                 # Send id, then number of players them player datas
-                send_pickle_udp(s, addr, addr)
+                # send_pickle_udp(s, addr, addr)
                 send_pickle_udp(s, len(all_players), addr)
                 send_pickle_udp(s, all_players, addr)
             except Exception as e:

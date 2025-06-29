@@ -89,10 +89,13 @@ class Player:
                 16 * Constants.MAP_SCALE) + 16 * Constants.MAP_SCALE / 2
 
     def reset_data(self, state, base_ms, character):
+        self.movement.base_movement_speed = base_ms
+        self.movement.sprint_movement_speed = 2 * base_ms
         self.data.id = None
         self.data.movement_speed = base_ms
         self.data.folder = "assets/characters/"
         self.data.state = state
+        self.update_animation()
         self.data.character = character
         self.data.last_direction = state
         self.data.is_moving = False
