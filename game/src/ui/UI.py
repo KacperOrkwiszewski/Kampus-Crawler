@@ -67,6 +67,15 @@ class UI:
 
         self.objective_text = "OBJECTIVE:"
 
+        self.floating_time_msg = None
+        self.floating_time_timer = 0
+        self.floating_time_y_offset = 0
+
+    def show_time_penalty(self, seconds=-30):
+        self.floating_time_msg = f"{seconds}s"
+        self.floating_time_timer = 1.0  # ile sekund ma być widoczne
+        self.floating_time_y_offset = 0
+
     def handle_click(self, mouse_pos):
         if self.pause_button_rect and self.pause_button_rect.collidepoint(mouse_pos):
             self.paused = True
@@ -210,3 +219,18 @@ class UI:
         self.screen.blit(self.icons['time'], (
             self.screen.get_width() // 2 - time_text_surf.get_width() + 20, 82))
         self.screen.blit(time_text_surf, (self.screen.get_width() // 2 - time_text_surf.get_width() // 2 + 10, 86))
+
+        # floating time penalty
+        if self.floating_time_msg and self.floating_time_timer > 0:
+            font = self.font_large
+            color = (255, 60, 60)
+            text = font.render(self.floating_time_msg, True, color)
+            x = self.screen.get_width() // 2 + bar_width // 2 + 40
+            y = 100 - self.floating_time_y_offset
+            self.screen.blit(text, (x, y))
+            # animacja: przesuwanie w górę i znikanie
+            self.floating_time_y_offset += 60 * self.screen.get_height() / 1080 * (1/60)  # dostosuj szybkość
+            self.floating_time_timer -= 1/60
+            if self.floating_time_timer <= 0:
+                self.floating_time_msg = None
+                self.floating_time_y_offset = 0

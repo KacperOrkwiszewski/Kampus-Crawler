@@ -14,6 +14,7 @@ from menu.character_menu import CharacterMenu
 from intro.intro_screen import IntroScreen
 from sound.sound_manager import SoundManager
 from ui.UI import UI
+from ui.building_info import BuildingInfo
 from map.ui_map import MapViewer
 from gaming.gaming import Gaming
 
@@ -53,6 +54,8 @@ class Game:
         self.current_objective = "C4"  # static for now
         self.game_over = False
         self.gaming = Gaming(self)
+        self.building_info = BuildingInfo(self)
+        self.dt = 0
 
     def start_networking(self):
         # Start server
@@ -83,7 +86,7 @@ class Game:
                 offset_y = other_player_data.pos_y - self.player.data.pos_y
 
                 self.client.player_objects[player_id].draw(
-                    self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, dt, offset_x, offset_y
+                    self.screen, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, self.dt, offset_x, offset_y
                 )
 
         # Msg input box
@@ -101,6 +104,8 @@ class Game:
             self.screen.blit(text_surface, text_rect)
 
         self.ui.draw(self.current_objective, self.max_game_time, self.game_time_seconds)
+
+        self.building_info.try_draw()
 
         pygame.display.flip()
 
@@ -177,7 +182,7 @@ class Game:
             if not self.client.is_connected:
                 print("connection lost, establishing new one")
                 self.start_networking()
-            dt = self.clock.tick(60) / 1000
+            self.dt = self.clock.tick(60) / 1000
 
             result = self.handle_events()
             if result == "main_menu":
@@ -203,7 +208,7 @@ class Game:
                 # Sprint handling
                 if self.player.data.is_sprinting:
                     if self.player.movement.is_moving:
-                        self.player.data.stamina -= self.player.data.stamina_drain_rate * dt
+                        self.player.data.stamina -= self.player.data.stamina_drain_rate * self.dt
                         if self.player.data.stamina <= 0:
                             self.player.data.stamina = 0
                             self.player.data.is_sprinting = False
@@ -213,13 +218,13 @@ class Game:
                 else:
                     if self.player.data.stamina < self.player.data.max_stamina:
                         if self.player.data.stamina_regen_timer > 0:
-                            self.player.data.stamina_regen_timer -= dt
+                            self.player.data.stamina_regen_timer -= self.dt
                         else:
-                            self.player.data.stamina += self.player.data.stamina_regen_rate * dt
+                            self.player.data.stamina += self.player.data.stamina_regen_rate * self.dt
                             if self.player.data.stamina > self.player.data.max_stamina:
                                 self.player.data.stamina = self.player.data.max_stamina
 
-                self.game_time_seconds -= dt
+                self.game_time_seconds -= self.dt
                 if self.game_time_seconds < 0:
                     self.game_time_seconds = 0  # time ran out ¯\_(ツ)_/¯
                 self.player.movement.move_player(self.map_data.get_collision_rects())
@@ -232,7 +237,7 @@ class Game:
                 
                 self.gaming.check_building()
                 
-                self.draw_game(dt)
+                self.draw_game(self.dt)
 
             if self.player.data.chat_timer > 0:
                 self.player.data.chat_timer -= 1

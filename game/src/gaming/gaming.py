@@ -9,6 +9,8 @@ class Gaming:
         self.game = game
         self.buliding_count = 0
         self.in_door = False
+        self.right_door = False
+        self.left_door = False
 
     def reset(self):
         self.game.player.data.ects = 0
@@ -21,6 +23,7 @@ class Gaming:
         self.game.current_objective = self.random_entrance_campus(self.random_campus())
     
     def right_bulding(self):
+        self.right_door = True
         self.buliding_count += 1
         self.game.player.data.ects += random.randint(1, 5)
         if self.game.player.data.ects > 30:
@@ -28,6 +31,7 @@ class Gaming:
         self.new_objective()
     
     def wrong_building(self):
+        self.left_door = True
         if self.game.game_time_seconds > 30:
             self.game.game_time_seconds -= 30
         else:
@@ -52,6 +56,8 @@ class Gaming:
                 self.wrong_building()
         else:
             self.in_door = False
+            self.right_door = False
+            self.left_door = False
     
     def out_of_time(self):
         if self.game.game_time_seconds <= 0:
