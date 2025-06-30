@@ -92,6 +92,7 @@ class Gaming:
         return random.choice(campuses)
 
     def random_entrance_campus(self, campus):
+
         if campus == 'A':
             return random.choice(list(Constants.entrences_campus_A.items()))
         elif campus == 'B':
