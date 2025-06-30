@@ -195,12 +195,12 @@ class Game:
         self.player.align_immediate()
         self.player.movement.stop()
         while self.running:
-            if self.player.data.ects >= 1:
+            if self.player.data.ects >= 30:
                 self.player.align_immediate()
                 WinScreen(self.screen, self.player.data.character).run()
                 self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.movement.base_movement_speed)
                 return "main_menu"
-            elif self.player.data.lives == 0:
+            elif self.player.data.lives == 3:
                 self.player.align_immediate()
                 GameOver(self.screen, self.player.data.character).run()
                 self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.movement.base_movement_speed)
