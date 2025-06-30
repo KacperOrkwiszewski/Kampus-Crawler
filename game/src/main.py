@@ -200,7 +200,7 @@ class Game:
                 WinScreen(self.screen, self.player.data.character).run()
                 self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.movement.base_movement_speed)
                 return "main_menu"
-            elif self.player.data.lives == 3:
+            elif self.player.data.lives == 0:
                 self.player.align_immediate()
                 GameOver(self.screen, self.player.data.character).run()
                 self.player.reset(PlayerState.IDLE_DOWN, self.player.data.character, self.player.movement.base_movement_speed)
